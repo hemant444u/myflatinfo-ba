@@ -1,0 +1,8 @@
+[31-Oct-2024 23:08:34 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/knqkyhpu/travel.jayasindoor.com/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/knqkyhpu/travel.jayasindoor.com/config/database.php on line 18
+[28-Feb-2025 12:48:26 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/satyasad/admin.myflatinfo.allons-z.com/config/cache.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/satyasad/admin.myflatinfo.allons-z.com/config/cache.php on line 21

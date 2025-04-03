@@ -1,0 +1,3 @@
+[05-Mar-2025 22:22:34 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\CustomerController::get_departments() in /home/satyasad/admin.myflatinfo.allons-z.com/app/Http/Controllers/Api/CustomerController.php on line 1460
+[06-Mar-2025 10:52:21 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Models\User::departments() in /home/satyasad/admin.myflatinfo.allons-z.com/app/Models/User.php on line 62
+[19-Mar-2025 14:30:28 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\CustomerController::create_visitor() in /home/analogueserver/admin.myflatinfo.com/app/Http/Controllers/Api/CustomerController.php on line 1681

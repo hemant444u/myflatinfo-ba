@@ -110,7 +110,7 @@
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" name="email" value="{{$customer->email}}" maxlength="50" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+                          <input type="email" class="form-control" name="email" value="{{$customer->email}}" maxlength="50" required>
                         </div>
                       </div>
                       <div class="form-group row">

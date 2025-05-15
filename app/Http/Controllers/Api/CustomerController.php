@@ -38,6 +38,7 @@ use App\Models\Transaction;
 use App\Models\Essential;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\Rule;
 
 use DB;
 use \Session;
@@ -636,7 +637,10 @@ class CustomerController extends Controller
     public function delete_classified(Request $request)
     {
         $rules = [
-            'classified_id' => 'nullable|exists:classifieds,id',
+            'classified_id' => [
+                'required',
+                Rule::exists('classifieds', 'id')->whereNull('deleted_at'),
+            ],
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -647,7 +651,6 @@ class CustomerController extends Controller
                 'error' => $validation->errors()->first()
             ], 422);
         }
-        $user = Auth::User();
         $classified = Classified::find($request->classified_id);
         foreach($classified->photos as $photo){
             Storage::disk('s3')->delete($photo->getPhotoFilenameAttribute());

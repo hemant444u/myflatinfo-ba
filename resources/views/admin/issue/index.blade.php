@@ -53,6 +53,7 @@
                   <tr>
                     <th>S No</th>
                     <th>Flat</th>
+                    <th>Department</th>
                     <th>Image</th>
                     <th>Desc</th>
                     <th>Periority</th>
@@ -68,6 +69,7 @@
                   <tr>
                     <td>{{$i}}</td>
                     <td>{{$issue->flat ? $issue->flat->name : 'All'}}</td>
+                    <td>{{$issue->department->name}}</td>
                     <td><img src="{{$issue->photos['0']->photo}}" style="width:40px"></td>
                     <td>{{$issue->desc}}</td>
                     <td>{{$issue->periority}}</td>

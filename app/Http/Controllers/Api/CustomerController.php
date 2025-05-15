@@ -654,6 +654,7 @@ class CustomerController extends Controller
         $classified = Classified::find($request->classified_id);
         foreach($classified->photos as $photo){
             Storage::disk('s3')->delete($photo->getPhotoFilenameAttribute());
+            $photo->delete();
         }
         $classified->delete();
         return response()->json([

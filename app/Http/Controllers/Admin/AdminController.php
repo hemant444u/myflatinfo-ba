@@ -224,14 +224,14 @@ class AdminController extends Controller
     {
         // $setting = Setting::first();
         // $users = User::where('role','customer')->orderBy('id','desc')->withTrashed()->paginate($setting->pagination);
-        $users = User::where('created_by',Auth::User()->id)->orderBy('id','desc')->withTrashed()->get();
+        $users = User::where('created_by',Auth::User()->building_id)->orderBy('id','desc')->withTrashed()->get();
         $cities = City::all();
         return view('admin.user.index',compact('users','cities'));
     }
 
     public function show_user($id)
     {
-        $customer = User::where('id',$id)->where('created_by',Auth::User()->id)->withTrashed()->first();
+        $customer = User::where('id',$id)->where('created_by',Auth::User()->building_id)->withTrashed()->first();
         if(!$customer){
             return redirect('/user');
         }
@@ -291,13 +291,8 @@ class AdminController extends Controller
             $user->password = Hash::make($request->password);
         }
     
-        // Save the user
+        $user->created_by = Auth::User()->building_id;
         $user->save();
-        
-        if(!$request->id){
-            $user->created_by = Auth::User()->id;
-            $user->save();
-        }
     
         return redirect()->back()->with('success', $msg);
     }

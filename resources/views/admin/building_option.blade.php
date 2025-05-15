@@ -55,8 +55,16 @@
                             <div class="box bg-red">
                                 <h2 class="text-center">{{$building->name}}</h2>
                                 <hr>
-                                <p>No of Flats: <span class="right">{{$building->no_of_flats}}</span></p>
-                                <p>No of Logins: <span class="right">{{$building->no_of_logins}}</span></p>
+                                <?php 
+                                    $created_counts = \App\Models\Flat::where('building_id', $building_id)->count();
+                                    $flat_limit = $building->no_of_flats;
+                                ?>
+                                <p>No of Flats: <span class="right">{{$created_counts}}/{{$flat_limit}}</span></p>
+                                <?php 
+                                    $created_counts = \App\Models\User::where('created_by', $building->id)->count(); 
+                                    $login_limit = $building->no_of_logins;
+                                ?>
+                                <p>No of Logins: <span class="right">{{$created_counts}}/{{$login_limit}}</span></p>
                                 <p>Valid Till: <span class="right">{{$building->valid_till}}</span></p>
                                 <p>Address: <span class="right">{{$building->address}}</span></p>
                                 <hr>

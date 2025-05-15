@@ -1,9 +1,7 @@
 /node_modules
+/storage
 /vendor
+/bootstrap
+composer.json
+composer.lock
 .env
-.env.backup
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log

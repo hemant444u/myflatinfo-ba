@@ -10,7 +10,7 @@
     <title>Admin Panel | {{$setting->bussiness_name}}</title>
     <link rel="stylesheet" href="{{asset('admin/css/bootstrap.min.css')}}">
     <script src="{{asset('admin/js/jquery.min.js')}}"></script>
-    <link rel="shortcut icon" href="{{$setting->favicon)}}">
+    <link rel="shortcut icon" href="{{$setting->favicon}}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">

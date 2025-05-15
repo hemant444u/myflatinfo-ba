@@ -66,7 +66,8 @@
                                 ?>
                                 <p>No of Logins: <span class="right">{{$created_counts}}/{{$login_limit}}</span></p>
                                 <p>Valid Till: <span class="right">{{$building->valid_till}}</span></p>
-                                <p>Address: <span class="right">{{$building->address}}</span></p>
+                                <p>Address: </p>
+                                <p>{{$building->address}}</p>
                                 <hr>
                             </div>
                             <br>

@@ -43,7 +43,12 @@
 
             <div class="card">
               <div class="card-header">
-                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New User</button>
+                <?php 
+                  $created_counts = \App\Models\User::where('created_by', Auth::user()->id)->count(); 
+                  $login_limit = Auth::user()->building->no_of_logins;
+                ?>
+                <span>{{$created_counts}}/{{$login_limit}}</span>
+                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal" {{ $created_counts >= $login_limit ? 'disabled' : '' }}>Add New User</button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

@@ -30,6 +30,12 @@ use App\Models\BuildingUser;
 use App\Models\Gate;
 use App\Models\Ad;
 use App\Models\Parcel;
+use App\Models\MaintenancePayment;
+use App\Models\EssentialPayment;
+use App\Models\Payment;
+use App\Models\Order;
+use App\Models\Transaction;
+use App\Models\Essential;
 
 use DB;
 use \Session;
@@ -377,26 +383,16 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
-        //return $request->all();
+
         if($request->hasFile('photo')) {
             $file= $request->file('photo');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/profiles/'.$user->photo_filename);
-                if (file_exists($oldFilePath) && $user->photo_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/profiles'), $filename);
-                $user->photo = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
+            Storage::disk('s3')->delete($user->getPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/profiles/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $user->photo = $filename;
         }
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -505,7 +501,7 @@ class CustomerController extends Controller
         $flat = Auth::user()->flat;
         $currentTime = now(); // Get current date and time
     
-        $ads = Ad::where('building_id', $flat->building_id)->where('status','Active')->get();
+        $ads = Ad::where('status','Active')->get();
         return response()->json([
                 'ads' => $ads
         ],200);
@@ -537,7 +533,7 @@ class CustomerController extends Controller
             $query->where('building_id', $flat->building_id)
                   ->orWhere('category', 'All Buildings');
         })
-        ->with(['photos', 'building', 'block', 'flat'])
+        ->with(['user','photos', 'building', 'block', 'flat'])
         ->get();
         return response()->json([
                 'classifieds' => $classifieds
@@ -596,11 +592,12 @@ class CustomerController extends Controller
         
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $file) {
+                $allowedfileExtension=['jpeg','jpeg','png'];
                 $extension = $file->getClientOriginalExtension();
-                $filename = uniqid() . '.' . $extension;
-    
-                $file->move(public_path('/images/classifieds'), $filename);
-
+                // Storage::disk('s3')->delete($photo->getPhotoFilenameAttribute());
+                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $filename = 'images/classifieds/' . uniqid() . '.' . $extension;
+                Storage::disk('s3')->put($filename, file_get_contents($file));
                 $photo = new ClassifiedPhoto();
                 $photo->classified_id = $classified->id;
                 $photo->photo = $filename;
@@ -720,20 +717,17 @@ class CustomerController extends Controller
     
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $file) {
+                $allowedfileExtension=['jpeg','jpeg','png'];
                 $extension = $file->getClientOriginalExtension();
-                $filename = uniqid('trip_', true) . '.' . $extension;
-    
-                $file->move(public_path('/images/issues'), $filename);
+                // Storage::disk('s3')->delete($photo->getPhotoFilenameAttribute());
+                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $filename = 'images/issues/' . uniqid() . '.' . $extension;
+                Storage::disk('s3')->put($filename, file_get_contents($file));
 
                 $photo = new IssuePhoto();
                 $photo->issue_id = $issue->id;
                 $photo->photo = $filename;
                 $photo->save();
-    
-                $uploadedPhotos[] = [
-                    'photo_id' => $photo->id,
-                    'photo_url' => url('/images/issues/' . $filename)
-                ];
             }
         }
         
@@ -1056,23 +1050,14 @@ class CustomerController extends Controller
         
         if($request->hasFile('head_photo')) {
             $file= $request->file('head_photo');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/visitors/'.$visitor->photo_filename);
-                if (file_exists($oldFilePath) && $visitor->photo_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/visitors'), $filename);
-                $visitor->head_photo = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
+            Storage::disk('s3')->delete($visitor->getHeadPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/visitors/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $visitor->head_photo = $filename;
+
         }
         
         $visitor->user_id = $user->id;
@@ -1086,6 +1071,9 @@ class CustomerController extends Controller
         $visitor->stay_to = $request->stay_to;
         $visitor->visiting_purpose = $request->visiting_purpose;
         $visitor->type = $request->type;
+        if($request->type == 'Planned'){
+            $visitor->status = 'AllowIn';
+        }
         $visitor->save();
         
         return response()->json([
@@ -1137,25 +1125,15 @@ class CustomerController extends Controller
         $gate_pass = new GatePass();
         if($request->hasFile('image')) {
             $file= $request->file('image');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/gate_pass/'.$gate_pass->image_filename);
-                if (file_exists($oldFilePath) && $gate_pass->image_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/gate_pass'), $filename);
-                $gate_pass->image = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
+            Storage::disk('s3')->delete($gate_pass->getImageFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/gate_pass/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $gate_pass->image = $filename;
         }
-        $gate_pass->user_id = $visitor->user_id;
+        $gate_pass->user_id = Auth::User()->id;
         $gate_pass->visitor_id = $visitor->id;
         $gate_pass->flat_id = $visitor->flat_id;
         $gate_pass->building_id = $visitor->building_id;
@@ -1170,6 +1148,49 @@ class CustomerController extends Controller
                 'gate_pass' => $gate_pass,
                 'msg' => 'Gate pass created successfully'
         ],200);
+    }
+    
+    public function get_gate_passes(Request $request)
+    {
+        $rules = [
+            'status' => 'required|in:Approved,Rejected,Recheck,Completed',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+    
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'error' => $validation->errors()->first()
+            ], 422);
+        }
+        $gate_passes = GatePass::where('user_id',Auth::User()->id)->where('status',$request->status)->with(['user','visitor','building','flat.block'])->get();
+        return response()->json([
+                'gate_passes' => $gate_passes,
+        ],200);
+    }
+    
+    public function take_gate_pass_action(Request $request)
+    {
+        $rules = [
+            'gate_pass_id' => 'required|exists:gate_passes,id',
+            'status' => 'required|in:Approved,Rejected,Completed',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+    
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'error' => $validation->errors()->first()
+            ], 422);
+        }
+        $gate_pass = GatePass::find($request->gate_pass_id);
+        $gate_pass->status = $request->status;
+        $gate_pass->save();
+        return response()->json([
+            'msg' => 'Gate pass status updated'
+        ], 200);
     }
     
     public function my_visitor_in_out_history(Request $request)
@@ -1209,23 +1230,13 @@ class CustomerController extends Controller
         }
         if($request->hasFile('photo')) {
             $file= $request->file('photo');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/family_members/'.$family_member->photo_filename);
-                if (file_exists($oldFilePath) && $family_member->photo_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/family_members'), $filename);
-                $family_member->photo = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
+            Storage::disk('s3')->delete($family_member->getPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/family_members/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $family_member->photo = $filename;
         }
         $family_member->user_id = $user->id;
         $family_member->building_id = $flat->building_id;
@@ -1274,12 +1285,601 @@ class CustomerController extends Controller
         ],200);
     }
     
+    public function maintenance_payments(Request $request)
+    {
+        $user = Auth::User();
+        $maintenance_payments = MaintenancePayment::where('user_id',$user->id)->with(['maintenance','flat.owner','flat.tanent','flat.block','flat.building','reciept'])->orderBy('id','desc')->get();
+        return response()->json([
+                'maintenance_payments' => $maintenance_payments
+        ],200);
+    }
+    
+    public function create_maintenance_payment_order(Request $request)
+    {
+        $rules = [
+            'maintenance_payment_id' => 'required|exists:maintenance_payments,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $flat = $user->flat;
+        $maintenance_payment = MaintenancePayment::find($request->maintenance_payment_id);
+        $item_name = 'Maintenance Payment';
+        $item_number = $maintenance_payment->id;
+        $item_amount = $maintenance_payment->dues_amount;
+
+        $orderData = [
+            'receipt'         => $item_number,
+            'amount'          => $item_amount * 100, // 2000 rupees in paise
+            'currency'        => 'INR',
+            'payment_capture' => 1 // auto capture
+        ];
+        
+        $razorpayOrder = $this->api->order->create($orderData);
+        $razorpayOrderId = $razorpayOrder['id'];
+        $displayAmount = $amount = $orderData['amount'];
+                    
+        if ($this->displayCurrency !== 'INR')
+        {
+            $url = "https://api.fixer.io/latest?symbols=$this->displayCurrency&base=INR";
+            $exchange = json_decode(file_get_contents($url), true);
+                    
+            $displayAmount = $exchange['rates'][$this->displayCurrency] * $amount / 100;
+        }
+                    
+        $data = [
+            "key"               => $this->keyId,
+            "amount"            => $amount,
+            "name"              => $item_name,
+            "description"       => $item_name,
+            "prefill"           => [
+    			"name"              => $user->name,
+    			"email"             => $user->email,
+    			"contact"           => $user->phone,
+            ],
+            "notes"             => [
+				"address"           => $user->address,
+				"merchant_order_id" => $item_number,
+            ],
+            "theme"             => [
+				"color"             => "#3399cc"
+            ],
+            "order_id"          => $razorpayOrderId,
+        ];
+                    
+        if ($this->displayCurrency !== 'INR')
+        {
+            $data['display_currency']  = $this->displayCurrency;
+            $data['display_amount']    = $displayAmount;
+        }
+                    
+        $displayCurrency = $this->displayCurrency;
+        
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->order_id = $razorpayOrderId;
+        $order->model = 'MaintenancePayment';
+        $order->model_id = $maintenance_payment->id;
+        $order->flat_id = $maintenance_payment->flat_id;
+        $order->desc = 'Creating order for maintenance payment from '.$maintenance_payment->from_date. ' to '.$maintenance_payment->to_date;
+        $order->amount = $maintenance_payment->dues_amount;
+        $order->status = 'Created';
+        $order->save();
+        
+        return response()->json([
+                'data' => $data,
+                'displayCurrency' => $displayCurrency
+        ],200);
+    }
+    
+    public function verify_maintenance_payment_signature(Request $request)
+    {
+        $rules = [
+            'razorpay_order_id' => 'required',
+            'razorpay_payment_id' => 'required',
+            'razorpay_signature' => 'required',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $order = Order::where('order_id',$request->razorpay_order_id)->where('status','Created')->first();
+        if(!$order){
+            return response()->json([
+                    'error' => 'Order id not found',
+            ],422);
+        }
+        $success = true;
+        $error = "Payment Failed";
+        
+        $razorpay_order_id = $request->razorpay_order_id;
+        $razorpay_payment_id = $request->razorpay_payment_id;
+        $razorpay_signature = $request->razorpay_signature;
+        
+        try{
+            $attributes = array(
+                'razorpay_order_id' => $razorpay_order_id,
+                'razorpay_payment_id' => $razorpay_payment_id,
+                'razorpay_signature' => $razorpay_signature
+            );
+        
+            $this->api->utility->verifyPaymentSignature($attributes);
+            
+        }
+        catch(SignatureVerificationError $e){
+            $success = false;
+            $error = 'Razorpay Error : ' . $e->getMessage();
+            return response()->json([
+                    'error' => $error
+            ],400);
+        }
+
+        if ($success === true)
+        {
+            $razorpayOrder = $this->api->order->fetch($razorpay_order_id);
+            $reciept = $razorpayOrder['receipt'];
+            $transaction_id = $razorpay_payment_id;
+            
+            $order->payment_id = $razorpay_payment_id;
+            $order->signature = $razorpay_signature;
+            $order->status = 'Verified';
+            $order->save();
+            
+            $transaction = new Transaction();
+            $transaction->user_id = $user->id;
+            $transaction->order_id = $order->order_id;
+            $transaction->model = $order->model;
+            $transaction->model_id = $order->model_id;
+            $transaction->type = 'Credit';
+            $transaction->payment_type = 'Razorpay';
+            $transaction->amount = $order->amount;
+            $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
+            $transaction->desc = 'Maintenance Payment Order Verified '.$order->order_id;
+            $transaction->status = 'Success';
+            $transaction->save();
+            
+            $maintenance_payment = MaintenancePayment::find($order->model_id);
+            $maintenance_payment->paid_amount = $order->amount;
+            $maintenance_payment->dues_amount = $maintenance_payment->maintenance->amount - $order->amount;
+            $maintenance_payment->type = 'Razorpay';
+            $maintenance_payment->status = 'Paid';
+            $maintenance_payment->save();
+            
+            
+            return response()->json([
+                    'message' => 'Payment completed! You can now download or view your reciept'
+            ],200);
+
+        }
+        else
+        {
+            return response()->json([
+                    'error' => $error
+            ],422);
+        }
+    }
+    
+    public function essential_payments(Request $request)
+    {
+        $user = Auth::User();
+        $essential_payments = EssentialPayment::where('user_id',$user->id)->with(['essential','flat.owner','flat.tanent','flat.block','flat.building','reciept'])->orderBy('id','desc')->get();
+        return response()->json([
+                'essential_payments' => $essential_payments
+        ],200);
+    }
+    
+    public function create_essential_payment_order(Request $request)
+    {
+        $rules = [
+            'essential_payment_id' => 'required|exists:essential_payments,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $flat = $user->flat;
+        $essential_payment = EssentialPayment::find($request->essential_payment_id);
+        $item_name = 'Essential Payment';
+        $item_number = $essential_payment->id;
+        $item_amount = $essential_payment->dues_amount;
+
+        $orderData = [
+            'receipt'         => $item_number,
+            'amount'          => $item_amount * 100, // 2000 rupees in paise
+            'currency'        => 'INR',
+            'payment_capture' => 1 // auto capture
+        ];
+        
+        $razorpayOrder = $this->api->order->create($orderData);
+        $razorpayOrderId = $razorpayOrder['id'];
+        $displayAmount = $amount = $orderData['amount'];
+                    
+        if ($this->displayCurrency !== 'INR')
+        {
+            $url = "https://api.fixer.io/latest?symbols=$this->displayCurrency&base=INR";
+            $exchange = json_decode(file_get_contents($url), true);
+                    
+            $displayAmount = $exchange['rates'][$this->displayCurrency] * $amount / 100;
+        }
+                    
+        $data = [
+            "key"               => $this->keyId,
+            "amount"            => $amount,
+            "name"              => $item_name,
+            "description"       => $item_name,
+            "prefill"           => [
+    			"name"              => $user->name,
+    			"email"             => $user->email,
+    			"contact"           => $user->phone,
+            ],
+            "notes"             => [
+				"address"           => $user->address,
+				"merchant_order_id" => $item_number,
+            ],
+            "theme"             => [
+				"color"             => "#3399cc"
+            ],
+            "order_id"          => $razorpayOrderId,
+        ];
+                    
+        if ($this->displayCurrency !== 'INR')
+        {
+            $data['display_currency']  = $this->displayCurrency;
+            $data['display_amount']    = $displayAmount;
+        }
+                    
+        $displayCurrency = $this->displayCurrency;
+        
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->order_id = $razorpayOrderId;
+        $order->model = 'EssentialPayment';
+        $order->model_id = $essential_payment->id;
+        $order->flat_id = $essential_payment->flat_id;
+        $order->desc = 'Creating order for essential payment from '.$essential_payment->from_date. ' to '.$essential_payment->to_date;
+        $order->amount = $essential_payment->dues_amount;
+        $order->status = 'Created';
+        $order->save();
+        
+        return response()->json([
+                'data' => $data,
+                'displayCurrency' => $displayCurrency
+        ],200);
+    }
+    
+    public function verify_essential_payment_signature(Request $request)
+    {
+        $rules = [
+            'razorpay_order_id' => 'required',
+            'razorpay_payment_id' => 'required',
+            'razorpay_signature' => 'required',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $order = Order::where('order_id',$request->razorpay_order_id)->where('status','Created')->first();
+        if(!$order){
+            return response()->json([
+                    'error' => 'Order id not found',
+            ],422);
+        }
+        $success = true;
+        $error = "Payment Failed";
+        
+        $razorpay_order_id = $request->razorpay_order_id;
+        $razorpay_payment_id = $request->razorpay_payment_id;
+        $razorpay_signature = $request->razorpay_signature;
+        
+        try{
+            $attributes = array(
+                'razorpay_order_id' => $razorpay_order_id,
+                'razorpay_payment_id' => $razorpay_payment_id,
+                'razorpay_signature' => $razorpay_signature
+            );
+        
+            $this->api->utility->verifyPaymentSignature($attributes);
+            
+        }
+        catch(SignatureVerificationError $e){
+            $success = false;
+            $error = 'Razorpay Error : ' . $e->getMessage();
+            return response()->json([
+                    'error' => $error
+            ],400);
+        }
+
+        if ($success === true)
+        {
+            $razorpayOrder = $this->api->order->fetch($razorpay_order_id);
+            $reciept = $razorpayOrder['receipt'];
+            $transaction_id = $razorpay_payment_id;
+            
+            $order->payment_id = $razorpay_payment_id;
+            $order->signature = $razorpay_signature;
+            $order->status = 'Verified';
+            $order->save();
+            
+            $transaction = new Transaction();
+            $transaction->user_id = $user->id;
+            $transaction->order_id = $order->order_id;
+            $transaction->model = $order->model;
+            $transaction->model_id = $order->model_id;
+            $transaction->type = 'Credit';
+            $transaction->payment_type = 'Razorpay';
+            $transaction->amount = $order->amount;
+            $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
+            $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
+            $transaction->status = 'Success';
+            $transaction->save();
+            
+            $essential_payment = EssentialPayment::find($order->model_id);
+            $essential_payment->paid_amount = $order->amount;
+            $essential_payment->dues_amount = $essential_payment->maintenance->amount - $order->amount;
+            $essential_payment->type = 'Razorpay';
+            $essential_payment->status = 'Paid';
+            $essential_payment->save();
+            
+            
+            return response()->json([
+                    'message' => 'Payment completed! You can now download or view your reciept'
+            ],200);
+
+        }
+        else
+        {
+            return response()->json([
+                    'error' => $error
+            ],422);
+        }
+    }
+    
+    public function create_event_payment_order(Request $request)
+    {
+        $rules = [
+            'event_id' => 'required|exists:events,id',
+            'amount' => 'required|integer'
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $flat = $user->flat;
+        $event = Event::find($request->event_id);
+        $item_name = 'Event Payment';
+        $item_number = $event->id;
+        $item_amount = $request->amount;
+
+        $orderData = [
+            'receipt'         => $item_number,
+            'amount'          => $item_amount * 100, // 2000 rupees in paise
+            'currency'        => 'INR',
+            'payment_capture' => 1 // auto capture
+        ];
+        
+        $razorpayOrder = $this->api->order->create($orderData);
+        $razorpayOrderId = $razorpayOrder['id'];
+        $displayAmount = $amount = $orderData['amount'];
+                    
+        if ($this->displayCurrency !== 'INR')
+        {
+            $url = "https://api.fixer.io/latest?symbols=$this->displayCurrency&base=INR";
+            $exchange = json_decode(file_get_contents($url), true);
+                    
+            $displayAmount = $exchange['rates'][$this->displayCurrency] * $amount / 100;
+        }
+                    
+        $data = [
+            "key"               => $this->keyId,
+            "amount"            => $amount,
+            "name"              => $item_name,
+            "description"       => $item_name,
+            "prefill"           => [
+    			"name"              => $user->name,
+    			"email"             => $user->email,
+    			"contact"           => $user->phone,
+            ],
+            "notes"             => [
+				"address"           => $user->address,
+				"merchant_order_id" => $item_number,
+            ],
+            "theme"             => [
+				"color"             => "#3399cc"
+            ],
+            "order_id"          => $razorpayOrderId,
+        ];
+                    
+        if ($this->displayCurrency !== 'INR')
+        {
+            $data['display_currency']  = $this->displayCurrency;
+            $data['display_amount']    = $displayAmount;
+        }
+                    
+        $displayCurrency = $this->displayCurrency;
+        $event = Event::find($request->event_id);
+        $payment = new Payment();
+        $payment->building_id = $event->building_id;
+        $payment->user_id = Auth::User()->id;
+        $payment->event_id = $event->id;
+        $payment->type = 'Razorpay';
+        $payment->amount = $request->amount;
+        $payment->status = 'Created';
+        $payment->save();
+        
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->order_id = $razorpayOrderId;
+        $order->model = 'Payment';
+        $order->model_id = $payment->id;
+        $order->flat_id = $event->id;
+        $order->desc = 'Creating order for event '.$event->name;
+        $order->amount = $request->amount;
+        $order->status = 'Created';
+        $order->save();
+        
+        return response()->json([
+                'data' => $data,
+                'displayCurrency' => $displayCurrency
+        ],200);
+    }
+    
+    public function verify_event_payment_signature(Request $request)
+    {
+        $rules = [
+            'razorpay_order_id' => 'required',
+            'razorpay_payment_id' => 'required',
+            'razorpay_signature' => 'required',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $order = Order::where('order_id',$request->razorpay_order_id)->where('status','Created')->first();
+        if(!$order){
+            return response()->json([
+                    'error' => 'Order id not found',
+            ],422);
+        }
+        $success = true;
+        $error = "Payment Failed";
+        
+        $razorpay_order_id = $request->razorpay_order_id;
+        $razorpay_payment_id = $request->razorpay_payment_id;
+        $razorpay_signature = $request->razorpay_signature;
+        
+        try{
+            $attributes = array(
+                'razorpay_order_id' => $razorpay_order_id,
+                'razorpay_payment_id' => $razorpay_payment_id,
+                'razorpay_signature' => $razorpay_signature
+            );
+        
+            $this->api->utility->verifyPaymentSignature($attributes);
+            
+        }
+        catch(SignatureVerificationError $e){
+            $success = false;
+            $error = 'Razorpay Error : ' . $e->getMessage();
+            return response()->json([
+                    'error' => $error
+            ],400);
+        }
+
+        if ($success === true)
+        {
+            $razorpayOrder = $this->api->order->fetch($razorpay_order_id);
+            $reciept = $razorpayOrder['receipt'];
+            $transaction_id = $razorpay_payment_id;
+            
+            $order->payment_id = $razorpay_payment_id;
+            $order->signature = $razorpay_signature;
+            $order->status = 'Verified';
+            $order->save();
+            
+            $transaction = new Transaction();
+            $transaction->user_id = $user->id;
+            $transaction->order_id = $order->order_id;
+            $transaction->model = $order->model;
+            $transaction->model_id = $order->model_id;
+            $transaction->type = 'Credit';
+            $transaction->payment_type = 'Razorpay';
+            $transaction->amount = $order->amount;
+            $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
+            $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
+            $transaction->status = 'Success';
+            $transaction->save();
+            
+            $payment = Payment::find($order->model_id);
+            $payment->status = 'Paid';
+            $payment->save();
+            
+            
+            return response()->json([
+                    'message' => 'Payment completed! You can now download or view your reciept'
+            ],200);
+
+        }
+        else
+        {
+            return response()->json([
+                    'error' => $error
+            ],422);
+        }
+    }
+    
     public function get_logo(Request $request)
     {
         $setting = Setting::first();
         $logo = $setting->logo;
         return response()->json([
                 'logo' => $logo
+        ],200);
+    }
+    
+    public function corpus_fund(Request $request)
+    {
+        $user = Auth::User();
+        $flat = $user->flat;
+        return response()->json([
+                'flat' => [$flat]
+        ],200);
+    }
+    
+    public function even_history(Request $request)
+    {
+        $user = Auth::User();
+        $events = Event::with(['payments' => function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        }])->get();
+        return response()->json([
+                'events' => $events
+        ],200);
+    }
+    
+    public function essential_history(Request $request)
+    {
+        $user = Auth::User();
+        $essentials = Essential::with(['payments' => function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        }])->get();
+        $flat = Flat::where('owner_id',$user->id)->orWhere('tanent_id',$user->id)->with(['owner','tanent','block','building'])->first();
+        $essentials->map(function ($essential) use ($flat) {
+            $essential->flat = $flat;
+            return $essential;
+        });
+        return response()->json([
+                'essentials' => $essentials,
         ],200);
     }
     
@@ -1566,7 +2166,14 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $building = $user->gate->building;
-        $flats = Flat::where('building_id',$building->id)->with(['owner','tanent','building','block'])->get();
+        $flats = Flat::where('building_id',$building->id)->with(['owner','tanent','building','block'])->withCount([
+            'vehicles as two_wheeler_count' => function ($query) {
+                $query->where('vehicle_type', 'two-wheeler');
+            },
+            'vehicles as four_wheeler_count' => function ($query) {
+                $query->where('vehicle_type', 'four-wheeler');
+            }
+        ])->get();
         return response()->json([
             'flats' => $flats
         ], 200);
@@ -1587,11 +2194,11 @@ class CustomerController extends Controller
         }
         $user = Auth::User();
         if($request->type == 'All'){
-            $visitors = $user->flat->visitors()->with(['vehicles','inouts'])->get();
+            $visitors = $user->flat->visitors()->where('status','!=','Completed')->with(['vehicles','inouts'])->get();
         }else if($request->type == 'Completed'){
             $visitors = $user->flat->visitors()->where('status',$request->type)->with(['vehicles','inouts'])->get();
         }else{
-            $visitors = $user->flat->visitors()->where('type',$request->type)->with(['vehicles','inouts'])->get();
+            $visitors = $user->flat->visitors()->where('type',$request->type)->where('status','!=','Completed')->with(['vehicles','inouts'])->get();
         }
         return response()->json([
             'visitors' => $visitors
@@ -1627,6 +2234,27 @@ class CustomerController extends Controller
         ], 200);
     }
     
+    public function visitor_details(Request $request)
+    {
+        $rules = [
+            'visitor_id' => 'required|exists:visitors,id',
+        ];
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $building = $user->gate->building;
+        $visitor = Visitor::where('id',$request->visitor_id)->where('building_id',$building->id)->with(['building','block','flat','vehicles','inouts'])->first();
+        
+        return response()->json([
+            'visitor' => $visitor
+        ], 200);
+    }
+    
     public function get_vehicles(Request $request)
     {
         $rules = [
@@ -1654,7 +2282,7 @@ class CustomerController extends Controller
     public function get_building_vehicles(Request $request)
     {
         $rules = [
-            'ownership' => 'required|in:Own,Guest,All',
+            'ownership' => 'required|in:Own,Guest,Outsider,All',
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -1667,51 +2295,41 @@ class CustomerController extends Controller
         $user = Auth::User();
         $building = $user->gate->building;
         if($request->ownership == 'All'){
-            $vehicles = Vehicle::where('building_id',$building->id)->with(['user','flat.owner','flat.tanent','building'])->get();
-            // $flats = Flat::where('building_id', $building->id)
-            // ->with([
-            //     'owner:id,first_name,phone,email',
-            //     'tanent:id,first_name,phone,email',
-            //     'block:id,name',
-            //     'vehicles:id,vehicle_type,vehicle_no,ownership',
-            // ])
-            // ->get();
-            // ->map(function ($flat) {
-            //     return [
-            //         'owner_name' => optional($flat->owner)->first_name,
-            //         'tanent_name' => optional($flat->tanent)->first_name,
-            //         'block_name' => optional($flat->block)->name,
-            //         'vehicles' => $flat->vehicles, // Get vehicle names
-            //         'vehicle_count' => $flat->vehicles->count(),
-            //     ];
-            // });
-            // $vehicles = $user->building->vehicles;
+            $vehicles = Vehicle::where('building_id',$building->id)->with(['user', 'flat.owner', 'flat.tanent', 'flat.block', 'building'])->get();
+            $count = $vehicles->count();
         }else{
-            $vehicles = Vehicle::where('building_id',$building->id)->where('ownership',$request->ownership)->with(['user','flat','building'])->get();
-            // $flats = Flat::where('building_id', $building->id)
-            // ->with([
-            //     'owner:id,first_name',
-            //     'tanent:id,first_name',
-            //     'block:id,name',
-            //     'vehicles' => function ($query) use($request) {
-            //         $query->where('ownership',$request->ownership)->select('id','vehicle_type','vehicle_no','ownership');
-            //     }
-            // ])
-            // ->get();
-            // ->map(function ($flat) {
-            //     return [
-            //         'owner_name' => optional($flat->owner)->first_name,
-            //         'tanent_name' => optional($flat->tanent)->first_name,
-            //         'block_name' => optional($flat->block)->name,
-            //         'vehicles' => $flat->vehicles->pluck('name'), // Get vehicle names
-            //         'vehicle_count' => $flat->vehicles->count(),
-            //     ];
-            // });
-            // $vehicles = $user->building->vehicles()->where('ownership',$request->ownership)->get();
+            $vehicles = Vehicle::where('building_id',$building->id)->where('ownership',$request->ownership)->with(['user','flat.owner', 'flat.block', 'flat.tanent','building'])->get();
+            $count = $vehicles->count();
         }
         return response()->json([
-            'vehicles' => $vehicles
+            'vehicles' => $vehicles,
+            'count' => $count
         ], 200);
+        
+    }
+    
+    public function get_flat_vehicles(Request $request)
+    {
+        $rules = [
+            'flat_id' => 'required|exists:flats,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $building = $user->gate->building;
+        $vehicles = Vehicle::where('flat_id',$request->flat_id)->with(['user', 'flat.owner', 'flat.tanent', 'building'])->get();
+        $count = $vehicles->count();
+        return response()->json([
+            'vehicles' => $vehicles,
+            'count' => $count
+        ], 200);
+        
     }
     
     public function create_vehicle(Request $request)
@@ -1724,7 +2342,11 @@ class CustomerController extends Controller
                 'required',
                 'regex:/^[A-Z]{2}\s?[0-9]{1,2}\s?[A-Z]{1,3}\s?[0-9]{4}$/'
             ],
-            'ownership' => 'required|in:Own,Guest',
+            'ownership' => 'required|in:Own,Guest,Outsider',
+            'driver_name' => 'nullable',
+            'phone' => 'nullable',
+            'photo' => 'nullable|image',
+            'purpose' => 'nullable',
             'vehicle_id' => 'nullable|exists:vehicles,id',
         ];
     
@@ -1749,12 +2371,32 @@ class CustomerController extends Controller
         if($request->visitor_id){
             $vehicle->visitor_id = $request->visitor_id;
         }
-        $vehicle->flat_id = $flat->id;
-        $vehicle->building_id = $flat->building_id;
-        $vehicle->user_id = $flat->tanent_id;
+        if($request->ownership == 'Own'){
+            $vehicle->flat_id = $flat->id;
+            $vehicle->user_id = $flat->tanent_id;
+            $vehicle->building_id = $flat->building_id;
+        }
+        if($request->ownership == 'Guest' || $request->ownership == 'Outsider'){
+            $user = Auth::User();
+            $building_id = $user->gate->building->id;
+            $vehicle->building_id = $building_id;
+        }
         $vehicle->vehicle_type = $request->vehicle_type;
         $vehicle->vehicle_no = $request->vehicle_no;
         $vehicle->ownership = $request->ownership;
+        $vehicle->driver_name = $request->driver_name;
+        $vehicle->phone = $request->phone;
+        $vehicle->purpose = $request->purpose;
+        if($request->hasFile('photo')) {
+            $file= $request->file('photo');
+            $allowedfileExtension=['jpeg','jpeg','png'];
+            $extension = $file->getClientOriginalExtension();
+            Storage::disk('s3')->delete($vehicle->getPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/vehicles/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $vehicle->photo = $filename;
+        }
         $vehicle->save();
     
         return response()->json([
@@ -1803,7 +2445,7 @@ class CustomerController extends Controller
             'total_members' => 'required|integer|min:1',
             'head_name' => 'required',
             'head_phone' => 'required',
-            'head_photo' => 'required|image|max:2048',
+            'head_photo' => 'required|image',
             'stay_from' => 'required',
             'stay_to' => 'required',
             'visiting_purpose' => 'required',
@@ -1827,23 +2469,13 @@ class CustomerController extends Controller
         $visitor = new Visitor();
         if($request->hasFile('head_photo')) {
             $file= $request->file('head_photo');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/visitors/'.$visitor->photo_filename);
-                if (file_exists($oldFilePath) && $visitor->photo_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/visitors'), $filename);
-                $visitor->head_photo = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
+            Storage::disk('s3')->delete($visitor->getHeadPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/visitors/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $visitor->head_photo = $filename;
         }
         do {
             $code = Str::random(10);
@@ -1884,7 +2516,12 @@ class CustomerController extends Controller
             ], 422);
         }
         
-        $visitor = Visitor::find($request->visitor_id);
+        $visitor = Visitor::where('id',$request->visitor_id)->whereIn('status',['Living','AllowIn'])->first();
+        if(!$visitor){
+            return response()->json([
+                'error' => 'Living Visitor not found'
+            ], 422);
+        }
         $visitor_in_out = new VisitorInout();
         $visitor_in_out->flat_id = $visitor->flat_id;
         $visitor_in_out->building_id = $visitor->building_id;
@@ -1895,7 +2532,7 @@ class CustomerController extends Controller
         $visitor_in_out->code = $request->code;
         $visitor_in_out->save();
 
-        $visitor->status = 'Completed';
+        $visitor->status = 'Living';
         $visitor->save();
         
         return response()->json([
@@ -1904,15 +2541,63 @@ class CustomerController extends Controller
         ], 200);
     }
     
+    public function complete_visitor_journey(Request $request)
+    {
+        $rules = [
+            'visitor_id' => 'required|exists:visitors,id',
+            'code' => 'required',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $visitor = Visitor::find($request->visitor_id);
+        $visitor->status = 'Completed';
+        $visitor->save();
+        
+        $visitor_in_out = new VisitorInout();
+        $visitor_in_out->flat_id = $visitor->flat_id;
+        $visitor_in_out->building_id = $visitor->building_id;
+        $visitor_in_out->user_id = $visitor->user_id;
+        $visitor_in_out->visitor_id = $request->visitor_id;
+        $visitor_in_out->type = 'Out';
+        $visitor_in_out->purpose = 'Mission Completed';
+        $visitor_in_out->code = $request->code;
+        $visitor_in_out->save();
+        
+        return response()->json([
+            'msg' => 'Visitor status updated successfully'
+        ], 200);
+    }
+    
+    public function get_todays_completed_visitors(Request $request)
+    {
+        $startOfToday = Carbon::today();
+        $endOfToday = Carbon::today()->endOfDay();
+    
+        $visitor_inouts = Auth::user()->gate->building
+            ->visitor_inouts()
+            ->whereHas('visitor', function ($query) use ($startOfToday, $endOfToday) {
+                $query->where('status', 'Completed')
+                      ->whereBetween('updated_at', [$startOfToday, $endOfToday]);
+            })
+            ->with(['visitor', 'building', 'flat.block'])
+            ->get();
+    
+        return response()->json([
+            'visitor_inouts' => $visitor_inouts
+        ], 200);
+    }
+        
     public function vehicle_in_out(Request $request)
     {
         $rules = [
             'vehicle_id' => 'required|exists:vehicles,id',
             'type' => 'required|in:In,Out',
-            'purpose' => 'required',
-            'driver_name' => 'required',
-            'driver_phone' => 'required',
-            'photo_with_driver' => 'required|image',
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -1924,36 +2609,11 @@ class CustomerController extends Controller
         }
 
         $vehicle = Vehicle::find($request->vehicle_id);
+        $vehicle->status = $request->type;
+        $vehicle->save();
         $vehicle_in_out = new VehicleInout();
-        
-        if($request->hasFile('photo_with_driver')) {
-            $file= $request->file('photo_with_driver');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
-            $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/inouts/'.$vehicle_in_out->photo_filename);
-                if (file_exists($oldFilePath) && $vehicle_in_out->photo_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/inouts'), $filename);
-                $vehicle_in_out->photo_with_driver = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
-        }
-        $vehicle_in_out->flat_id = $vehicle->flat_id;
-        $vehicle_in_out->building_id = $vehicle->building_id;
-        $vehicle_in_out->user_id = $vehicle->user_id;
         $vehicle_in_out->vehicle_id = $request->vehicle_id;
         $vehicle_in_out->type = $request->type;
-        $vehicle_in_out->driver_name = $request->driver_name;
-        $vehicle_in_out->purpose = $request->purpose;
-        $vehicle_in_out->driver_phone = $request->driver_phone;
         $vehicle_in_out->save();
     
         return response()->json([
@@ -1964,7 +2624,7 @@ class CustomerController extends Controller
     
     public function visitor_in_out_history(Request $request)
     {
-        $visitor_inouts = Auth::User()->gate->building->visitor_inouts()->with('visitor')->get();
+        $visitor_inouts = Auth::User()->gate->building->visitor_inouts()->with(['visitor','building','flat.block'])->get();
         return response()->json([
             'visitor_inouts' => $visitor_inouts
         ], 200);
@@ -1972,10 +2632,23 @@ class CustomerController extends Controller
     
     public function vehicle_in_out_history(Request $request)
     {
+        $rules = [
+            'vehicle_id' => 'required|exists:vehicles,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
         $building = Auth::User()->gate->building;
-        $vehicle_inouts = VehicleInout::where('building_id',$building->id)->with(['building','flat.owner','flat.tanent','vehicle'])->get();
+        $vehicle = Vehicle::find($request->vehicle_id);
+        $vehicle_inouts = VehicleInout::where('vehicle_id',$request->vehicle_id)->get();
         return response()->json([
-            'vehicle_inouts' => $vehicle_inouts
+            'vehicle' => $vehicle,
+            'vehicle_inouts' => $vehicle_inouts,
         ], 200);
     }
     
@@ -2022,27 +2695,17 @@ class CustomerController extends Controller
         $parcel = new Parcel();
         if($request->hasFile('photo')) {
             $file= $request->file('photo');
-            $allowedfileExtension=['JPEG','jpeg','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $oldFilePath = public_path('/images/parcels/'.$parcel->photo_filename);
-                if (file_exists($oldFilePath) && $parcel->photo_filename != '') {
-                    unlink($oldFilePath);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/parcels'), $filename);
-                $parcel->photo = $filename;
-            // }else{
-            //     return response()->json([
-            //         'error' => 'Invalid file format, please upload valid image file'
-            //     ], 422);
-            // }
+            Storage::disk('s3')->delete($parcel->getPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/parcels/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $parcel->photo = $filename;
         }
         do {
             $code = Str::random(10);
-        } while (\App\Models\GatePass::where('code', $code)->exists());
+        } while (\App\Models\Parcel::where('code', $code)->exists());
         $parcel->user_id = $user->id;
         $parcel->building_id = $flat->building_id;
         $parcel->flat_id = $flat->id;
@@ -2062,6 +2725,28 @@ class CustomerController extends Controller
         ],200);
     }
     
+    public function parcel_handover_to_owner(Request $request)
+    {
+        $rules = [
+            'parcel_id' => 'required|exists:parcels,id',
+            'code' => 'required|exists:parcels,code',
+        ];
+        
+        $parcel = Parcel::find($request->parcel_id);
+        if($parcel->code != $request->code){
+            return response()->json([
+                'msg' => 'Invalid parcel code'
+            ],200);
+        }
+        $parcel->status = 'Delivered';
+        $parcel->save();
+        return response()->json([
+                'parcel' => $parcel,
+                'msg' => 'Parcel delivered successfully'
+        ],200);
+    }
+    
+    
     public function resend_recieve_request(Request $request)
     {
         $rules = [
@@ -2080,6 +2765,15 @@ class CustomerController extends Controller
                 'msg' => 'Recieve request resent successfully'
         ],200);
     
+    }
+    
+    public function get_building_parcels(Request $request)
+    {
+        $user = Auth::User();
+        $parcels = Parcel::where('building_id',$user->gate->building_id)->with(['flat.block.building','flat.owner'])->get();
+        return response()->json([
+                'parcels' => $parcels
+        ],200);
     }
     
     public function get_flat_parcels(Request $request)
@@ -2226,6 +2920,79 @@ class CustomerController extends Controller
         return response()->json([
                 'issue' => $issue,
                 'msg' => 'Issue status updated'
+        ],200);
+    }
+    
+    public function get_building_gate_passes(Request $request)
+    {
+        $rules = [
+            'status' => 'required|in:Approved,Rejected,Recheck,Completed,All',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $user = Auth::User();
+        $building = $user->gate->building;
+        if($request->status == 'All'){
+            $gate_passes = GatePass::where('building_id',$building->id)->with(['user','visitor','building','flat.block'])->get();
+        }else{
+            $gate_passes = GatePass::where('building_id',$building->id)->where('status',$request->status)->with(['user','visitor','building','flat.block'])->get();
+        }
+        return response()->json([
+            'gate_passes' => $gate_passes,
+        ],200);
+    }
+    
+    public function resend_gate_pass_request(Request $request)
+    {
+        $rules = [
+            'status' => 'required|in:Recheck',
+            'gate_pass_id' => 'required|exists:gate_passes,id',
+            'image' => 'required|image'
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $gate_pass = GatePass::find($request->gate_pass_id);
+        if($request->hasFile('image')) {
+            $file= $request->file('image');
+            $allowedfileExtension=['jpeg','jpeg','png'];
+            $extension = $file->getClientOriginalExtension();
+            Storage::disk('s3')->delete($gate_pass->getImageFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/gate_pass/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $gate_pass->image = $filename;
+        }
+        $gate_pass->status = $request->status;
+        $gate_pass->save();
+        return response()->json([
+            'msg' => 'Recheck gate pass request send',
+        ],200);
+    }
+    
+    public function get_homepage_count(Request $request)
+    {
+        // visitors, gate-pass,parcels,vehicles
+        $visitors_count = Visitor::count();
+        $gate_pass_count = GatePass::count();
+        $parcel_count = Parcel::count();
+        $vehicle_count = Vehicle::count();
+        return response()->json([
+            'visitors_count' => $visitors_count,
+            'gate_pass_count' => $gate_pass_count,
+            'parcel_count' => $parcel_count,
+            'vehicle_count' => $vehicle_count,
         ],200);
     }
     

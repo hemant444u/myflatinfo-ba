@@ -14,10 +14,15 @@ class Building extends Model
     {
         return $this->belongsTo('App\Models\User')->withTrashed();
     }
-    
-    public function ads()
+
+    public function users()
     {
-        return $this->hasMany('App\Models\Ad');
+        return $this->hasMany('App\Models\BuildingUser')->withTrashed();
+    }
+
+    public function builder()
+    {
+        return $this->belongsTo('App\Models\Builder')->withTrashed();
     }
     
     public function blocks()
@@ -67,9 +72,9 @@ class Building extends Model
     
     public function facilities()
     {
-        return $this->hasMany('App\Models\Facility')->withTrashed();
+        return $this->belongsToMany(Facility::class, 'building_facilities', 'building_id', 'facility_id')
+                    ->withPivot('id','price','max_booking','per_user_max_booking','cancellation_type','cancellation_value','status','created_at','updated_at');
     }
-    
     public function visitors()
     {
         return $this->hasMany('App\Models\Visitor')->withTrashed();

@@ -43,7 +43,12 @@
 
             <div class="card">
               <div class="card-header">
-                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Flat</button>
+                <?php 
+                  $created_counts = \App\Models\Flat::where('building_id', Auth::user()->building_id)->count();
+                  $flat_limit = Auth::user()->building->no_of_flats;
+                ?>
+                <span>{{$created_counts}}/{{$flat_limit}}</span>
+                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal" {{ $created_counts >= $flat_limit ? 'disabled' : '' }}>Add New Flat</button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -58,9 +63,11 @@
                     <th>Owner</th>
                     <th>Tanent</th>
                     <th>Area</th>
-                    <th>Max Members</th>
+                    <th>Corpus Fund</th>
                     <th>Family Members</th>
                     <th>Status</th>
+                    <th>SoldOut</th>
+                    <th>Living</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -74,18 +81,20 @@
                     <td>{{$flat->building->name}}</td>
                     <td>{{$flat->block->name}}</td>
                     <td>{{$flat->name}}</td>
-                    <td><a href="{{url('user',$flat->owner_id)}}" target="_blank">{{$flat->owner->name}}</a></td>
-                    <td><a href="{{url('user',$flat->tanent_id)}}" target="_blank">{{$flat->tanent->name}}</a></td>
+                    <td><a href="{{url('user',$flat->owner_id)}}" target="_blank">{{$flat->owner ? $flat->owner->name : ''}}</a></td>
+                    <td><a href="{{url('user',$flat->tanent_id)}}" target="_blank">{{$flat->tanent ? $flat->tanent->name : ''}}</a></td>
                     <td>{{$flat->area}}</td>
-                    <td>{{$flat->max_members}}</td>
+                    <td>{{$flat->corpus_fund}}</td>
                     <td>{{$flat->family_members->count()}}</td>
                     <td>{{$flat->status}}</td>
+                    <td>{{$flat->sold_out}}</td>
+                    <td>{{$flat->living_status}}</td>
                     <td>
                       <a href="{{route('flat.show',$flat->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
-                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$flat->id}}" data-name="{{$flat->name}}" data-status="{{$flat->status}}"
-                            data-owner_name="{{$flat->owner->name}}" data-tanent_name="{{$flat->tanent->name}}" data-owner_id="{{$flat->owner_id}}" data-tanent_id="{{$flat->tanent_id}}"
-                            data-area="{{$flat->area}}" data-max_members="{{$flat->max_members}}" data-building_id="{{$flat->building_id}}" data-block_id="{{$flat->block_id}}"
-                             data-owner_email="{{$flat->owner->email}}" data-tanent_email="{{$flat->tanent->email}}"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$flat->id}}" data-name="{{$flat->name}}" data-status="{{$flat->status}}" data-sold_out="{{$flat->sold_out}}" 
+                            data-owner_name="{{$flat->owner ? $flat->owner->name : ''}}" data-tanent_name="{{$flat->tanent ? $flat->tanent->name : ''}}" data-owner_id="{{$flat->owner_id}}" data-tanent_id="{{$flat->tanent_id}}"
+                            data-area="{{$flat->area}}" data-corpus_fund="{{$flat->corpus_fund}}" data-building_id="{{$flat->building_id}}" data-block_id="{{$flat->block_id}}" data-living_status="{{$flat->living_status}}" 
+                             data-owner_email="{{$flat->owner ? $flat->owner->email : ''}}" data-tanent_email="{{$flat->tanent ? $flat->tanent->email : ''}}"><i class="fa fa-edit"></i></button>
                             @if($flat->deleted_at)
                           <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                           @else
@@ -127,41 +136,6 @@
       <form action="{{route('flat.store')}}" method="post" class="add-form">
         @csrf
         <div class="modal-body">
-          
-          <div class="form-group">
-            <label for="email" class="col-form-label">Owner Email:</label>
-            <div class="input-group">
-              <input type="email" name="owner_email" class="form-control" id="owner_email" maxlength="40" placeholder="Owner Email" required>
-              <div class="input-group-append">
-                <button type="button" class="btn btn-primary" id="getOwnerData">Get Owner Data</button>
-              </div>
-            </div>
-          </div>
-          <div class="owner_error text-danger"></div>
-          <div class="form-group">
-            <label for="email" class="col-form-label">Owner Name:</label>
-            <input type="text" name="owner_name" class="form-control" id="owner_name" disabled required>
-          </div>
-          <div class="form-group">
-            <label for="email" class="col-form-label">Tanent Email:</label>
-            <div class="input-group">
-              <input type="email" name="tanent_email" class="form-control" id="tanent_email" maxlength="40" placeholder="Tanent Email" required>
-              <div class="input-group-append">
-                <button type="button" class="btn btn-primary" id="getTanentData">Get Tanent Data</button>
-              </div>
-            </div>
-          </div>
-          <div class="tanent_error text-danger"></div>
-          <div class="form-group">
-            <label for="email" class="col-form-label">Tanent Name:</label>
-            <input type="text" name="tanent_name" class="form-control" id="tanent_name" disabled required>
-          </div>
-          <div class="form-group">
-            <label for="phone" class="col-form-label">Building:</label>
-            <select name="building_id" class="form-control" id="building_id" required >
-                <option value="{{$building->id}}">{{$building->name}}</option>
-            </select>
-          </div>
           <div class="form-group">
             <label for="phone" class="col-form-label">Block:</label>
             <select name="block_id" class="form-control" id="block_id" required >
@@ -180,15 +154,59 @@
             <input type="text" name="area" class="form-control" id="area" placeholder="Flat Area" required />
           </div>
           <div class="form-group">
-            <label for="phone" class="col-form-label">Max Members:</label>
-            <input type="number" name="max_members" class="form-control" id="max_members" placeholder="Max Members" required />
+            <label for="phone" class="col-form-label">Corpus Fund:</label>
+            <input type="number" name="corpus_fund" class="form-control" id="corpus_fund" placeholder="Society Fund" required />
           </div>
           <div class="form-group">
             <label for="status" class="col-form-label">Status:</label>
-            <select name="status" class="form-control">
+            <select name="status" class="form-control" id="status">
               <option value="Active">Active</option>
-              <option value="Pending">Pending</option>
+              <option value="Inactive">Inactive</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label for="sold_out" class="col-form-label">SoldOut:</label>
+            <select name="sold_out" class="form-control" id="sold_out">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="living_status" class="col-form-label">Living Status:</label>
+            <select name="living_status" class="form-control living_status" id="living_status" required>
+              <option value="Vacant">Vacant</option>
+              <option value="Owner">Owner</option>
+              <option value="Tanent">Tanent</option>
+            </select>
+          </div>
+
+          <div class="form-group owner-email-group">
+            <label for="email" class="col-form-label">Owner Email:</label>
+            <div class="input-group">
+              <input type="email" name="owner_email" class="form-control" id="owner_email" maxlength="40" placeholder="Owner Email">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-primary" id="getOwnerData">Get Owner Data</button>
+              </div>
+            </div>
+          </div>
+          <div class="owner_error text-danger"></div>
+          <div class="form-group owner-name-group">
+            <label for="email" class="col-form-label">Owner Name:</label>
+            <input type="text" name="owner_name" class="form-control" id="owner_name" disabled>
+          </div>
+          <div class="form-group tanent-email-group">
+            <label for="email" class="col-form-label">Tanent Email:</label>
+            <div class="input-group">
+              <input type="email" name="tanent_email" class="form-control" id="tanent_email" maxlength="40" placeholder="Tanent Email">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-primary" id="getTanentData">Get Tanent Data</button>
+              </div>
+            </div>
+          </div>
+          <div class="tanent_error text-danger"></div>
+          <div class="form-group tanent-name-group">
+            <label for="email" class="col-form-label">Tanent Name:</label>
+            <input type="text" name="tanent_name" class="form-control" id="tanent_name" disabled>
           </div>
           
           <input type="hidden" name="id" id="edit-id">
@@ -256,8 +274,8 @@
     $(document).on('click','#delete-button',function(){
       var url = "{{route('flat.destroy','')}}";
       $.ajax({
-        url : url,
-        type: "POST",
+        url : url + '/' + id,
+        type: "DELETE",
         data : {'_token':token,'id':id,'action':action},
         success: function(data)
         {
@@ -280,10 +298,111 @@
       $('#block_id').val(button.data('block_id'));
       $('#name').val(button.data('name'));
       $('#area').val(button.data('area'));
-      $('#max_members').val(button.data('max_members'));
+      $('#corpus_fund').val(button.data('corpus_fund'));
+      $('#status').val(button.data('status'));
+      $('#sold_out').val(button.data('sold_out'));
+      $('#living_status').val(button.data('living_status'));
       $('.modal-title').text('Add New Flat');
       if(edit_id){
           $('.modal-title').text('Update Flat');
+      }
+      var living_status = $('#living_status').val();
+      var sold_out = $('#sold_out').val();
+      $('.owner-email-group').hide();
+      $('.owner-name-group').hide();
+      $('.tanent-email-group').hide();
+      $('.tanent-name-group').hide();
+
+      $('#owner_email').attr('required',false);
+      $('#owner_name').attr('required',false);
+      $('#tanent_email').attr('required',false);
+      $('#tanent_name').attr('required',false);
+
+      if(sold_out == 'Yes'){
+        $('.owner-email-group').show();
+        $('.owner-name-group').show();
+
+        $('#owner_email').attr('required',true);
+        $('#owner_name').attr('required',true);
+      }
+
+      if(living_status == 'Owner'){
+        $('.owner-email-group').show();
+        $('.owner-name-group').show();
+
+        $('#owner_email').attr('required',true);
+        $('#owner_name').attr('required',true);
+      }
+      if(living_status == 'Tanent'){
+        $('.tanent-email-group').show();
+        $('.tanent-name-group').show();
+
+        $('#tanent_email').attr('required',true);
+        $('#tanent_name').attr('required',true);
+      }
+    });
+
+    $(document).on('change', '#sold_out', function (event) {
+      var sold_out = $(this).val();
+      $('.owner-email-group').hide();
+      $('.owner-name-group').hide();
+      $('.tanent-email-group').hide();
+      $('.tanent-name-group').hide();
+
+      $('#owner_email').attr('required',false);
+      $('#owner_name').attr('required',false);
+      $('#tanent_email').attr('required',false);
+      $('#tanent_name').attr('required',false);
+      if(sold_out == 'Yes'){
+        $('.owner-email-group').show();
+        $('.owner-name-group').show();
+        $('#owner_email').attr('required',true);
+        $('#owner_name').attr('required',true);
+      }
+      if(sold_out == 'No'){
+        $('.living_status').val('Vacant');
+      }
+
+    });
+
+    $(document).on('change', '.living_status', function (event) {
+      var living_status = $(this).val();
+      var sold_out = $('#sold_out').val();
+      $('.owner-email-group').hide();
+      $('.owner-name-group').hide();
+      $('.tanent-email-group').hide();
+      $('.tanent-name-group').hide();
+
+      $('#owner_email').attr('required',false);
+      $('#owner_name').attr('required',false);
+      $('#tanent_email').attr('required',false);
+      $('#tanent_name').attr('required',false);
+      if(sold_out == 'Yes'){
+        $('.owner-email-group').show();
+        $('.owner-name-group').show();
+
+        $('#owner_email').attr('required',true);
+        $('#owner_name').attr('required',true);
+      }
+      if(living_status == 'Owner'){
+        $('#sold_out').val('Yes');
+        $('.owner-email-group').show();
+        $('.owner-name-group').show();
+
+        $('#owner_email').attr('required',true);
+        $('#owner_name').attr('required',true);
+      }
+      if(living_status == 'Tanent'){
+        $('#sold_out').val('Yes');
+        $('.owner-email-group').show();
+        $('.owner-name-group').show();
+        $('.tanent-email-group').show();
+        $('.tanent-name-group').show();
+
+        $('#owner_email').attr('required',true);
+        $('#owner_name').attr('required',true);
+        $('#tanent_email').attr('required',true);
+        $('#tanent_name').attr('required',true);
       }
     });
     
@@ -302,13 +421,14 @@
         });
         
     $('.add-form').on('submit', function (event) {
-      if ($('#owner_name').val().trim() === '') {
+      
+      if ($('.living_status').val().trim() === 'Owner' && $('#owner_name').val().trim() === '') {
         event.preventDefault();
-        $('.error').text('Owner Name is required. Please fetch owner data.');
+        $('.owner_error').text('Owner Name is required. Please fetch owner data.');
       }
-      if ($('#tanent_name').val().trim() === '') {
+      if ($('.living_status').val().trim() === 'Tanent' && $('#tanent_name').val().trim() === '') {
         event.preventDefault();
-        $('.error').text('Tanent Name is required. Please fetch tanent data.');
+        $('.tanent_error').text('Tanent Name is required. Please fetch tanent data.');
       }
     });
     

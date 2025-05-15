@@ -9,9 +9,24 @@ use App\Models\Building;
 use \Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class EventController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+
+            if ($user && $user->building && $user->building->donation_is_active === 'No') {
+                return redirect()->back()->with('error', 'Event or Donation function is Inactive');
+            }
+
+            return $next($request);
+        });
+    }
 
     public function index()
     {
@@ -53,20 +68,13 @@ class EventController extends Controller
         
         if($request->hasFile('image')) {
             $file= $request->file('image');
-            $allowedfileExtension=['JPEG','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $file_path = public_path('/images/events'.$event->image);
-                if(file_exists($file_path) && $event->image != '')
-                {
-                    unlink($file_path);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/events'), $filename);
-                $event->image = $filename;
-            // }
+            Storage::disk('s3')->delete($event->getImageFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/events/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $event->image = $filename;
         }
         
         $event->building_id = $request->building_id;

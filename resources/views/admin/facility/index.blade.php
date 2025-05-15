@@ -52,9 +52,7 @@
                   <thead>
                   <tr>
                     <th>S No</th>
-                    <th>Icon</th>
                     <th>Name</th>
-                    <th>Color</th>
                     <th>Max Booking</th>
                     <th>Per User Max Booking(Monthly)</th>
                     <th>Price</th>
@@ -71,20 +69,18 @@
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td><img src="{{$facility->icon}}" style="height:40px;"></td>
                     <td>{{$facility->name}}</td>
-                    <td>{{$facility->color}}</td>
-                    <td>{{$facility->max_booking}}</td>
-                    <td>{{$facility->per_user_max_booking}}</td>
-                    <td>{{$facility->price}}</td>
-                    <td>{{$facility->cancellation_type}}</td>
-                    <td>{{$facility->cancellation_value}}</td>
-                    <td>{{$facility->status}}</td>
+                    <td>{{$facility->pivot->max_booking}}</td>
+                    <td>{{$facility->pivot->per_user_max_booking}}</td>
+                    <td>{{$facility->pivot->price}}</td>
+                    <td>{{$facility->pivot->cancellation_type}}</td>
+                    <td>{{$facility->pivot->cancellation_value}}</td>
+                    <td>{{$facility->pivot->status}}</td>
                     <td>
                       <a href="{{route('facility.show',$facility->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
-                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$facility->id}}" data-name="{{$facility->name}}" data-cancellation_type="{{$facility->cancellation_type}}"
-                      data-max_booking="{{$facility->max_booking}}" data-per_user_max_booking="{{$facility->per_user_max_booking}}" data-status="{{$facility->status}}" data-price="{{$facility->price}}" 
-                      data-cancellation_value="{{$facility->cancellation_value}}" data-icon="{{$facility->icon}}" data-color="{{$facility->color}}"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$facility->pivot->id}}" data-name="{{$facility->name}}" data-cancellation_type="{{$facility->pivot->cancellation_type}}"
+                      data-max_booking="{{$facility->pivot->max_booking}}" data-per_user_max_booking="{{$facility->pivot->per_user_max_booking}}" data-status="{{$facility->pivot->status}}" data-price="{{$facility->pivot->price}}" 
+                      data-cancellation_value="{{$facility->pivot->cancellation_value}}"><i class="fa fa-edit"></i></button>
                       @if($facility->deleted_at)
                       <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$facility->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                       @else
@@ -129,18 +125,7 @@
           <div class="error"></div>
           <div class="form-group">
             <label for="name" class="col-form-label">Name:</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Name" minlength="3" required>
-          </div>
-          <div class="form-group">
-            <label for="name" class="col-form-label">Icon:</label>
-            <input type="file" name="icon" id="icon" class="form-control" placeholder="Icon" required>
-          </div>
-          <div class="form-group">
-            <label for="name" class="col-form-label">Color:</label>
-            <div class="d-flex">
-                <input type="color" name="color" id="color" class="form-control w-25">
-                <input type="text" id="colorHex" class="form-control ms-2" placeholder="#000000" readonly>
-            </div>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name" minlength="3" disabled>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Max Booking:</label>

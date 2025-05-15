@@ -270,6 +270,7 @@
       $('#user_name').val(button.data('user_name'));
       $('#user_id').val(button.data('user_id'));
       $('#building_id').val(button.data('building_id'));
+      $('#block_id').val(button.data('block_id'));
       $('#gate_id').val(button.data('gate_id'));
       $('#shift').val(button.data('shift'));
       $('#status').val(button.data('status'));

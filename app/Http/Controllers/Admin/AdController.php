@@ -15,8 +15,8 @@ class AdController extends Controller
 
     public function index()
     {
-        $building = Auth::User()->building;
-        return view('admin.ads.index',compact('building'));
+        $ads = Ad::where('status','Active')->get();
+        return view('admin.ads.index',compact('ads'));
     }
 
 

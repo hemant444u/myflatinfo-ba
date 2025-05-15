@@ -41,10 +41,13 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Owner</b> <a class="float-right">{{$flat->owner->name}}</a>
+                    <b>Owner</b> <a class="float-right">{{$flat->owner ? $flat->owner->name : ''}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Block</b> <a class="float-right">{{$flat->block->name}}</a>
+                    <b>Tanent</b> <a class="float-right">{{$flat->tanent ? $flat->tanent->name : ''}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Block</b> <a class="float-right">{{$flat->block ? $flat->block->name : ''}}</a>
                   </li>
                   <li class="list-group-item">
                     <b>Members</b> <a class="float-right">{{$flat->family_members->count()}}</a>

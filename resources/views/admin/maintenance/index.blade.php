@@ -138,6 +138,13 @@
             <input type="date" name="to_date" class="form-control" id="to_date" placeholder="To Date" required>
           </div>
           <div class="form-group">
+            <label for="code" class="col-form-label">Maintenance Type:</label>
+            <select name="maintenance_type" id="maintenance_type" class="form-control" required>
+                <option value="Areawise">Areawise</option>
+                <option value="Custom">Custom</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="code" class="col-form-label">Occupied Maintenance Fee:</label>
             <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount" required>
           </div>

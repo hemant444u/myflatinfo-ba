@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Block;
 use App\Models\Building;
 use App\Models\Flat;
+use App\Models\Payment;
+use App\Models\MaintenancePayment;
+use App\Models\EssentialPayment;
+use App\Models\Expense;
 use \Auth;
 
 class FundController extends Controller
@@ -26,22 +30,29 @@ class FundController extends Controller
     public function get_maintenance_funds()
     {
         $building = Auth::User()->building;
-        return view('partials.maintenance_funds',compact('building'));
+        return view('admin.fund.maintenance_funds',compact('building'));
     }
     public function get_event_funds()
     {
         $building = Auth::User()->building;
-        return view('partials.event_funds',compact('building'));
+        return view('admin.fund.event_funds',compact('building'));
     }
     public function get_corpus_funds()
     {
         $building = Auth::User()->building;
-        return view('partials.corpus_funds',compact('building'));
+        return view('admin.fund.corpus_funds',compact('building'));
     }
     public function get_reciepts()
     {
         $building = Auth::User()->building;
-        return view('partials.reciepts',compact('building'));
+        $maintenance = MaintenancePayment::where('building_id',$building->id)->sum('paid_amount');
+        $essential = EssentialPayment::where('building_id',$building->id)->sum('paid_amount');
+        $event = Payment::where('building_id',$building->id)->sum('amount');
+        $corpus = Flat::where('building_id',$building->id)->sum('corpus_fund');
+        $expense = Expense::where('building_id',$building->id)->sum('amount');
+        $total_fund = $maintenance + $essential + $event + $corpus;
+        $remaining_fund = $total_fund - $expense;
+        return view('admin.fund.reciepts',compact('building','maintenance','essential','event','corpus','expense','total_fund','remaining_fund'));
     }
 
 

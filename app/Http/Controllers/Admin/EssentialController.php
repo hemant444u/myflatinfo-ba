@@ -15,6 +15,19 @@ use Illuminate\Validation\Rule;
 class EssentialController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+
+            if ($user && $user->building && $user->building->other_is_active === 'No') {
+                return redirect()->back()->with('error', 'Essential function is Inactive');
+            }
+
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         $building = Auth::User()->building;

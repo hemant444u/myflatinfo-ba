@@ -9,13 +9,15 @@ use App\Models\Expense;
 use \Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ExpenseController extends Controller
 {
 
     public function index()
     {
-        //
+        $building = Auth::User()->building;
+        return view('admin.expenses.index',compact('building'));
     }
 
 
@@ -31,6 +33,7 @@ class ExpenseController extends Controller
             'reason' => 'required',
             'amount' => 'required',
             'date' => 'required',
+            'image' => 'nullable|image'
         ];
     
         $msg = 'Expense added Susccessfully';
@@ -48,6 +51,7 @@ class ExpenseController extends Controller
             return response()->json([
                 'error' => $validation->errors()->first()
             ],422);
+            return redirect()->back()->with('error',$validation->errors()->first());
         }
         $user = Auth::User();
         $expense->user_id = $user->id;
@@ -55,11 +59,19 @@ class ExpenseController extends Controller
         $expense->reason = $request->reason;
         $expense->date = $request->date;
         $expense->amount = $request->amount;
+        if($request->hasFile('image')) {
+            $file= $request->file('image');
+            $allowedfileExtension=['jpeg','jpeg','png'];
+            $extension = $file->getClientOriginalExtension();
+            Storage::disk('s3')->delete($expense->getImageFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/expenses/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $expense->image = $filename;
+        }
         $expense->save();
     
-        return response()->json([
-            'msg' => $msg
-        ],200);
+        return redirect()->back()->with('success',$msg);
     }
 
     public function show($id)

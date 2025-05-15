@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php $setting = \App\Models\Setting::first(); ?>
   <title>@yield('title') | {{$setting->bussiness_name}}</title>
-  <link rel="shortcut icon" href="{{asset('public/images/bussiness/'.$setting->favicon)}}">
+  <link rel="shortcut icon" href="{{asset('images/bussiness/'.$setting->favicon)}}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('public/admin/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- DataTables -->
-  <link rel="stylesheet" href="{{asset('public/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('public/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('public/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Select2 -->
-  <!--<link rel="stylesheet" href="{{asset('public/admin/plugins/select2/css/select2.min.css')}}">-->
-  <!--<link rel="stylesheet" href="{{asset('public/admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">-->
+  <!--<link rel="stylesheet" href="{{asset('admin/plugins/select2/css/select2.min.css')}}">-->
+  <!--<link rel="stylesheet" href="{{asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">-->
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('public/admin/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -160,7 +160,7 @@
       <!-- Sidebar user (optional) -->
       <!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">-->
       <!--  <div class="image">-->
-      <!--    <img src="{{asset('public/images/profiles/'.$user->photo)}}" class="img-circle elevation-2" alt="User Image">-->
+      <!--    <img src="{{asset('images/profiles/'.$user->photo)}}" class="img-circle elevation-2" alt="User Image">-->
       <!--  </div>-->
       <!--  <div class="info">-->
       <!--    <a href="{{url('profile')}}" class="d-block">{{$user->name}}</a>-->
@@ -234,12 +234,12 @@
               <p>Security Guards</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{route('ads.index')}}" class="nav-link {{ request()->is('ads*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Ads</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{{route('buildings.index')}}" class="nav-link {{ request()->is('buildings*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
@@ -253,17 +253,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('gate.index')}}" class="nav-link {{ request()->is('gate*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Gates</p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="{{route('flat.index')}}" class="nav-link {{ request()->is('flat*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Flats</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('gate.index')}}" class="nav-link {{ request()->is('gate*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <p>Gates</p>
+            </a>
+          </li>
+      
           <li class="nav-item">
             <a href="{{route('event.index')}}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
@@ -325,7 +326,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('society-fund')}}" class="nav-link {{ request()->is('society-fund*') ? 'active' : '' }}">
+            <a href="{{url('society-fund/expenses')}}" class="nav-link {{ request()->is('society-fund*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Society Fund</p>
             </a>
@@ -351,12 +352,12 @@
           <!--    <p>Notifications <i class="badge badge-danger right">{{$notifications->count()}}</i></p>-->
           <!--  </a>-->
           <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{route('setting.index')}}" class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-solid fa-wrench"></i>-->
-          <!--    <p>Settings</p>-->
-          <!--  </a>-->
-          <!--</li>-->
+          <li class="nav-item">
+           <a href="{{route('setting.index')}}" class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">
+             <i class="nav-icon fas fa-solid fa-wrench"></i>
+             <p>Settings</p>
+           </a>
+          </li>
           <!--<li class="nav-item">-->
           <!--  <a href="{{url('taxes')}}" class="nav-link {{ request()->is('taxes*') ? 'active' : '' }}">-->
           <!--    <i class="nav-icon fas fa-solid fa-leaf"></i>-->
@@ -445,33 +446,33 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{asset('public/admin/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('public/admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{asset('public/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/jszip/jszip.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/pdfmake/pdfmake.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/pdfmake/vfs_fonts.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-<script src="{{asset('public/admin/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('admin/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('admin/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('admin/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('admin/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('public/admin/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('admin/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('public/admin/dist/js/demo.js')}}"></script>
+<script src="{{asset('admin/dist/js/demo.js')}}"></script>
 
 <!-- Select2 -->
-<!--<script src="{{asset('public/admin/plugins/select2/js/select2.full.min.js')}}"></script>-->
+<!--<script src="{{asset('admin/plugins/select2/js/select2.full.min.js')}}"></script>-->
 
 <!-- Bootstrap Switch -->
-<script src="{{asset('public/admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
+<script src="{{asset('admin/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
 
 <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
 

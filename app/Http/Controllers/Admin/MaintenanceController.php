@@ -15,6 +15,19 @@ use Illuminate\Validation\Rule;
 class MaintenanceController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $user = Auth::user();
+
+            if ($user && $user->building && $user->building->maintenance_is_active === 'No') {
+                return redirect()->back()->with('error', 'Maintenance function is Inactive');
+            }
+
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         $building = Auth::User()->building;
@@ -35,6 +48,8 @@ class MaintenanceController extends Controller
             'to_date' => 'required',
             'to_date' => 'required',
             'amount' => 'required',
+            'vacant_amount' => 'required',
+            'maintenance_type' => 'required',
             'due_date' => 'required',
             'late_fine_type' => 'required',
             'late_fine_value' => 'required',
@@ -60,6 +75,8 @@ class MaintenanceController extends Controller
         $maintenance->from_date = $request->from_date;
         $maintenance->to_date = $request->to_date;
         $maintenance->amount = $request->amount;
+        $maintenance->vacant_amount = $request->vacant_amount;
+        $maintenance->maintenance_type = $request->maintenance_type;
         $maintenance->due_date = $request->due_date;
         $maintenance->late_fine_type = $request->late_fine_type;
         $maintenance->late_fine_value = $request->late_fine_value;
@@ -68,17 +85,33 @@ class MaintenanceController extends Controller
         
         foreach($user->building->flats as $flat)
         {
-            $maintenance_payment = new MaintenancePayment();
-            $maintenance_payment->maintenance_id = $maintenance->id;
-            $maintenance_payment->building_id = $maintenance->building_id;
-            $maintenance_payment->flat_id = $flat->id;
-            $maintenance_payment->user_id = $flat->tanent_id;
-            $maintenance_payment->paid_amount = 0;
-            $maintenance_payment->dues_amount = $maintenance->amount;
-            $maintenance_payment->late_fine = 0;
-            $maintenance_payment->type = 'Created';
-            $maintenance_payment->status = 'Unpaid';
-            $maintenance_payment->save();
+            if($flat->sold_out == 'Yes'){
+
+                $maintenance_payment = new MaintenancePayment();
+                $maintenance_payment->maintenance_id = $maintenance->id;
+                $maintenance_payment->building_id = $maintenance->building_id;
+                $maintenance_payment->flat_id = $flat->id;
+                $maintenance_payment->user_id = $user->id;
+                $maintenance_payment->paid_amount = 0;
+                $maintenance_payment->dues_amount = $maintenance->amount;
+                if($maintenance->maintenance_type == 'Areawise'){
+                    if($flat->living_status == 'Vacant'){
+                        $maintenance_payment->dues_amount = $flat->area * $request->vacant_amount;
+                    }else{
+                        $maintenance_payment->dues_amount = $flat->area * $request->amount;
+                    }
+                }else{
+                    if($flat->living_status == 'Vacant'){
+                        $maintenance_payment->dues_amount = $request->vacant_amount;
+                    }else{
+                        $maintenance_payment->dues_amount = $request->amount;
+                    }
+                }
+                $maintenance_payment->late_fine = 0;
+                $maintenance_payment->type = 'Created';
+                $maintenance_payment->status = 'Unpaid';
+                $maintenance_payment->save();
+            }
         }
     
         return redirect()->back()->with('success', $msg);
@@ -154,8 +187,9 @@ class MaintenanceController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->with('error', $validation->errors()->first());
         }
+        $user = Auth::User();
         $flat = Flat::find($request->flat_id);
-        $maintenance_payment->user_id = $flat->tanent_id;
+        $maintenance_payment->user_id = $user->id;
         $maintenance_payment->building_id = $flat->building_id;
         $maintenance_payment->flat_id = $flat->id;
         $maintenance_payment->maintenance_id = $request->maintenance_id;

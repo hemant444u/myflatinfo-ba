@@ -63,7 +63,7 @@
                   <tbody>
                     
                     <?php $i = 0; ?>
-                  @forelse($building->ads as $ad)
+                  @forelse($ads as $ad)
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>

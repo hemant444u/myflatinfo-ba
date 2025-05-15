@@ -52,14 +52,13 @@
                   <thead>
                   <tr>
                     <th>S No</th>
-                    <th>Image</th>
                     <th>Name</th>
                     <th>BA</th>
-                    <th>Owner</th>
-                    <th>Owner Contact</th>
-                    <th>City</th>
-                    <th>Zip</th>
+                    <th>Builder</th>
+                    <th>Builder Contact</th>
+                    <!-- <th>City</th> -->
                     <th>Flats</th>
+                    <th>Users</th>
                     <th>Status</th>
                     <!--<th>Action</th>-->
                   </tr>
@@ -71,14 +70,13 @@
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td><img src="{{$building->image}}" style="width:40px"></td>
                     <td>{{$building->name}}</td>
                     <td>{{$building->user->name}}</td>
-                    <td>{{$building->owner_name}}</td>
-                    <td>{{$building->owner_contact_no}}</td>
-                    <td>{{$building->city->name}}</td>
-                    <td>{{$building->zip_code}}</td>
+                    <td>{{$building->builder->name}}</td>
+                    <td>{{$building->builder->phone}}</td>
+                    
                     <td>{{$building->flats->count()}}</td>
+                    <td>{{$building->users->count()}}</td>
                     <td>{{$building->status}}</td>
                     <!--<td>-->
                     <!--  <a href="{{route('buildings.show',$building->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>-->

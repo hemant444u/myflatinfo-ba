@@ -10,11 +10,6 @@ class Facility extends Model
 {
     use HasFactory,SoftDeletes;
     
-    public function building()
-    {
-        return $this->belongsTo('App\Models\Building')->withTrashed();
-    }
-    
     public function timings()
     {
         return $this->hasMany('App\Models\Timing')->withTrashed();
@@ -28,6 +23,11 @@ class Facility extends Model
     public function getIconAttribute($value)
     {
         return asset('public/images/facilities/'.$value);
+    }
+
+    public function buildings()
+    {
+        return $this->belongsToMany(Building::class, 'building_facilities', 'facility_id', 'building_id');
     }
     
     

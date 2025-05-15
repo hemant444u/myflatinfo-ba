@@ -55,6 +55,8 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('create-visitor',[CustomerController::class,'create_visitor']);
             Route::post('update-visitor',[CustomerController::class,'create_visitor']);
             Route::post('create-gate-pass',[CustomerController::class,'create_gate_pass']);
+            Route::post('get-gate-passes',[CustomerController::class,'get_gate_passes']);
+            Route::post('take-gate-pass-action',[CustomerController::class,'take_gate_pass_action']);
             Route::post('my-visitor-in-out-history',[CustomerController::class,'my_visitor_in_out_history']);
             Route::post('add-family-member',[CustomerController::class,'create_family_member']);
             Route::post('update-family-member',[CustomerController::class,'create_family_member']);
@@ -65,6 +67,21 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('get-my-parcels',[CustomerController::class,'get_my_parcels']);
             Route::post('take-parcel-action',[CustomerController::class,'take_parcel_action']);
             Route::post('take-visitor-action',[CustomerController::class,'take_visitor_action']);
+            
+            Route::post('maintenance-payments',[CustomerController::class,'maintenance_payments']);
+            Route::post('create-maintenance-payment-order',[CustomerController::class,'create_maintenance_payment_order']);
+            Route::post('verify-maintenance-payment-signature',[CustomerController::class,'verify_maintenance_payment_signature']);
+            
+            Route::post('essential-payments',[CustomerController::class,'essential_payments']);
+            Route::post('create-essential-payment-order',[CustomerController::class,'create_essential_payment_order']);
+            Route::post('verify-essential-payment-signature',[CustomerController::class,'verify_essential_payment_signature']);
+            
+            Route::post('create-event-payment-order',[CustomerController::class,'create_event_payment_order']);
+            Route::post('verify-event-payment-signature',[CustomerController::class,'verify_event_payment_signature']);
+            
+            Route::post('corpus-fund',[CustomerController::class,'corpus_fund']);
+            Route::post('essential-history',[CustomerController::class,'essential_history']);
+            Route::post('event-history',[CustomerController::class,'even_history']);
             
         });
         //Route::post('create-razorpay-order', [CustomerController::class,'create_razorpay_order']);
@@ -81,8 +98,11 @@ use App\Http\Controllers\TruthScreenController;
         Route::middleware(['gate'])->group(function (){
             Route::post('get-building-flats',[CustomerController::class,'get_building_flats']);
             Route::post('get-building-visitors',[CustomerController::class,'get_building_visitors']);
+            Route::post('visitor-details',[CustomerController::class,'visitor_details']);
             Route::post('get-building-vehicles',[CustomerController::class,'get_building_vehicles']);
+            Route::post('get-flat-vehicles',[CustomerController::class,'get_flat_vehicles']);
             Route::post('create-vehicle',[CustomerController::class,'create_vehicle']);
+            Route::post('create-outsider-vehicle',[CustomerController::class,'create_vehicle']);
             Route::post('update-vehicle',[CustomerController::class,'create_vehicle']);
             Route::post('delete-vehicle',[CustomerController::class,'delete_vehicle']);
             Route::post('visitor-in-out',[CustomerController::class,'visitor_in_out']);
@@ -92,10 +112,21 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('search-flat',[CustomerController::class,'search_flat']);
             Route::post('create-unplanned-visitor',[CustomerController::class,'create_visitor']);
             Route::post('resend-visitor-request',[CustomerController::class,'resend_visitor_request']);
+            Route::post('get-building-parcels',[CustomerController::class,'get_building_parcels']);
             Route::post('get-flat-parcels',[CustomerController::class,'get_flat_parcels']);
             Route::post('create-parcel',[CustomerController::class,'create_parcel']);
             Route::post('update-parcel',[CustomerController::class,'create_parcel']);
             Route::post('resend-recieve-request',[CustomerController::class,'resend_recieve_request']);
+            Route::post('parcel-handover-to-owner',[CustomerController::class,'parcel_handover_to_owner']);
+            Route::post('complete-visitor-journey',[CustomerController::class,'complete_visitor_journey']);
+            Route::post('get-todays-completed-visitors',[CustomerController::class,'get_todays_completed_visitors']);
+            
+            Route::post('get-building-gate-passes',[CustomerController::class,'get_building_gate_passes']);
+            Route::post('resend-gate-pass-request',[CustomerController::class,'resend_gate_pass_request']);
+            Route::post('take-gate-pass-action-building',[CustomerController::class,'take_gate_pass_action']);
+            
+            Route::post('get-homepage-count',[CustomerController::class,'get_homepage_count']);
+            
         });
         
         // guards route

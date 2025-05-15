@@ -18,7 +18,6 @@ class FlatController extends Controller
         return view('admin.flat.index',compact('building'));
     }
 
-
     public function create()
     {
         //
@@ -27,14 +26,15 @@ class FlatController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'building_id' => 'required|exists:buildings,id',
             'block_id' => 'required|exists:blocks,id',
             'name' => 'required',
             'area' => 'required',
-            'max_members' => 'required',
-            'owner_id' => 'required|exists:users,id',
-            'tanent_id' => 'required|exists:users,id',
-            'status' => 'required|in:Pending,Active',
+            'corpus_fund' => 'required',
+            'owner_id' => 'nullable|exists:users,id',
+            'tanent_id' => 'nullable|exists:users,id',
+            'status' => 'required|in:Inactive,Active',
+            'sold_out' => 'required|in:Yes,No',
+            'living_status' => 'required|in:Vacant,Owner,Tanent',
         ];
     
         $msg = 'Block Added';
@@ -50,14 +50,30 @@ class FlatController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->with('error', $validation->errors()->first());
         }
-        $flat->building_id = $request->building_id;
+        $flat->building_id = Auth::User()->building_id;
         $flat->block_id = $request->block_id;
-        $flat->owner_id = $request->owner_id;
-        $flat->tanent_id = $request->tanent_id;
         $flat->name = $request->name;
         $flat->area = $request->area;
-        $flat->max_members = $request->max_members;
+        $flat->corpus_fund = $request->corpus_fund;
         $flat->status = $request->status;
+        $flat->sold_out = $request->sold_out;
+        $flat->living_status = $request->living_status;
+        if($request->sold_out == 'No'){
+            $flat->owner_id = Null;
+            $flat->tanent_id = Null;
+        }
+        if($request->sold_out == 'Yes' && $request->living_status == 'Owner'){
+            $flat->owner_id = $request->owner_id;
+            $flat->tanent_id = Null;
+        }
+        if($request->sold_out == 'Yes' && $request->living_status == 'Tanent'){
+            $flat->owner_id = $request->owner_id;
+            $flat->tanent_id = $request->tanent_id;
+        }
+        if($request->sold_out == 'Yes' && $request->living_status == 'Vacant'){
+            $flat->owner_id = $request->owner_id;
+            $flat->tanent_id = Null;
+        }
         $flat->save();
     
         return redirect()->back()->with('success', $msg);
@@ -84,7 +100,7 @@ class FlatController extends Controller
 
     public function destroy($id, Request $request)
     {
-        $flat = Flat::where('id',$id)->withTrashed()->first();
+        $flat = Flat::where('id',$request->id)->withTrashed()->first();
         if($request->action == 'delete'){
             $flat->delete();
         }else{

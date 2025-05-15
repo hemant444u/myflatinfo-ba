@@ -27,7 +27,6 @@ class BlockController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'building_id' => 'required|exists:buildings,id',
             'name' => 'required',
             'status' => 'required|in:Pending,Active',
         ];
@@ -45,7 +44,7 @@ class BlockController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->with('error', $validation->errors()->first());
         }
-        $block->building_id = $request->building_id;
+        $block->building_id = Auth::User()->building_id;
         $block->name = $request->name;
         $block->status = $request->status;
         $block->save();

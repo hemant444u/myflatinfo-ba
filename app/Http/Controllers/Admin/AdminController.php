@@ -11,6 +11,8 @@ use App\Models\Building;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use \Hash;
 use \Auth;
 use \Response;
@@ -18,15 +20,6 @@ use \Mail;
 
 class AdminController extends Controller
 {
-    
-    public function login_as_vendor(Request $request)
-    {
-        $user = User::find($request->id);
-        Auth::login($user, true);
-        return response()->json([
-            'msg' => 'success'
-            ],200);
-    }
     
     public function index()
     {
@@ -142,20 +135,13 @@ class AdminController extends Controller
         
         if($request->hasFile('photo')) {
             $file= $request->file('photo');
-            $allowedfileExtension=['JPEG','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $file_path = public_path('/images/profiles'.$customer->photo);
-                if(file_exists($file_path) && $customer->photo != '')
-                {
-                    unlink($file_path);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/profiles'), $filename);
-                $customer->photo = $filename;
-            // }
+            Storage::disk('s3')->delete($customer->getPhotoFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/profiles/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $customer->photo = $filename;
         }
         $customer->first_name = $request->first_name;
         $customer->last_name = $request->last_name;

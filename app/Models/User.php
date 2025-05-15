@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use \Str;
 
 use \DB;
@@ -37,16 +39,17 @@ class User extends Authenticatable
     public function getPhotoAttribute($value)
     {
         if($value != ''){
-            return asset('public/images/profiles/'.$value);
+            return Cache::remember("signed_url_{$value}", now()->addMinutes(10), function () use ($value) {
+                return Storage::disk('s3')->temporaryUrl($value, now()->addMinutes(10)); // Expires in 10 min
+            });
         }else{
             if($this->gender == 'Male'){
-                return asset('public/images/profiles/male.png');
+                return asset('images/profiles/male.png');
             }
             if($this->gender == 'Female' && $value == ''){
-                return asset('public/images/profiles/female.jpeg');
+                return asset('images/profiles/female.jpeg');
             }
         }
-        return asset('public/images/profiles/male.png');
     }
     
     public function buildings()

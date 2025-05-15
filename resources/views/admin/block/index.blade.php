@@ -120,14 +120,6 @@
         @csrf
         <div class="modal-body">
           <div class="error"></div>
-          
-          <div class="form-group">
-            <label for="name" class="col-form-label">Building:</label>
-            <select name="building_id" id="building_id" class="form-control" required>
-                <option value="{{$building->id}}">{{$building->name}}</option>
-            </select>
-          </div>
-          
           <div class="form-group">
             <label for="name" class="col-form-label">Block Name:</label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Building Name" minlength="4" maxlength="20" required>

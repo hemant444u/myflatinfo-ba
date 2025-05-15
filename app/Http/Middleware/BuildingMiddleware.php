@@ -20,11 +20,11 @@ class BuildingMiddleware
     {
         $user = Auth::User();
         if($user->building == ''){
-            abort(response()->json(
-            [
-                'error' => 'gate is not select',
-                'redirect' => 'select_building_screen',
-            ], 422));
+            return redirect('/building-option')->with('error','Building is not selected');
+        }
+
+        if($user->building && $user->building->status != 'Active'){
+            return redirect('/building-option')->with('error','Building is Inactive, Please select any others');
         }
         
         return $next($request);

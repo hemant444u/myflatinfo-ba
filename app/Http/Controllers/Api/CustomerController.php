@@ -689,6 +689,7 @@ class CustomerController extends Controller
     public function raise_an_issue(Request $request)
     {
         $rules = [
+            'department_id' => 'required|exists:roles,id',
             'desc' => 'required',
             'photos' => 'required|array',
             'photos.*' => 'image|max:2048',

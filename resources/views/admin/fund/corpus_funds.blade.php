@@ -101,7 +101,7 @@
                     <td>{{$flat->building->name}}</td>
                     <td>{{$flat->block->name}}</td>
                     <td>{{$flat->name}}</td>
-                    <td>{{$flat->owner->name}}</td>
+                    <td>{{$flat->owner ? $flat->owner->name : ''}}</td>
                     <td>{{$flat->corpus_fund}}</td>
 
                   </tr>

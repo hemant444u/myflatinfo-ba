@@ -103,7 +103,7 @@
                     <td><?php echo e($flat->building->name); ?></td>
                     <td><?php echo e($flat->block->name); ?></td>
                     <td><?php echo e($flat->name); ?></td>
-                    <td><?php echo e($flat->owner->name); ?></td>
+                    <td><?php echo e($flat->owner ? $flat->owner->name : ''); ?></td>
                     <td><?php echo e($flat->corpus_fund); ?></td>
 
                   </tr>

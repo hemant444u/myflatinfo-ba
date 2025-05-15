@@ -32,7 +32,7 @@
 
 </head>
 
-<body style="background-color:black;">
+<body style="background-color:grey;">
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-12 mt-2">
@@ -45,7 +45,6 @@
                             {{ session()->get('error') }}
                         </div>
                     @endif
-                    <h3 class="text-white mt-5 mb-5">Select Any Building To Continue</h3>
                 </center>
             </div>
             @forelse(Auth::User()->buildings as $building)

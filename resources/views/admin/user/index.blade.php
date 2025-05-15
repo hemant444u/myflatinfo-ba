@@ -44,7 +44,7 @@
             <div class="card">
               <div class="card-header">
                 <?php 
-                  $created_counts = \App\Models\User::where('created_by', Auth::user()->id)->count(); 
+                  $created_counts = \App\Models\User::where('created_by', $building->id)->count(); 
                   $login_limit = Auth::user()->building->no_of_logins;
                 ?>
                 <span>{{$created_counts}}/{{$login_limit}}</span>

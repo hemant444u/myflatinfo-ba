@@ -56,7 +56,7 @@
                                 <h2 class="text-center">{{$building->name}}</h2>
                                 <hr>
                                 <?php 
-                                    $created_counts = \App\Models\Flat::where('building_id', $building_id)->count();
+                                    $created_counts = \App\Models\Flat::where('building_id', $building->id)->count();
                                     $flat_limit = $building->no_of_flats;
                                 ?>
                                 <p>No of Flats: <span class="right">{{$created_counts}}/{{$flat_limit}}</span></p>

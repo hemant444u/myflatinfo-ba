@@ -56,10 +56,10 @@
                             <div class="box bg-red">
                                 <h2 class="text-center">{{$building->name}}</h2>
                                 <hr>
-                                <p>No of Flats:{{$building->no_of_flats}}</p>
-                                <p>No of Logins:{{$building->no_of_logins}}</p>
-                                <p>Valid Till:{{$building->valid_till}}</p>
-                                <p>Address: {{$building->address}}</p>
+                                <p>No of Flats: <span class="right">{{$building->no_of_flats}}</span></p>
+                                <p>No of Logins: <span class="right">{{$building->no_of_logins}}</span></p>
+                                <p>Valid Till: <span class="right">{{$building->valid_till}}</span></p>
+                                <p>Address: <span class="right">{{$building->address}}</span></p>
                                 <hr>
                             </div>
                             <br>

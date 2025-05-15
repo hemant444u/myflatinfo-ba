@@ -33,6 +33,7 @@ class IssueController extends Controller
     {
         \DB::statement("ALTER TABLE issues MODIFY block_id INT(11) NULL");
         \DB::statement("ALTER TABLE issues MODIFY flat_id INT(11) NULL");
+        \DB::statement("ALTER TABLE issues MODIFY updated_at TIMESTAMP NULL DEFAULT NULL");
         $rules = [
             'id' => 'nullable|exists:issues,id',
             'building_id' => 'nullable|exists:buildings,id',

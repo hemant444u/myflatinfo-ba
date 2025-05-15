@@ -38,14 +38,22 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
+                    <b>Building</b> <a class="float-right">{{$issue->building->name}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Block</b> <a class="float-right">{{$issue->block ? $issue->block->name : 'All'}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Flat</b> <a class="float-right">{{$issue->flat ? $issue->flat->name : 'All'}}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Department</b> <a class="float-right">{{$issue->department->name}}</a>
+                  </li>
+                  <li class="list-group-item">
                     <b>Priority</b> <a class="float-right">{{$issue->periority}}</a>
                   </li>
                   <li class="list-group-item">
-                    <b>Status</b> 
-                    <a class="float-right">
-                        <input type="checkbox" name="my-checkbox" class="status" data-id="{{$issue->id}}" data-bootstrap-switch data-on-text="Solved" 
-                        data-off-text="Pending" {{$issue->status == 'Solved' ? 'checked' : ''}}>
-                    </a>
+                    <b>Status</b><a class="float-right">{{$issue->status}}</a>
                   </li>
                 </ul>
               </div>

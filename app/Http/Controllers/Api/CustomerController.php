@@ -693,7 +693,7 @@ class CustomerController extends Controller
             'desc' => 'required',
             'photos' => 'required|array',
             'photos.*' => 'image|max:2048',
-            'periority' => 'required',
+            'periority' => 'required|in:High,Medium,Low',
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -713,8 +713,6 @@ class CustomerController extends Controller
         $issue->periority = $request->periority;
         $issue->status = 'Pending';
         $issue->save();
-        
-        $uploadedPhotos = [];
     
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $file) {

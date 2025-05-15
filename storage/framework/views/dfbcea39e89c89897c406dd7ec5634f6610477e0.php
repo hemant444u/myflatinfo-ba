@@ -235,12 +235,6 @@
               <p>Security Guards</p>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="<?php echo e(route('ads.index')); ?>" class="nav-link <?php echo e(request()->is('ads*') ? 'active' : ''); ?>">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Ads</p>
-            </a>
-          </li> -->
           <li class="nav-item">
             <a href="<?php echo e(route('buildings.index')); ?>" class="nav-link <?php echo e(request()->is('buildings*') ? 'active' : ''); ?>">
               <i class="nav-icon fas fa-duotone fa-user"></i>

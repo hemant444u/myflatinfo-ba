@@ -102,6 +102,8 @@ Route::middleware('admin')->group(function () {
         Route::resource('/payment', PaymentController::class);
         Route::resource('/noticeboard', NoticeboardController::class);
         Route::resource('/classified', ClassifiedController::class);
+
+        Route::post('/get-flats',[IssueController::class, 'get_flats']);
         Route::resource('/issue', IssueController::class);
         Route::post('/update-issue-status',[IssueController::class, 'update_issue_status']);
         Route::post('add-comment', [CommentController::class, 'addComment']);

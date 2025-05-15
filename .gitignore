@@ -1,7 +1,7 @@
-/node_modules
-/storage
-/vendor
-/bootstrap
+/node_modules/*
+/storage/*
+/vendor/*
+/bootstrap/*
 composer.json
 composer.lock
 .env

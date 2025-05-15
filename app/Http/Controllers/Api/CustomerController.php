@@ -648,11 +648,9 @@ class CustomerController extends Controller
             ], 422);
         }
         $user = Auth::User();
-        $classified = Classified::where('user_id',$user->id)->first();
-        if(!$classified){
-            return response()->json([
-                'msg' => 'Classified not found'
-            ],422);
+        $classified = Classified::find($request->classified_id);
+        foreach($classified->photos as $photo){
+            Storage::disk('s3')->delete($photo->getPhotoFilenameAttribute());
         }
         $classified->delete();
         return response()->json([

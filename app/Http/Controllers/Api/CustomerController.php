@@ -36,6 +36,8 @@ use App\Models\Payment;
 use App\Models\Order;
 use App\Models\Transaction;
 use App\Models\Essential;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 use DB;
 use \Session;

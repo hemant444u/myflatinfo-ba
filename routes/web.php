@@ -30,7 +30,6 @@ use App\Http\Controllers\Admin\GuardController;
 use App\Http\Controllers\Admin\EssentialController;
 use App\Http\Controllers\Admin\FundController;
 use App\Http\Controllers\Admin\GateController;
-use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\ExpenseController;
 
 Route::get('clear-cache',function(){
@@ -86,10 +85,7 @@ Route::middleware('admin')->group(function () {
         
         Route::resource('/buildings', BuildingController::class);
         Route::post('/update-building-status',[BuildingController::class, 'update_building_status']);
-        
-        Route::resource('/ads', AdController::class);
-        Route::post('/update-ads-status',[AdController::class, 'update_building_status']);
-        
+                
         Route::resource('/block', BlockController::class);
         Route::post('/update-block-status',[BlockController::class, 'update_block_status']);
         

@@ -52,7 +52,6 @@
                   <thead>
                   <tr>
                     <th>S No</th>
-                    <th>Building</th>
                     <th>Image</th>
                     <th>Name</th>
                     <th>Link</th>
@@ -67,7 +66,6 @@
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td>{{$ad->building->name}}</td>
                     <td><img src="{{$ad->image}}" style="width:40px"></td>
                     <td>{{$ad->name}}</td>
                     <td>{{$ad->link}}</td>

@@ -122,7 +122,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Owner</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -287,10 +287,10 @@
       $('#gender').val(button.data('gender'));
       $('#city_id').val(button.data('city_id'));
       $('#address').val(button.data('address'));
-      $('.modal-title').text('Add New Owner');
+      $('.modal-title').text('Add New User');
       $('#password').attr('required',true);
       if(edit_id){
-          $('.modal-title').text('Update Owner');
+          $('.modal-title').text('Update User');
           $('#password').attr('required',false);
       }
     });

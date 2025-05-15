@@ -625,11 +625,7 @@ class CustomerController extends Controller
             ], 422);
         }
         $classified_photo = ClassifiedPhoto::find($request->classified_photo_id);
-        $file_path = public_path('/images/classifieds/'.$classified_photo->photoFileName);
-        if(file_exists($file_path) && $classified_photo->photo != '')
-        {
-            unlink($file_path);
-        }
+        Storage::disk('s3')->delete($classified_photo->getPhotoFilenameAttribute());
         $classified_photo->delete();
         return response()->json([
                 'msg' => 'Classified photo deleted successfully'

@@ -23,7 +23,7 @@
         a{color:black;}
         a:hover{text-decoration:none;}
         .card{box-shadow: 0px 2px red;}
-        
+        .right{float:right;}
         @media screen and (max-width: 468px) {
             video{width:100% !important;}
         }
@@ -53,13 +53,17 @@
                     <a href="{{url('select-building',$building->id)}}">
                     <div class="card">
                         <div class="card-body">
-                            <center>
-                                <h2>{{$building->name}}</h2>
+                            <div class="box bg-red">
+                                <h2 class="text-center">{{$building->name}}</h2>
                                 <hr>
+                                <p>No of Flats:{{$building->no_of_flats}}</p>
+                                <p>No of Logins:{{$building->no_of_logins}}</p>
+                                <p>Valid Till:{{$building->valid_till}}</p>
                                 <p>Address: {{$building->address}}</p>
                                 <hr>
-                            </center>
+                            </div>
                             <br>
+                            <p>Status:{{$building->status}}</p>
                             <p class="right">Continue....</p>
                         </div>
                     </div>

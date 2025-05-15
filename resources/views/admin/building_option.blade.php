@@ -63,8 +63,7 @@
                                 <hr>
                             </div>
                             <br>
-                            <p>Status:{{$building->status}}</p>
-                            <p class="right">Continue....</p>
+                            <p>Status:{{$building->status}}<span class="right">Continue....</span></p>
                         </div>
                     </div>
                     </a>

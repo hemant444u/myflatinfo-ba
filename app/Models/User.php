@@ -46,7 +46,7 @@ class User extends Authenticatable
             if($this->gender == 'Male'){
                 return asset('images/profiles/male.png');
             }
-            if($this->gender == 'Female' && $value == ''){
+            if($this->gender == 'Female'){
                 return asset('images/profiles/female.jpeg');
             }
         }

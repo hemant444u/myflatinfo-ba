@@ -477,7 +477,7 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
-        $flat = Flat::find($request->flat);
+        $flat = Flat::find($request->flat_id);
         if($flat->owner_id != Auth::User()->id || $flat->tanent_id != Auth::User()->id){
             return response()->json([
                 'error' => 'This flat is not belongs to this account'

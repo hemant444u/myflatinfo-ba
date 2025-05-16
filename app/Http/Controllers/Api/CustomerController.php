@@ -331,7 +331,7 @@ class CustomerController extends Controller
         
         $user = User::where('email',$request->email)->where('role','user')->first();
         
-        if($user){
+        if($user && $user->status == 'Active'){
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('MyApp')->accessToken;
                 $user->api_token = $token;
@@ -347,6 +347,10 @@ class CustomerController extends Controller
                     'error' => 'Invalid Password'
                 ],422);
             }
+        }else{
+            return response()->json([
+                'error' => 'This account is Inactive'
+            ],422);
         }
         return response()->json([
             'error' => 'This email is not registered with us'

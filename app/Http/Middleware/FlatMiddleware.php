@@ -26,6 +26,21 @@ class FlatMiddleware
                 'redirect' => 'select_flat_screen',
             ], 422));
         }
+
+        if($user->flat && $user->flat->status != 'Active'){
+            abort(response()->json(
+            [
+                'error' => 'flat is not Active',
+                'redirect' => 'select_flat_screen',
+            ], 422));
+        }
+        if($user->flat && $user->flat->building->status != 'Active'){
+            abort(response()->json(
+            [
+                'error' => 'Building is not Active',
+                'redirect' => 'select_flat_screen',
+            ], 422));
+        }
         
         return $next($request);
     }

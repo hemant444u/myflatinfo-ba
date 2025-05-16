@@ -483,8 +483,6 @@ class CustomerController extends Controller
         }else{
             return response()->json([
                 'error' => 'This flat is not belongs to this account',
-                'user' => AUth::User(),
-                'flat' => $flat
             ], 422);
         }
         if($flat->status != 'Active'){

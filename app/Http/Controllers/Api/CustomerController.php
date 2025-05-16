@@ -2410,19 +2410,19 @@ class CustomerController extends Controller
         $vehicle->vehicle_type = $request->vehicle_type;
         $vehicle->vehicle_no = $request->vehicle_no;
         $vehicle->ownership = $request->ownership;
-        $vehicle->driver_name = $request->driver_name;
-        $vehicle->phone = $request->phone;
-        $vehicle->purpose = $request->purpose;
-        if($request->hasFile('photo')) {
-            $file= $request->file('photo');
-            $allowedfileExtension=['jpeg','jpeg','png'];
-            $extension = $file->getClientOriginalExtension();
-            Storage::disk('s3')->delete($vehicle->getPhotoFilenameAttribute());
-            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $filename = 'images/vehicles/' . uniqid() . '.' . $extension;
-            Storage::disk('s3')->put($filename, file_get_contents($file));
-            $vehicle->photo = $filename;
-        }
+        // $vehicle->driver_name = $request->driver_name;
+        // $vehicle->phone = $request->phone;
+        // $vehicle->purpose = $request->purpose;
+        // if($request->hasFile('photo')) {
+        //     $file= $request->file('photo');
+        //     $allowedfileExtension=['jpeg','jpeg','png'];
+        //     $extension = $file->getClientOriginalExtension();
+        //     Storage::disk('s3')->delete($vehicle->getPhotoFilenameAttribute());
+        //     $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        //     $filename = 'images/vehicles/' . uniqid() . '.' . $extension;
+        //     Storage::disk('s3')->put($filename, file_get_contents($file));
+        //     $vehicle->photo = $filename;
+        // }
         $vehicle->save();
     
         return response()->json([

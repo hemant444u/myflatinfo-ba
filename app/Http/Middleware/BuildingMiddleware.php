@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 
 use \Auth;
+use Carbon\Carbon;
 
 class BuildingMiddleware
 {
@@ -25,6 +26,10 @@ class BuildingMiddleware
 
         if($user->building && $user->building->status != 'Active'){
             return redirect('/building-option')->with('error','Building is Inactive, Please select any others');
+        }
+
+        if($user->building && $user->building->valid_till < Carbon::now()){
+            return redirect('/building-option')->with('error','Building valadity is expired, Please select any others');
         }
         
         return $next($request);

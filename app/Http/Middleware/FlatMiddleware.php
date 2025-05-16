@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 
 use \Auth;
+use Carbon\Carbon;
 
 class FlatMiddleware
 {
@@ -34,12 +35,20 @@ class FlatMiddleware
                 'redirect' => 'select_flat_screen',
             ], 422));
         }
-        if($user->flat && $user->flat->building->status != 'Active'){
+        if($user->flat && $user->flat->building && $user->flat->building->status != 'Active'){
             abort(response()->json(
             [
                 'error' => 'Building is not Active',
                 'redirect' => 'select_flat_screen',
             ], 422));
+        }
+
+        if ($user->flat && $user->flat->building && $user->flat->building->valid_till < Carbon::now()) {
+            abort(response()->json(
+                [
+                    'error' => 'Building validity is expired',
+                    'redirect' => 'select_flat_screen',
+                ], 422));
         }
         
         return $next($request);

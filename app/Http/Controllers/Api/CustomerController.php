@@ -477,6 +477,27 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
+        $flat = Flat::find($request->flat);
+        if($flat->owner_id != Auth::User()->id || $flat->tanent_id != Auth::User()->id){
+            return response()->json([
+                'error' => 'This flat is not belongs to this account'
+            ], 422);
+        }
+        if($flat->status != 'Active'){
+            return response()->json([
+                'error' => 'This flat is Inactive'
+            ], 422);
+        }
+        if($flat->building && $flat->building->status != 'Active'){
+            return response()->json([
+                'error' => 'This flat is Inactive'
+            ], 422);
+        }
+        if($flat->building && $flat->building->valid_till < Carbon::now()){
+            return response()->json([
+                'error' => 'Building validity is expired'
+            ], 422);
+        }
         $user = Auth::User();
         $user->flat_id = $request->flat_id;
         $user->save();

@@ -42,7 +42,7 @@ class Flat extends Model
     
     public function vehicles()
     {
-        return $this->hasMany('App\Models\Vehicle')->withTrashed();
+        return $this->hasMany('App\Models\Vehicle');
     }
     
     public function visitors()

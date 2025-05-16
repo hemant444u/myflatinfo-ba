@@ -2399,7 +2399,7 @@ class CustomerController extends Controller
         }
         if($request->ownership == 'Own'){
             $vehicle->flat_id = $flat->id;
-            $vehicle->user_id = $flat->tanent_id;
+            $vehicle->user_id = Auth::User()->id;
             $vehicle->building_id = $flat->building_id;
         }
         if($request->ownership == 'Guest' || $request->ownership == 'Outsider'){

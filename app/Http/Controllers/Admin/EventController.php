@@ -48,7 +48,7 @@ class EventController extends Controller
             'desc' => 'required',
             'from_time' => 'required',
             'to_time' => 'required',
-            'to_time' => 'required|in:Yes,No',
+            'is_payment_enabled' => 'required|in:Yes,No',
             'status' => 'required|in:Active,Pending',
             'image' => 'nullable|image|max:2048',
         ];

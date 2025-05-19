@@ -57,6 +57,7 @@
                     <th>Desc</th>
                     <th>From Time</th>
                     <th>To Time</th>
+                    <th>Is Payment Enabled</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -73,11 +74,12 @@
                     <td>{{$event->desc}}</td>
                     <td>{{$event->from_time}}</td>
                     <td>{{$event->to_time}}</td>
+                    <td>{{$event->is_payment_enabled}}</td>
                     <td>{{$event->status}}</td>
                     <td>
                       <a href="{{route('event.show',$event->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$event->id}}" data-name="{{$event->name}}" data-desc="{{$event->desc}}" data-image="{{$event->image}}"  
-                      data-from_time="{{$event->from_time}}" data-to_time="{{$event->to_time}}" data-status="{{$event->status}}" data-building_id="{{$event->building_id}}"><i class="fa fa-edit"></i></button>
+                      data-from_time="{{$event->from_time}}" data-to_time="{{$event->to_time}}" data-status="{{$event->status}}" data-building_id="{{$event->building_id}}" data-is_payment_enabled="{{$event->is_payment_enabled}}"><i class="fa fa-edit"></i></button>
                       @if($event->deleted_at)
                       <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$event->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                       @else
@@ -145,6 +147,13 @@
           <div class="form-group">
             <label for="code" class="col-form-label">To Time:</label>
             <input type="datetime-local" name="to_time" class="form-control" id="to_time" placeholder="To Time" required>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Is Payment Enabled:</label>
+            <select name="is_payment_enabled" id="is_payment_enabled" class="form-control" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Status:</label>
@@ -236,6 +245,7 @@
       $('#to_time').val(button.data('to_time'));
       $('#status').val(button.data('status'));
       $('#building_id').val(button.data('building_id'));
+      $('#is_payment_enabled').val(button.data('is_payment_enabled'));
       $('#image2').attr('src',button.data('image'));
       $('.modal-title').text('Add New Event');
       $('#image').attr('required',true);

@@ -48,6 +48,7 @@ class EventController extends Controller
             'desc' => 'required',
             'from_time' => 'required',
             'to_time' => 'required',
+            'to_time' => 'required|in:Yes,No',
             'status' => 'required|in:Active,Pending',
             'image' => 'nullable|image|max:2048',
         ];
@@ -82,6 +83,7 @@ class EventController extends Controller
         $event->desc = $request->desc;
         $event->from_time = $request->from_time;
         $event->to_time = $request->to_time;
+        $event->is_payment_enabled = $request->is_payment_enabled;
         $event->status = $request->status;
         $event->save();
     

@@ -9,26 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Facility extends Model
 {
     use HasFactory,SoftDeletes;
-    
-    public function timings()
-    {
-        return $this->hasMany('App\Models\Timing')->withTrashed();
-    }
-    
-    public function bookings()
-    {
-        return $this->hasMany('App\Models\Booking')->withTrashed();
-    }
-    
+
     public function getIconAttribute($value)
     {
-        return asset('public/images/facilities/'.$value);
+        return Cache::remember("signed_url_{$value}", now()->addMinutes(10), function () use ($value) {
+            return Storage::disk('s3')->temporaryUrl($value, now()->addMinutes(10)); // Expires in 10 min
+        });
     }
-
-    public function buildings()
+    
+    public function getIconFilenameAttribute()
     {
-        return $this->belongsToMany(Building::class, 'building_facilities', 'facility_id', 'building_id');
+        return $this->attributes['icon'] ?? null;
     }
-    
-    
 }

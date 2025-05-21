@@ -16,6 +16,7 @@ use App\Models\IssuePhoto;
 use App\Models\Comment;
 use App\Models\Reply;
 use App\Models\Facility;
+use App\Models\BuildingFacility;
 use App\Models\Timing;
 use App\Models\Booking;
 use App\Models\Visitor;
@@ -853,8 +854,9 @@ class CustomerController extends Controller
     public function get_facilities(Request $request)
     {
         $flat = Auth::user()->flat;
-
-        $facilities = Facility::where('building_id', $flat->building_id)->where('status','Active')->get();
+        $building = $flat->building;
+        $facilities = $building->facilities;
+        
         return response()->json([
                 'facilities' => $facilities
         ],200);
@@ -864,7 +866,7 @@ class CustomerController extends Controller
 {
     $rules = [
         'date' => 'required|date',
-        'facility_id' => 'required|exists:facilities,id',
+        'facility_id' => 'required|exists:building_facilities,id',
     ];
     $validation = \Validator::make($request->all(), $rules);
 
@@ -880,7 +882,7 @@ class CustomerController extends Controller
     $today = Carbon::today(); // Get today's date
 
     // Get facility details
-    $facility = Facility::find($facility_id);
+    $facility = BuildingFacility::find($facility_id);
     if (!$facility) {
         return response()->json(['status' => 'error', 'error' => 'Facility not found'], 404);
     }
@@ -956,7 +958,7 @@ class CustomerController extends Controller
     {
         $rules = [
             'date' => 'required|date',
-            'facility_id' => 'required|exists:facilities,id',
+            'facility_id' => 'required|exists:building_facilities,id',
             'timing_ids' => 'required|array',
             'timing_ids.*' => 'exists:timings,id',
             'members' => 'required|integer|min:1',

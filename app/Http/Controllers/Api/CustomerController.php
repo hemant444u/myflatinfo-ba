@@ -330,7 +330,7 @@ class CustomerController extends Controller
             ],422);
         }
         
-        $user = User::where('email',$request->email)->where('role','user')->first();
+        $user = User::where('email',$request->email)->first();
         
         if($user && $user->status == 'Active'){
             if (Hash::check($request->password, $user->password)) {

@@ -1,13 +1,9 @@
 <?php
 
 $secret = 'myflatinfo-ba'; // Your GitHub webhook secret
-
 $signature = $_SERVER['HTTP_X_HUB_SIGNATURE_256'] ?? '';
 $payload = file_get_contents('php://input');
-
-// Validate signature
 $hash = 'sha256=' . hash_hmac('sha256', $payload, $secret);
-
 $logPath = __DIR__ . '/deploy.log';
 
 if (!hash_equals($hash, $signature)) {
@@ -16,12 +12,16 @@ if (!hash_equals($hash, $signature)) {
     exit('Invalid signature');
 }
 
-// Run git pull
-$cmd = 'cd /var/www/html/myflatinfo-ba && sudo -u www-data git pull origin main';
+// Run git commands
+$cmd = <<<CMD
+cd /var/www/html/myflatinfo-ba && \
+sudo -u www-data git reset --hard HEAD && \
+sudo -u www-data git clean -fd && \
+sudo -u www-data git pull origin main
+CMD;
 
 $output = shell_exec($cmd);
 
-// Log output
 file_put_contents($logPath, "[".date('Y-m-d H:i:s')."] Webhook triggered\nCMD: $cmd\nOutput:\n$output\n\n", FILE_APPEND);
 
 http_response_code(200);

@@ -1,6 +1,7 @@
 /node_modules
 /storage
-/vendor/*
+/vendor
+/public
 /bootstrap
 composer.json
 composer.lock

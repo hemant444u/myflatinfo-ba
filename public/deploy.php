@@ -16,7 +16,6 @@ if (!hash_equals($hash, $signature)) {
 $cmd = <<<CMD
 cd /var/www/html/myflatinfo-ba && \
 git reset --hard HEAD && \
-git clean -fd && \
 git pull origin main
 CMD;
 

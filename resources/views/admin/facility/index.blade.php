@@ -77,7 +77,7 @@
                     <td>{{$facility->pivot->cancellation_value}}</td>
                     <td>{{$facility->pivot->status}}</td>
                     <td>
-                      <a href="{{route('buildiing-facility.show',$facility->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
+                      <a href="{{route('building-facility.show',$facility->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$facility->pivot->id}}" data-name="{{$facility->name}}" data-cancellation_type="{{$facility->pivot->cancellation_type}}"
                       data-max_booking="{{$facility->pivot->max_booking}}" data-per_user_max_booking="{{$facility->pivot->per_user_max_booking}}" data-status="{{$facility->pivot->status}}" data-price="{{$facility->pivot->price}}" 
                       data-cancellation_value="{{$facility->pivot->cancellation_value}}"><i class="fa fa-edit"></i></button>

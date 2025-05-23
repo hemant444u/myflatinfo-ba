@@ -1,24 +1,27 @@
 <?php
 
-$secret = 'myflatinfo-ba'; // Replace this with your actual GitHub webhook secret
+$secret = 'myflatinfo-ba'; // Your GitHub webhook secret
 
 $signature = $_SERVER['HTTP_X_HUB_SIGNATURE_256'] ?? '';
 $payload = file_get_contents('php://input');
 
-// Verify signature
+// Validate signature
 $hash = 'sha256=' . hash_hmac('sha256', $payload, $secret);
 
+$logPath = __DIR__ . '/deploy.log';
+
 if (!hash_equals($hash, $signature)) {
+    file_put_contents($logPath, "[".date('Y-m-d H:i:s')."] Invalid signature\n", FILE_APPEND);
     http_response_code(403);
-    file_put_contents(__DIR__ . '/deploy.log', "Invalid signature - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
     exit('Invalid signature');
 }
 
-// Save the payload log (optional)
-file_put_contents(__DIR__ . '/deploy-payload.json', $payload);
+// Run git pull
+$cmd = 'cd /var/www/html/myflatinfo-ba && sudo -u www-data git pull origin main';
+$output = shell_exec($cmd);
 
-// Run auto-pull
-exec('../git-autopull.sh >> ../deploy.log 2>&1 &');
+// Log output
+file_put_contents($logPath, "[".date('Y-m-d H:i:s')."] Webhook triggered:\n$output\n", FILE_APPEND);
 
 http_response_code(200);
-echo "Pull triggered securely.";
+echo "Deployed successfully";

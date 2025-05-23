@@ -72,16 +72,19 @@ class EssentialController extends Controller
         
         foreach($user->building->flats as $flat)
         {
-            $essential_payment = new EssentialPayment();
-            $essential_payment->essential_id = $essential->id;
-            $essential_payment->building_id = $essential->building_id;
-            $essential_payment->flat_id = $flat->id;
-            $essential_payment->user_id = $flat->tanent_id;
-            $essential_payment->paid_amount = 0;
-            $essential_payment->dues_amount = $essential->amount;
-            $essential_payment->type = 'Created';
-            $essential_payment->status = 'Unpaid';
-            $essential_payment->save();
+            if($flat->owner_id > 0){
+
+                $essential_payment = new EssentialPayment();
+                $essential_payment->essential_id = $essential->id;
+                $essential_payment->building_id = $essential->building_id;
+                $essential_payment->flat_id = $flat->id;
+                $essential_payment->user_id = $flat->owner_id;
+                $essential_payment->paid_amount = 0;
+                $essential_payment->dues_amount = $essential->amount;
+                $essential_payment->type = 'Created';
+                $essential_payment->status = 'Unpaid';
+                $essential_payment->save();
+            }
         }
     
         return redirect()->back()->with('success', $msg);

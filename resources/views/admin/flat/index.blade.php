@@ -155,7 +155,7 @@
           </div>
           <div class="form-group">
             <label for="phone" class="col-form-label">Flat Area:</label>
-            <input type="text" name="area" class="form-control" id="area" placeholder="Flat Area" required />
+            <input type="number" name="area" class="form-control" id="area" placeholder="Flat Area" required />
           </div>
           <div class="form-group">
             <label for="phone" class="col-form-label">Corpus Fund:</label>

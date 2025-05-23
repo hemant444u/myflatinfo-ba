@@ -154,7 +154,7 @@
             <input type="text" name="name" class="form-control" id="name" placeholder="Flat Name or No" required />
           </div>
           <div class="form-group">
-            <label for="phone" class="col-form-label">Flat Area:</label>
+            <label for="phone" class="col-form-label">Flat Area:In sqft</label>
             <input type="number" name="area" class="form-control" id="area" placeholder="Flat Area" required />
           </div>
           <div class="form-group">

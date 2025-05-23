@@ -43,7 +43,7 @@
 
             <div class="card">
               <div class="card-header">
-                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Facility</button>
+                <!-- <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Facility</button> -->
               </div>
               <!-- /.card-header -->
               <div class="card-body">

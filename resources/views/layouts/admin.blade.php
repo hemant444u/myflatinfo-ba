@@ -212,7 +212,7 @@
           <li class="nav-item">
             <a href="{{url('/dashboard')}}" class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-bar-chart"></i>
-              <p>Dashboard</p>
+              <p>Dashboards</p>
             </a>
           </li>
           <li class="nav-item">

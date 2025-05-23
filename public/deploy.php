@@ -15,9 +15,9 @@ if (!hash_equals($hash, $signature)) {
 // Run git commands
 $cmd = <<<CMD
 cd /var/www/html/myflatinfo-ba && \
-sudo -u www-data git reset --hard HEAD && \
-sudo -u www-data git clean -fd && \
-sudo -u www-data git pull origin main
+git reset --hard HEAD && \
+git clean -fd && \
+git pull origin main
 CMD;
 
 $output = shell_exec($cmd);

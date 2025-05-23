@@ -352,7 +352,7 @@
           </div>
           <div class="form-group">
             <label for="phone" class="col-form-label">Paid Amount:</label>
-            <input type="text" name="amount" class="form-control" id="amount2" placeholder="Amount" value="" disabled required />
+            <input type="text" name="amount" class="form-control" id="amount2" placeholder="Amount" value="" required />
           </div>
           
           <div class="form-group">

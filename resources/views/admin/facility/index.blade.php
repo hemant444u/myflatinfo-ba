@@ -219,7 +219,7 @@
     });
 
     $(document).on('click','#delete-button',function(){
-      var url = "{{route('facility.destroy','')}}";
+      var url = "{{route('building-facility.destroy','')}}";
       $.ajax({
         url : url + '/' + id,
         type: "DELETE",

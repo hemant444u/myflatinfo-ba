@@ -17,7 +17,8 @@ if (!hash_equals($hash, $signature)) {
 }
 
 // Run git pull
-$cmd = 'cd /var/www/html/myflatinfo-ba && www-data git pull origin main';
+$cmd = 'cd /var/www/html/myflatinfo-ba && sudo -u www-data git pull origin main';
+
 $output = shell_exec($cmd);
 
 // Log output

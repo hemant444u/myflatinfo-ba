@@ -17,11 +17,11 @@ if (!hash_equals($hash, $signature)) {
 }
 
 // Run git pull
-$cmd = 'cd /var/www/html/myflatinfo-ba && sudo -u www-data git pull origin main';
+$cmd = 'cd /var/www/html/myflatinfo-ba && www-data git pull origin main';
 $output = shell_exec($cmd);
 
 // Log output
-file_put_contents($logPath, "[".date('Y-m-d H:i:s')."] Webhook triggered:\n$output\n", FILE_APPEND);
+file_put_contents($logPath, "[".date('Y-m-d H:i:s')."] Webhook triggered\nCMD: $cmd\nOutput:\n$output\n\n", FILE_APPEND);
 
 http_response_code(200);
 echo "Deployed successfully";

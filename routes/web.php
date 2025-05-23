@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\BlockController;
 use App\Http\Controllers\Admin\FlatController;
 use App\Http\Controllers\Admin\IssueController;
-use App\Http\Controllers\Admin\FacilityController;
+use App\Http\Controllers\Admin\BuildingFacilityController;
 use App\Http\Controllers\Admin\TimingController;
 use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\VehicleController;
@@ -96,7 +96,8 @@ Route::middleware('admin')->group(function () {
         Route::resource('/flat', FlatController::class);
         Route::post('/update-flat-status',[FlatController::class, 'update_flat_status']);
         Route::get('/get-flats/{blockId}',[FlatController::class, 'getFlats']);
-        
+        Route::post('/update-corpus-fund',[FlatController::class, 'update_corpus_fund']);
+
         Route::resource('/event', EventController::class);
         Route::post('/update-event-status',[EventController::class, 'update_event_status']);
         Route::resource('/payment', PaymentController::class);
@@ -109,7 +110,7 @@ Route::middleware('admin')->group(function () {
         Route::post('add-comment', [CommentController::class, 'addComment']);
         Route::post('add-reply', [CommentController::class, 'addReply']);
 
-        Route::resource('/facility', FacilityController::class);
+        Route::resource('/building-facility', BuildingFacilityController::class);
         Route::resource('/timing', TimingController::class);
         Route::resource('/visitor', VisitorController::class);
         Route::resource('/vehicles', VehicleController::class);

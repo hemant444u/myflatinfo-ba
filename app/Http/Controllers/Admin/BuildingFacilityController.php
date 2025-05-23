@@ -11,7 +11,7 @@ use \Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class FacilityController extends Controller
+class BuildingFacilityController extends Controller
 {
     public function __construct()
     {

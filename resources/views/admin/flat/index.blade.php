@@ -91,11 +91,15 @@
                     <td>{{$flat->living_status}}</td>
                     <td>
                       <a href="{{route('flat.show',$flat->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
-                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$flat->id}}" data-name="{{$flat->name}}" data-status="{{$flat->status}}" data-sold_out="{{$flat->sold_out}}" 
+                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$flat->id}}" data-name="{{$flat->name}}" data-status="{{$flat->status}}" data-sold_out="{{$flat->sold_out}}" 
                             data-owner_name="{{$flat->owner ? $flat->owner->name : ''}}" data-tanent_name="{{$flat->tanent ? $flat->tanent->name : ''}}" data-owner_id="{{$flat->owner_id}}" data-tanent_id="{{$flat->tanent_id}}"
                             data-area="{{$flat->area}}" data-corpus_fund="{{$flat->corpus_fund}}" data-building_id="{{$flat->building_id}}" data-block_id="{{$flat->block_id}}" data-living_status="{{$flat->living_status}}" 
                              data-owner_email="{{$flat->owner ? $flat->owner->email : ''}}" data-tanent_email="{{$flat->tanent ? $flat->tanent->email : ''}}"><i class="fa fa-edit"></i></button>
-                            @if($flat->deleted_at)
+                      @if($flat->owner_id >= 1)
+                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#corpusModal" data-id="{{$flat->id}}" data-corpus-fund="{{$flat->corpus_fund}}" data-is_corpus_paid="{{$flat->is_corpus_paid}}" 
+                      data-corpus_paid_on="{{$flat->corpus_paid_on}}" data-bill_no="{{$flat->bill_no}}"><i class="fa fa-money"></i></button>
+                      @endif
+                          @if($flat->deleted_at)
                           <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                           @else
                           <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->id}}" data-action="delete"><i class="fa fa-trash"></i></button>
@@ -212,6 +216,51 @@
           <input type="hidden" name="id" id="edit-id">
           <input type="hidden" name="owner_id" id="owner_id" value="">
           <input type="hidden" name="tanent_id" id="tanent_id" value="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="save-button">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- corpus Modal -->
+
+<div class="modal fade" id="corpusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Corpus Fund</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{url('update-corpus-fund')}}" method="post" class="add-form">
+        @csrf
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="phone" class="col-form-label">Corpus Amount:</label>
+            <input type="text" name="corpus_fund" class="form-control" id="corpus_fund2" placeholder="Corpus Fund" required />
+          </div>
+          <div class="form-group">
+            <label for="phone" class="col-form-label">Payment Status:</label>
+            <select name="is_corpus_paid" class="form-control" id="is_corpus_paid">
+              <option value="Yes">Paid</option>
+              <option value="No">Unpaid</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="phone" class="col-form-label">Paid On:</label>
+            <input type="date" name="corpus_paid_on" class="form-control" id="corpus_paid_on" placeholder="corpus_paid_on">
+          </div>
+          <div class="form-group">
+            <label for="bill_no" class="col-form-label">Bill Number:</label>
+            <input type="text" name="bill_no" class="form-control" id="bill_no" disabled>
+          </div>
+          <input type="hidden" name="id" id="edit-id2">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -490,6 +539,18 @@
           $('#tanent_name').val('');
         }
       });
+    });
+
+    $('#corpusModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var edit_id = button.data('id');
+      $('#edit-id2').val(edit_id);
+      $('#corpus_fund2').val(button.data('corpus-fund'));
+      $('#is_corpus_paid').val(button.data('is_corpus_paid'));
+      $('#corpus_paid_on').val(button.data('corpus_paid_on'));
+      $('#bill_no').val(button.data('bill_no'));
+      $('.modal-title').text('Corpus Fund');
+
     });
 
   });

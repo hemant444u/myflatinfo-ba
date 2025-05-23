@@ -36,11 +36,6 @@ class BuildingFacility extends Model
     {
         return $this->hasMany('App\Models\Booking')->withTrashed();
     }
-
-    public function buildings()
-    {
-        return $this->belongsToMany(Building::class, 'building_facilities', 'facility_id', 'building_id');
-    }
     
     
 }

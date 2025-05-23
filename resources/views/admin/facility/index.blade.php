@@ -81,11 +81,11 @@
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$facility->pivot->id}}" data-name="{{$facility->name}}" data-cancellation_type="{{$facility->pivot->cancellation_type}}"
                       data-max_booking="{{$facility->pivot->max_booking}}" data-per_user_max_booking="{{$facility->pivot->per_user_max_booking}}" data-status="{{$facility->pivot->status}}" data-price="{{$facility->pivot->price}}" 
                       data-cancellation_value="{{$facility->pivot->cancellation_value}}"><i class="fa fa-edit"></i></button>
-                      @if($facility->deleted_at)
+                      <!-- @if($facility->deleted_at)
                       <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$facility->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                       @else
                       <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$facility->id}}" data-action="delete"><i class="fa fa-trash"></i></button>
-                      @endif
+                      @endif -->
                     </td>
 
                   </tr>

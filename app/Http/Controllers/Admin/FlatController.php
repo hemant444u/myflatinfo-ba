@@ -8,6 +8,7 @@ use App\Models\Block;
 use App\Models\Building;
 use App\Models\Flat;
 use \Auth;
+use Illuminate\Support\Str;
 
 class FlatController extends Controller
 {
@@ -129,5 +130,39 @@ class FlatController extends Controller
     {
         $flats = Flat::where('block_id', $blockId)->get();
         return response()->json(['success' => true, 'flats' => $flats]);
+    }
+
+    public function update_corpus_fund(Request $request)
+    {
+        $rules = [
+            'id' => 'required|exists:flats,id',
+            'corpus_fund' => 'required',
+            'is_corpus_paid' => 'required',
+            'corpus_paid_on' => 'nullable',
+        ];
+    
+        $msg = 'Corpus fund Added';
+        $flat = Flat::withTrashed()->find($request->id);
+    
+        $validation = \Validator::make($request->all(), $rules);
+    
+        if ($validation->fails()) {
+            return redirect()->back()->with('error', $validation->errors()->first());
+        }
+
+        $flat->corpus_fund = $request->corpus_fund;
+        $flat->is_corpus_paid = $request->is_corpus_paid;
+        $flat->corpus_paid_on = $request->corpus_paid_on;
+        if($flat->bill_no == Null || $flat->bill_no == ''){
+            $flat->bill_no = Str::random(16);
+        }
+        if($request->is_corpus_paid == 'No')
+        {
+            $flat->corpus_paid_on = NULL;
+            $flat->bill_no = Null;
+        }
+        $flat->save();
+        
+        return redirect()->back()->with('success', $msg);
     }
 }

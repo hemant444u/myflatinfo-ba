@@ -132,7 +132,7 @@ class CustomerController extends Controller
         $user->status = 'Pending';
         $user->otp = Hash::make($otp);
         $user->otp_status = 'Sent';
-        $user->referal_code = 'TRT'.rand(100000,999999);
+        $user->referal_code = 'MFIB'.rand(100000,999999);
         $user->save();
         
         //Send email with OTP
@@ -1389,10 +1389,50 @@ class CustomerController extends Controller
         }
         $user = Auth::User();
         $flat = $user->flat;
+        $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
+            // ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->where('status', 'Unpaid')
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $total_payment = 0;
+
+        foreach ($maintenance_payments as $payment) {
+            $maintenance = $payment->maintenance;
+            $late_fine = 0;
+
+            if ($maintenance && $maintenance->due_date < now()) {
+                $late_days = now()->diffInDays(Carbon::parse($maintenance->due_date));
+
+                switch ($maintenance->late_fine_type) {
+                    case 'Daily':
+                        $late_fine = $late_days * $maintenance->late_fine_value;
+                        break;
+                    case 'Fixed':
+                        $late_fine = $maintenance->late_fine_value;
+                        break;
+                    case 'Percentage':
+                        $late_fine = ($payment->dues_amount * $maintenance->late_fine_value) / 100;
+                        break;
+                }
+            }
+
+            $payment->late_fine = $late_fine;
+            // $payment->total_amount = $maintenance->amount + $late_fine;
+            $total = $payment->dues_amount + $late_fine;
+            $payment->save();
+            $payment->gst = $total * 18 / 100;
+            $last_payment = 
+            $total_payment += $total;
+        }
+
+        $gst = $total_payment * 0.18;
+        $grand_total = $total_payment + $gst;
+
         $maintenance_payment = MaintenancePayment::find($request->maintenance_payment_id);
         $item_name = 'Maintenance Payment';
         $item_number = $maintenance_payment->id;
-        $item_amount = $maintenance_payment->dues_amount;
+        $item_amount = $grand_total;
 
         $orderData = [
             'receipt'         => (string) $item_number,
@@ -1531,11 +1571,24 @@ class CustomerController extends Controller
             
             $maintenance_payment = MaintenancePayment::find($order->model_id);
             $maintenance_payment->paid_amount = $order->amount;
-            $maintenance_payment->dues_amount = $maintenance_payment->maintenance->amount - $order->amount;
+            $maintenance_payment->dues_amount = 0;
             $maintenance_payment->type = 'Razorpay';
             $maintenance_payment->status = 'Paid';
             $maintenance_payment->save();
+
+            $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
+            // ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->where('status', 'Unpaid')
+            ->orderBy('id', 'desc')
+            ->get();
             
+            foreach($maintenance_payments as $maintenance_payment){
+                $maintenance_payment->paid_amount = $order->amount;
+                $maintenance_payment->dues_amount = 0;
+                $maintenance_payment->type = 'Razorpay';
+                $maintenance_payment->status = 'Paid';
+                $maintenance_payment->save();
+            }
             
             return response()->json([
                     'message' => 'Payment completed! You can now download or view your reciept'

@@ -2591,7 +2591,7 @@ class CustomerController extends Controller
         }
         if($visitor->status == 'Pending'){
             return response()->json([
-                'error' => 'Visitor journey is not started'
+                'error' => 'Yet visitor journey is not started'
             ], 422);
         }
         $visitor->status = 'Completed';

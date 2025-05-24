@@ -1315,13 +1315,55 @@ class CustomerController extends Controller
     
     public function maintenance_payments(Request $request)
     {
-        $user = Auth::User();
+        $user = Auth::user();
         $flat = $user->flat;
-        $maintenance_payments = MaintenancePayment::where('flat_id',$flat->id)->with(['maintenance','flat.owner','flat.tanent','flat.block','flat.building'])->orderBy('id','desc')->get();
+
+        $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
+            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $total_payment = 0;
+
+        foreach ($maintenance_payments as $payment) {
+            $maintenance = $payment->maintenance;
+            $late_fine = 0;
+
+            if ($maintenance && $maintenance->due_date < now()) {
+                $late_days = now()->diffInDays(Carbon\Carbon::parse($maintenance->due_date));
+
+                switch ($maintenance->late_fine_type) {
+                    case 'Daily':
+                        $late_fine = $late_days * $maintenance->late_fine_value;
+                        break;
+                    case 'Fixed':
+                        $late_fine = $maintenance->late_fine_value;
+                        break;
+                    case 'Percentage':
+                        $late_fine = ($payment->dues_amount * $maintenance->late_fine_value) / 100;
+                        break;
+                }
+            }
+
+            $payment->late_fine = $late_fine;
+            // $payment->total_amount = $maintenance->amount + $late_fine;
+            $total = $payment->dues_amount + $late_fine;
+            $payment->save();
+
+            $total_payment += $total;
+        }
+
+        $gst = $total_payment * 0.18;
+        $grand_total = $total_payment + $gst;
+
         return response()->json([
-                'maintenance_payments' => $maintenance_payments
-        ],200);
+            'maintenance_payments' => $maintenance_payments,
+            'total_payment' => $total_payment,
+            'gst' => $gst,
+            'grand_total' => $grand_total,
+        ], 200);
     }
+
     
     public function create_maintenance_payment_order(Request $request)
     {

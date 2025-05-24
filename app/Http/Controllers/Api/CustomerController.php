@@ -1638,7 +1638,7 @@ class CustomerController extends Controller
         $item_amount = $essential_payment->dues_amount;
 
         $orderData = [
-            'receipt'         => $item_number,
+            'receipt'         => (string) $item_number,
             'amount'          => $item_amount * 100, // 2000 rupees in paise
             'currency'        => 'INR',
             'payment_capture' => 1 // auto capture

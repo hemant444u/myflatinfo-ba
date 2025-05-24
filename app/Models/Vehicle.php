@@ -34,11 +34,13 @@ class Vehicle extends Model
 
     public function getPhotoAttribute($value)
     {
-        return Cache::remember("signed_url_{$value}", now()->addMinutes(10), function () use ($value) {
-            return Storage::disk('s3')->temporaryUrl($value, now()->addMinutes(10)); // Expires in 10 min
-        });
+        if($value != ''){
+            return Cache::remember("signed_url_{$value}", now()->addMinutes(10), function () use ($value) {
+                return Storage::disk('s3')->temporaryUrl($value, now()->addMinutes(10)); // Expires in 10 min
+            });
+        }
     }
-    
+
     public function getPhotoFilenameAttribute()
     {
         return $this->attributes['photo'] ?? null;

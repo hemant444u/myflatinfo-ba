@@ -94,6 +94,7 @@ class MaintenanceController extends Controller
                 $maintenance_payment->user_id = $user->id;
                 $maintenance_payment->paid_amount = 0;
                 $maintenance_payment->dues_amount = $maintenance->amount;
+                $maintenance_payment->bill_no = 'MFIB'.rand(100000,999999);
                 if($maintenance->maintenance_type == 'Areawise'){
                     if($flat->living_status == 'Vacant'){
                         $maintenance_payment->dues_amount = $flat->area * $request->vacant_amount;

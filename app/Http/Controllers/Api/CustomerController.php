@@ -1576,7 +1576,7 @@ class CustomerController extends Controller
             $maintenance_payment->status = 'Paid';
             $maintenance_payment->save();
 
-            $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
+            $maintenance_payments = MaintenancePayment::where('flat_id', $user->flat_id)
             // ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
             ->where('status', 'Unpaid')
             ->orderBy('id', 'desc')

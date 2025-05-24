@@ -14,5 +14,10 @@ class VisitorInout extends Model
     {
         return $this->belongsTo('App\Models\Visitor')->withTrashed();
     }
+
+    public function building()
+    {
+        return $this->belongsTo('App\Models\Building')->withTrashed();
+    }
     
 }

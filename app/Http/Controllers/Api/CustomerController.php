@@ -1774,7 +1774,7 @@ class CustomerController extends Controller
             
             $essential_payment = EssentialPayment::find($order->model_id);
             $essential_payment->paid_amount = $order->amount;
-            $essential_payment->dues_amount = $essential_payment->maintenance->amount - $order->amount;
+            $essential_payment->dues_amount = $essential_payment->essential->amount - $order->amount;
             $essential_payment->type = 'Razorpay';
             $essential_payment->status = 'Paid';
             $essential_payment->save();

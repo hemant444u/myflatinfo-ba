@@ -96,8 +96,6 @@
                         <th>Paid Amount</th>
                         <th>Dues Amount</th>
                         <th>Total</th>
-                        <th>Status</th>
-                        <th>Action</th>
                     </tr>
                   </tr>
                   </thead>

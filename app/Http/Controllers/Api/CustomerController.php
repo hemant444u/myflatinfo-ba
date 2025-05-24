@@ -1317,7 +1317,7 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $flat = $user->flat;
-        $maintenance_payments = MaintenancePayment::where('flat_id',$flat->id)->with(['maintenance','flat.owner','flat.tanent','flat.block','flat.building','reciept'])->orderBy('id','desc')->get();
+        $maintenance_payments = MaintenancePayment::where('flat_id',$flat->id)->with(['maintenance','flat.owner','flat.tanent','flat.block','flat.building'])->orderBy('id','desc')->get();
         return response()->json([
                 'maintenance_payments' => $maintenance_payments
         ],200);

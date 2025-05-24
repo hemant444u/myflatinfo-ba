@@ -2704,6 +2704,7 @@ class CustomerController extends Controller
     {
         $rules = [
             'name' => 'required',
+            'flat_id' => 'required|exists:flats,id',
             'photo' => 'nullable|image',
             'delivery_guy_name' => 'required',
             'delivery_guy_phone' => 'required',

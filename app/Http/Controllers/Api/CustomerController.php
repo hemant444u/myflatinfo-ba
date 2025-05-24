@@ -1325,7 +1325,7 @@ class CustomerController extends Controller
         $last_paid_date = $last_payment ? $last_payment->created_at->format('Y-m-d') : null;
 
         $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
-            // ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
             ->where('status', 'Unpaid')
             ->orderBy('id', 'desc')
             ->get();
@@ -1363,9 +1363,14 @@ class CustomerController extends Controller
 
         $gst = $total_payment * 0.18;
         $grand_total = $total_payment + $gst;
-        
+        $paid_maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
+            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->where('status', 'Paid')
+            ->orderBy('id', 'desc')
+            ->get();
         return response()->json([
             'maintenance_payments' => $maintenance_payments,
+            'paid_maintenance_payments' => $paid_maintenance_payments,
             'total_payment' => $total_payment,
             'gst' => $gst,
             'grand_total' => $grand_total,

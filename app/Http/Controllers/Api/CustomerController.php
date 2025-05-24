@@ -1320,6 +1320,7 @@ class CustomerController extends Controller
 
         $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
             ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->where('status', 'Unpaid')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -1355,7 +1356,7 @@ class CustomerController extends Controller
 
         $gst = $total_payment * 0.18;
         $grand_total = $total_payment + $gst;
-
+        
         return response()->json([
             'maintenance_payments' => $maintenance_payments,
             'total_payment' => $total_payment,

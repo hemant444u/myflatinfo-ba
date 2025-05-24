@@ -1318,8 +1318,14 @@ class CustomerController extends Controller
         $user = Auth::user();
         $flat = $user->flat;
 
+        $last_payment = MaintenancePayment::where('flat_id', $flat->id)
+            ->where('status', 'Paid')
+            ->orderBy('id', 'desc')
+            ->first();
+        $last_paid_date = $last_payment ? $last_payment->created_at->format('Y-m-d') : null;
+
         $maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
-            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            // ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
             ->where('status', 'Unpaid')
             ->orderBy('id', 'desc')
             ->get();
@@ -1350,7 +1356,8 @@ class CustomerController extends Controller
             // $payment->total_amount = $maintenance->amount + $late_fine;
             $total = $payment->dues_amount + $late_fine;
             $payment->save();
-
+            $payment->gst = $total * 18 / 100;
+            $last_payment = 
             $total_payment += $total;
         }
 
@@ -1362,6 +1369,7 @@ class CustomerController extends Controller
             'total_payment' => $total_payment,
             'gst' => $gst,
             'grand_total' => $grand_total,
+            'last_paid_date' => $last_paid_date
         ], 200);
     }
 

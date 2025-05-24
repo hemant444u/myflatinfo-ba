@@ -1330,7 +1330,7 @@ class CustomerController extends Controller
             $late_fine = 0;
 
             if ($maintenance && $maintenance->due_date < now()) {
-                $late_days = now()->diffInDays(Carbon\Carbon::parse($maintenance->due_date));
+                $late_days = now()->diffInDays(Carbon::parse($maintenance->due_date));
 
                 switch ($maintenance->late_fine_type) {
                     case 'Daily':

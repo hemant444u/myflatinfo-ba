@@ -2583,7 +2583,12 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
-        $visitor = Visitor::find($request->visitor_id);
+        $visitor = Visitor::where('id',$request->visitor_id)->where('status','!=','Completed')->first();
+        if(!$visitor){
+            return response()->json([
+                'error' => 'Visitor journey is already completed'
+            ], 422);
+        }
         $visitor->status = 'Completed';
         $visitor->save();
         

@@ -1989,8 +1989,9 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $flat = $user->flat;
+        $flat = Flat::where('id',$flat->id)->with(['block','building'])->first();
         return response()->json([
-                'flat' => [$flat]
+                'flat' => $flat,
         ],200);
     }
     

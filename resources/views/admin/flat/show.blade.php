@@ -212,7 +212,7 @@
                           <tr>
                               <th>S No</th>
                               <th>Reason</th>
-                              <th>Maintenance Fee</th>
+                              <th>Amount</th>
                               <th>Paid Amount</th>
                               <th>Dues Amount</th>
                               <th>Type</th>

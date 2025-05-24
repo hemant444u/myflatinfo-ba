@@ -32,6 +32,11 @@ class FundController extends Controller
         $building = Auth::User()->building;
         return view('admin.fund.maintenance_funds',compact('building'));
     }
+    public function get_essential_funds()
+    {
+        $building = Auth::User()->building;
+        return view('admin.fund.essential_funds',compact('building'));
+    }
     public function get_event_funds()
     {
         $building = Auth::User()->building;

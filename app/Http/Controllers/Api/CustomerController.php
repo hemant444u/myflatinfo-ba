@@ -1994,6 +1994,16 @@ class CustomerController extends Controller
                 'flat' => $flat,
         ],200);
     }
+
+    public function society_fund(Request $request)
+    {
+        $user = Auth::User();
+        $flat = $user->flat;
+        $building = $flat->building;
+        return response()->json([
+                'flat' => $flat,
+        ],200);
+    }
     
     public function even_history(Request $request)
     {

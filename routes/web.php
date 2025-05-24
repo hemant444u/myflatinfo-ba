@@ -125,6 +125,7 @@ Route::middleware('admin')->group(function () {
         Route::post('/store-essential-payment',[EssentialController::class, 'store_essential_payment']);
         Route::get('/society-fund/expenses',[ExpenseController::class, 'index']);
         Route::get('/society-fund/maintenance',[FundController::class, 'get_maintenance_funds']);
+        Route::get('/society-fund/essential',[FundController::class, 'get_essential_funds']);
         Route::get('/society-fund/event',[FundController::class, 'get_event_funds']);
         Route::get('/society-fund/corpus',[FundController::class, 'get_corpus_funds']);
         Route::get('/society-fund/reciepts',[FundController::class, 'get_reciepts']);

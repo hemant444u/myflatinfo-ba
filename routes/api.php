@@ -79,9 +79,11 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('create-event-payment-order',[CustomerController::class,'create_event_payment_order']);
             Route::post('verify-event-payment-signature',[CustomerController::class,'verify_event_payment_signature']);
             
-            Route::post('corpus-fund',[CustomerController::class,'corpus_fund']);
             Route::post('essential-history',[CustomerController::class,'essential_history']);
             Route::post('event-history',[CustomerController::class,'even_history']);
+
+            Route::post('corpus-fund',[CustomerController::class,'corpus_fund']);
+            Route::post('society-fund',[CustomerController::class,'society_fund']);
             
         });
         //Route::post('create-razorpay-order', [CustomerController::class,'create_razorpay_order']);

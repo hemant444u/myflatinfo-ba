@@ -43,6 +43,9 @@
                     <a href="#" class="" onclick="get_maintenance_funds()">Maintenance Funds</a>
                   </li>
                   <li class="list-group-item">
+                    <a href="#" class="" onclick="get_essentail_funds()">Event Funds</a>
+                  </li>
+                  <li class="list-group-item">
                     <a href="#" class="" onclick="get_event_funds()">Event Funds</a>
                   </li>
                   <li class="list-group-item">
@@ -108,6 +111,17 @@
         function get_maintenance_funds(){
             $.ajax({
                 url : "{{url('get-maintenance-funds')}}",
+                    type: "post",
+                    data : {'_token':"{{ csrf_token() }}"},
+                    success: function(data)
+                    {
+                      $('.loaded-content').html(data);
+                    }
+                });
+        }
+        function get_essential_funds(){
+            $.ajax({
+                url : "{{url('get-essential-funds')}}",
                     type: "post",
                     data : {'_token':"{{ csrf_token() }}"},
                     success: function(data)

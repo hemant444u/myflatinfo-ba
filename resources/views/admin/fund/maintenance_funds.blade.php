@@ -56,6 +56,9 @@
                     <a href="{{url('society-fund/maintenance')}}" class="">Maintenance Funds</a>
                   </li>
                   <li class="list-group-item">
+                    <a href="{{url('society-fund/essential')}}" class="" style="color:black">Essential Funds</a>
+                  </li>
+                  <li class="list-group-item">
                     <a href="{{url('society-fund/event')}}" class="" style="color:black">Event Funds</a>
                   </li>
                   <li class="list-group-item">

@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-<link rel="stylesheet" href="{{asset('public/admin/plugins/summernote/summernote-bs4.min.css')}}">
+
 @section('title')
-    Event List
+    Essential List
 @endsection
 
 @section('content')
@@ -23,12 +23,12 @@
                 @endif
             </div>
           <div class="col-sm-6">
-            <h1>Event List</h1>
+            <h1>Essential List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Events</li>
+              <li class="breadcrumb-item active">Essential</li>
             </ol>
           </div>
         </div>
@@ -39,6 +39,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+            
           <div class="col-md-3">
 
             <!-- Profile Image -->
@@ -55,10 +56,10 @@
                     <a href="{{url('society-fund/maintenance')}}" class="" style="color:black">Maintenance Funds</a>
                   </li>
                   <li class="list-group-item">
-                    <a href="{{url('society-fund/essential')}}" class="" style="color:black">Essential Funds</a>
+                    <a href="{{url('society-fund/essential')}}" class="">Essential Funds</a>
                   </li>
                   <li class="list-group-item">
-                    <a href="{{url('society-fund/event')}}" class="">Event Funds</a>
+                    <a href="{{url('society-fund/event')}}" class="" style="color:black">Event Funds</a>
                   </li>
                   <li class="list-group-item">
                     <a href="{{url('society-fund/corpus')}}" class="" style="color:black">Corpus Funds</a>
@@ -80,7 +81,7 @@
 
             <div class="card">
               <div class="card-header">
-                <!--<button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Event</button>-->
+                <!--<button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Maintenance</button>-->
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -88,28 +89,30 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>S No</th>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Desc</th>
-                    <th>From Time</th>
-                    <th>To Time</th>
-                    <th>Total Paid</th>
+                    <tr>
+                        <th>S No</th>
+                        <th>Reason</th>
+                        <th>Amount</th>
+                        <th>Paid Amount</th>
+                        <th>Dues Amount</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
                   </tr>
                   </thead>
                   <tbody>
                     
                     <?php $i = 0; ?>
-                  @forelse($building->events as $event)
+                  @forelse($building->essentials as $essential)
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td><img src="{{$event->image}}" style="width:40px"></td>
-                    <td>{{$event->name}}</td>
-                    <td>{{$event->desc}}</td>
-                    <td>{{$event->from_time}}</td>
-                    <td>{{$event->to_time}}</td>
-                    <td>{{$event->payments->sum('amount')}}</td>
+                    <td>{{$essential->reason}}</td>
+                    <td>{{$essential->amount}}</td>
+                    <td>{{ optional($essential->payments)->sum('paid_amount') ?? 0 }}</td>
+                    <td>{{ optional($essential->payments)->sum('dues_amount') ?? 0 }}</td>
+                    <td>{{ optional($essential->payments)->sum('paid_amount') ?? 0 + optional($essential->payments)->sum('dues_amount') ?? 0 }}</td>
 
                   </tr>
                   @empty
@@ -137,12 +140,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add New Maintenance</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{route('event.store')}}" method="post" class="add-form" enctype="multipart/form-data">
+      <form action="{{route('maintenance.store')}}" method="post" class="add-form" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
           <div class="error"></div>
@@ -153,29 +156,41 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="name" class="col-form-label">Name:</label>
-            <input type="text" name="name" id="name" class="form-control" min="3" max="30" placeholder="Name" minlength="4" required>
+            <label for="code" class="col-form-label">From Date:</label>
+            <input type="date" name="from_date" class="form-control" id="from_date" placeholder="From Date" required>
           </div>
           <div class="form-group">
-            <label for="name" class="col-form-label">Desc:</label>
-            <textarea name="desc" id="desc" class="form-control" required></textarea>
+            <label for="code" class="col-form-label">To Date:</label>
+            <input type="date" name="to_date" class="form-control" id="to_date" placeholder="To Date" required>
           </div>
           <div class="form-group">
-            <label for="name" class="col-form-label">Image: <img src="" id="image2" style="width:40px"></label>
-            <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
+            <label for="code" class="col-form-label">Occupied Maintenance Fee:</label>
+            <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount" required>
           </div>
           <div class="form-group">
-            <label for="code" class="col-form-label">From Time:</label>
-            <input type="datetime-local" name="from_time" class="form-control" id="from_time" placeholder="From Time" required>
+            <label for="code" class="col-form-label">Vacant Maintenance Fee:</label>
+            <input type="number" name="vacant_amount" class="form-control" id="vacant_amount" placeholder="Amount" required>
           </div>
           <div class="form-group">
-            <label for="code" class="col-form-label">To Time:</label>
-            <input type="datetime-local" name="to_time" class="form-control" id="to_time" placeholder="To Time" required>
+            <label for="code" class="col-form-label">Due Date:</label>
+            <input type="date" name="due_date" class="form-control" id="due_date" placeholder="Due Date" required>
           </div>
           <div class="form-group">
-            <label for="name" class="col-form-label">Status:</label>
+            <label for="code" class="col-form-label">Late Fine Type:</label>
+            <select name="late_fine_type" id="late_fine_type" class="form-control" required>
+                <option value="Percentage">Percentage</option>
+                <option value="Daily">Daily</option>
+                <option value="Fixed">Fixed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="code" class="col-form-label">Late Fine Value:</label>
+            <input type="number" name="late_fine_value" class="form-control" id="late_fine_value" placeholder="Late Fine Value" required>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Payment Status:</label>
             <select name="status" id="status" class="form-control" required>
-                <option value="Pending">Pending</option>
+                <option value="Inactive">Inactive</option>
                 <option value="Active">Active</option>
             </select>
           </div>
@@ -240,7 +255,7 @@
     });
 
     $(document).on('click','#delete-button',function(){
-      var url = "{{route('event.destroy','')}}";
+      var url = "{{route('maintenance.destroy','')}}";
       $.ajax({
         url : url + '/' + id,
         type: "DELETE",
@@ -256,18 +271,17 @@
       var button = $(event.relatedTarget);
       var edit_id = button.data('id');
       $('#edit-id').val(button.data('id'));
-      $('#name').val(button.data('name'));
-      $('#desc').val(button.data('desc'));
-      $('#from_time').val(button.data('from_time'));
-      $('#to_time').val(button.data('to_time'));
+      $('#from_date').val(button.data('from_date'));
+      $('#to_date').val(button.data('to_date'));
+      $('#amount').val(button.data('amount'));
+      $('#due_date').val(button.data('due_date'));
+      $('#late_fine_type').val(button.data('late_fine_type'));
+      $('#late_fine_value').val(button.data('late_fine_value'));
       $('#status').val(button.data('status'));
-      $('#building_id').val(button.data('building_id'));
-      $('#image2').attr('src',button.data('image'));
-      $('.modal-title').text('Add New Event');
-      $('#image').attr('required',true);
+    //   $('#building_id').val(button.data('building_id'));
+      $('.modal-title').text('Add New Maintenance');
       if(edit_id){
-          $('#image').attr('required',false);
-          $('.modal-title').text('Update Event');
+          $('.modal-title').text('Update Maintenance');
       }
     });
     
@@ -275,7 +289,7 @@
         $('.status').on('switchChange.bootstrapSwitch',function () {
             var id = $(this).data('id');
             $.ajax({
-                url : "{{url('update-building-status')}}",
+                url : "{{url('update-maintenance-status')}}",
                 type: "post",
                 data : {'_token':token,'id':id,},
                 success: function(data)
@@ -286,16 +300,6 @@
         });
 
   });
-</script>
-
-<script src="{{asset('public/admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
-
-<script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote()
-
-  })
 </script>
 @endsection
 

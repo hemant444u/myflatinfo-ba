@@ -2004,11 +2004,11 @@ class CustomerController extends Controller
         $flat = $user->flat;
         $building = $flat->building;
         $transactions = Transaction::where('building_id',$building->id)->get();
-        if($request->model){
+        if($request->model && $request->model_id == ''){
             $transactions = Transaction::where('building_id',$building->id)
             ->where('model',$request->model)->get();
         }
-        if($request->model && $request->model_id){
+        if($request->model && $request->model_id > 0){
             $transactions = Transaction::where('building_id',$building->id)
             ->where('model',$request->model)->where('model_id',$request->model_id)->get();
         }

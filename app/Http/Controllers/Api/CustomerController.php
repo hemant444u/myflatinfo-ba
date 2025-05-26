@@ -2016,6 +2016,19 @@ class CustomerController extends Controller
                 'inbank' => $inbank,
         ],200);
     }
+
+    public function get_model_data(Request $request)
+    {
+        $user = Auth::User();
+        $flat = $user->flat;
+        $model = $request->model;
+        if($model == 'Event'){
+            $data = Event::select(['id','name'])->get();
+        }
+        return response()->json([
+                'data' => $data
+        ],200);
+    }
     
     public function even_history(Request $request)
     {

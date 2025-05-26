@@ -84,6 +84,7 @@ use App\Http\Controllers\TruthScreenController;
 
             Route::post('corpus-fund',[CustomerController::class,'corpus_fund']);
             Route::post('society-fund',[CustomerController::class,'society_fund']);
+            Route::post('get-model-data',[CustomerController::class,'get_model_data']);
             
         });
         //Route::post('create-razorpay-order', [CustomerController::class,'create_razorpay_order']);

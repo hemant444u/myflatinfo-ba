@@ -1519,7 +1519,7 @@ class CustomerController extends Controller
             ], 422);
         }
         $user = Auth::User();
-        $order = Order::where('order_id',$request->razorpay_order_id)->first();
+        $order = Order::where('order_id',$request->razorpay_order_id)->where('status','Created')->first();
         if(!$order){
             return response()->json([
                     'error' => 'Order id not found',
@@ -1718,7 +1718,7 @@ class CustomerController extends Controller
             ], 422);
         }
         $user = Auth::User();
-        $order = Order::where('order_id',$request->razorpay_order_id)->first();
+        $order = Order::where('order_id',$request->razorpay_order_id)->where('status','Created')->first();
         if(!$order){
             return response()->json([
                     'error' => 'Order id not found',

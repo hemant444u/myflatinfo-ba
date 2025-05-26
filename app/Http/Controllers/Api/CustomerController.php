@@ -2022,8 +2022,12 @@ class CustomerController extends Controller
         $user = Auth::User();
         $flat = $user->flat;
         $model = $request->model;
-        if($model == 'Event'){
-            $data = Event::select(['id','name'])->get();
+        if ($model == 'Event') {
+        $data = Event::select(['id', 'name'])->get();
+        } elseif ($model == 'Essential') {
+            $data = Essential::select(['id', DB::raw('reason as name')])->get();
+        } else {
+            $data = collect(); // Empty collection if no model matched
         }
         return response()->json([
                 'data' => $data

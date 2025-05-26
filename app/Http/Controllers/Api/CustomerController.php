@@ -2000,31 +2000,62 @@ class CustomerController extends Controller
 
     public function society_fund(Request $request)
     {
-        $user = Auth::User();
+        $user = Auth::user();
         $flat = $user->flat;
         $building = $flat->building;
-        $transactions = Transaction::where('building_id',$building->id)->get();
-        if($request->model && $request->model_id == ''){
-            $transactions = Transaction::where('building_id',$building->id)
-            ->where('model',$request->model)->get();
+
+        $transactionsQuery = Transaction::where('building_id', $building->id);
+
+        // Filter by model and model_id
+        if ($request->filled('model')) {
+            $transactionsQuery->where('model', $request->model);
+
+            if ($request->filled('model_id')) {
+                $transactionsQuery->where('model_id', $request->model_id);
+            }
         }
-        if($request->model && $request->model_id > 0){
-            $transactions = Transaction::where('building_id',$building->id)
-            ->where('model',$request->model)->where('model_id',$request->model_id)->get();
+
+        // Filter by from_date and to_date
+        if ($request->filled('from_date')) {
+            $transactionsQuery->whereDate('created_at', '>=', $request->from_date);
         }
-        
-        $total_debit = Transaction::where('building_id',$building->id)->where('type','Debit')->sum('amount');
-        $total_credit = Transaction::where('building_id',$building->id)->where('type','Credit')->sum('amount');
+
+        if ($request->filled('to_date')) {
+            $transactionsQuery->whereDate('created_at', '<=', $request->to_date);
+        }
+
+        $transactions = $transactionsQuery->get();
+
+        // Initialize totals
+        $total_debit = 0;
+        $total_credit = 0;
         $inhand = 0;
         $inbank = 0;
+
+        foreach ($transactions as $transaction) {
+            if ($transaction->type == 'debit') {
+                $total_debit += $transaction->amount;
+            } elseif ($transaction->type == 'credit') {
+                $total_credit += $transaction->amount;
+            }
+
+            // Separate logic for inhand and inbank
+            if ($transaction->order_id == null) {
+                $inhand += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
+            } elseif ($transaction->order_id > 0) {
+                $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
+            }
+        }
+
         return response()->json([
-                'transactions' => $transactions,
-                'total_debit' => $total_debit,
-                'total_credit' => $total_credit,
-                'inhand' => $inhand,
-                'inbank' => $inbank,
-        ],200);
+            'transactions' => $transactions,
+            'total_debit' => $total_debit,
+            'total_credit' => $total_credit,
+            'inhand' => $inhand,
+            'inbank' => $inbank,
+        ], 200);
     }
+
 
     public function get_model_data(Request $request)
     {

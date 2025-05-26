@@ -70,6 +70,19 @@ class ExpenseController extends Controller
             $expense->image = $filename;
         }
         $expense->save();
+
+        $transaction = new Transaction();
+        $transaction->building_id = $user->building_id;
+        $transaction->user_id = $user->id;
+        $transaction->model = 'Expense';
+        $transaction->model_id = $expense->id;
+        $transaction->type = 'Debit';
+        $transaction->payment_type = 'BA';
+        $transaction->amount = $expense->amount;
+        $transaction->reciept_no = 'EXPS'.rand(10000000,99999999);
+        $transaction->desc = $expense->reason;
+        $transaction->status = 'Success';
+        $transaction->save();
     
         return redirect()->back()->with('success',$msg);
     }

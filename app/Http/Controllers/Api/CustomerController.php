@@ -1489,8 +1489,8 @@ class CustomerController extends Controller
         $order = new Order();
         $order->user_id = $user->id;
         $order->order_id = $razorpayOrderId;
-        $order->model = 'MaintenancePayment';
-        $order->model_id = $maintenance_payment->id;
+        $order->model = 'Maintenance';
+        $order->model_id = $maintenance_payment->maintenance_id;
         $order->flat_id = $maintenance_payment->flat_id;
         $order->desc = 'Creating order for maintenance payment from '.$maintenance_payment->from_date. ' to '.$maintenance_payment->to_date;
         $order->amount = $maintenance_payment->dues_amount;
@@ -1562,6 +1562,7 @@ class CustomerController extends Controller
             $order->save();
             
             $transaction = new Transaction();
+            $transaction->building_id = $user->flat->building_id;
             $transaction->user_id = $user->id;
             $transaction->order_id = $order->order_id;
             $transaction->model = $order->model;
@@ -1687,10 +1688,10 @@ class CustomerController extends Controller
         $order = new Order();
         $order->user_id = $user->id;
         $order->order_id = $razorpayOrderId;
-        $order->model = 'EssentialPayment';
-        $order->model_id = $essential_payment->id;
+        $order->model = 'Essential';
+        $order->model_id = $essential_payment->essential_id;
         $order->flat_id = $essential_payment->flat_id;
-        $order->desc = 'Creating order for essential payment from '.$essential_payment->from_date. ' to '.$essential_payment->to_date;
+        $order->desc = 'Creating order for essential payment for '.$essential_payment->flat->name;
         $order->amount = $essential_payment->dues_amount;
         $order->status = 'Created';
         $order->save();
@@ -1760,6 +1761,7 @@ class CustomerController extends Controller
             $order->save();
             
             $transaction = new Transaction();
+            $transaction->building_id = $user->flat->building_id;
             $transaction->user_id = $user->id;
             $transaction->order_id = $order->order_id;
             $transaction->model = $order->model;
@@ -1873,9 +1875,9 @@ class CustomerController extends Controller
         $order = new Order();
         $order->user_id = $user->id;
         $order->order_id = $razorpayOrderId;
-        $order->model = 'Payment';
-        $order->model_id = $payment->id;
-        $order->flat_id = $event->id;
+        $order->model = 'Event';
+        $order->model_id = $event->id;
+        $order->flat_id = $user->flat_id;
         $order->desc = 'Creating order for event '.$event->name;
         $order->amount = $request->amount;
         $order->status = 'Created';
@@ -1946,6 +1948,7 @@ class CustomerController extends Controller
             $order->save();
             
             $transaction = new Transaction();
+            $transaction->building_id = $user->flat->building_id;
             $transaction->user_id = $user->id;
             $transaction->order_id = $order->order_id;
             $transaction->model = $order->model;
@@ -2000,8 +2003,9 @@ class CustomerController extends Controller
         $user = Auth::User();
         $flat = $user->flat;
         $building = $flat->building;
+        $transactions = Transaction::where('building_id',$building_id)->get();
         return response()->json([
-                'flat' => $flat,
+                'transactions' => $transactions,
         ],200);
     }
     
@@ -2213,6 +2217,7 @@ class CustomerController extends Controller
             // $user->save();
             
             $transaction = new Transaction();
+            $transaction->building_id = $user->flat->building_id;
             $transaction->user_id = $user->id;
             $transaction->type = 'Credit';
             $transaction->reason = $package->name;

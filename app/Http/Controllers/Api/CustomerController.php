@@ -2033,9 +2033,9 @@ class CustomerController extends Controller
         $inbank = 0;
 
         foreach ($transactions as $transaction) {
-            if ($transaction->type == 'debit') {
+            if ($transaction->type == 'Debit') {
                 $total_debit += $transaction->amount;
-            } elseif ($transaction->type == 'credit') {
+            } elseif ($transaction->type == 'Credit') {
                 $total_credit += $transaction->amount;
             }
 

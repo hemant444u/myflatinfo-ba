@@ -2003,7 +2003,7 @@ class CustomerController extends Controller
         $user = Auth::User();
         $flat = $user->flat;
         $building = $flat->building;
-        $transactions = Transaction::where('building_id',$building_id)->get();
+        $transactions = Transaction::where('building_id',$building->id)->get();
         return response()->json([
                 'transactions' => $transactions,
         ],200);

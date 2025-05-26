@@ -2004,6 +2004,15 @@ class CustomerController extends Controller
         $flat = $user->flat;
         $building = $flat->building;
         $transactions = Transaction::where('building_id',$building->id)->get();
+        if($request->model){
+            $transactions = Transaction::where('building_id',$building->id)
+            ->where('model',$request->model)->get();
+        }
+        if($request->model && $request->model_id){
+            $transactions = Transaction::where('building_id',$building->id)
+            ->where('model',$request->model)->where('model_id',$request->model_id)->get();
+        }
+        
         $total_debit = Transaction::where('building_id',$building->id)->where('type','Debit')->sum('amount');
         $total_credit = Transaction::where('building_id',$building->id)->where('type','Credit')->sum('amount');
         $inhand = 0;

@@ -2004,8 +2004,16 @@ class CustomerController extends Controller
         $flat = $user->flat;
         $building = $flat->building;
         $transactions = Transaction::where('building_id',$building->id)->get();
+        $total_debit = Transaction::where('building_id',$building->id)->where('type','Debit')->sum('amount');
+        $total_credit = Transaction::where('building_id',$building->id)->where('type','Credit')->sum('amount');
+        $inhand = 0;
+        $inbank = 0;
         return response()->json([
                 'transactions' => $transactions,
+                'total_debit' => $total_debit,
+                'total_credit' => $total_credit,
+                'inhand' => $inhand,
+                'inbank' => $inbank,
         ],200);
     }
     

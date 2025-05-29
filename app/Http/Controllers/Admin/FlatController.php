@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Block;
 use App\Models\Building;
 use App\Models\Flat;
+use App\Models\Transaction;
 use \Auth;
 use Illuminate\Support\Str;
 
@@ -164,7 +165,19 @@ class FlatController extends Controller
         $flat->save();
 
         if($flat->bill_no == Null || $flat->bill_no == ''){
-
+            $transaction = new Transaction();
+            $transaction->building_id = $flat->building_id;
+            $transaction->user_id = $flat->owner_id;
+            // $transaction->order_id = $order->order_id;
+            $transaction->model = 'CorpusFund';
+            // $transaction->model_id = $order->model_id;
+            $transaction->type = 'Credit';
+            $transaction->payment_type = 'BA';
+            $transaction->amount = $request->corpus_fund;
+            $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
+            $transaction->desc = 'Corpus Fund for '.$flat->name;
+            $transaction->status = 'Success';
+            $transaction->save();
         }
         
         return redirect()->back()->with('success', $msg);

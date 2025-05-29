@@ -496,6 +496,11 @@ class CustomerController extends Controller
                 'error' => 'This flat is Inactive'
             ], 422);
         }
+        if($flat->owner_id == $user->id){
+            $role = 'owner';
+        }else{
+            $role = 'tanent';
+        }
         if($flat->building && $flat->building->status != 'Active'){
             return response()->json([
                 'error' => 'This flat is Inactive'
@@ -511,11 +516,6 @@ class CustomerController extends Controller
         $user->save();
         
         $flat = $user->flat->with(['block','building'])->get();
-        if($flat->owner_id == $user->id){
-            $role = 'owner';
-        }else{
-            $role = 'tanent';
-        }
         
         return response()->json([
             'flat' => $flat,

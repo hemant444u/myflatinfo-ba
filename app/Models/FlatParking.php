@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FlatParking extends Model
 {
     use HasFactory;
+    protected $table = 'flat_parkings';
     
     public function flat()
     {

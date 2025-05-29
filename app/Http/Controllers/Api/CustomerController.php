@@ -332,6 +332,11 @@ class CustomerController extends Controller
         
         $user = User::where('email',$request->email)->first();
         
+        if(!$user){
+            return response()->json([
+                'error' => 'This account is not register with us'
+            ],422);
+        }
         if($user && $user->status == 'Active'){
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('MyApp')->accessToken;

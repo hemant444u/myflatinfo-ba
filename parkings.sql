@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2025 at 12:01 PM
+-- Generation Time: May 29, 2025 at 12:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -31,7 +31,7 @@ CREATE TABLE `parkings` (
   `id` int(11) NOT NULL,
   `building_id` int(11) NOT NULL,
   `block_id` int(11) NOT NULL,
-  `name` int(191) NOT NULL,
+  `name` varchar(191) NOT NULL,
   `status` varchar(191) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,

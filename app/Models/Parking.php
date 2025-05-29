@@ -20,9 +20,9 @@ class Parking extends Model
         return $this->belongsTo('App\Models\Block')->withTrashed();
     }
     
-    public function vehicles()
+    public function flats()
     {
-        return $this->hasMany('App\Models\Vehicle')->withTrashed();
+        return $this->belongsToMany('App\Models\Flat')->withTrashed();
     }
     
 }

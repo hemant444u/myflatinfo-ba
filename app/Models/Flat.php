@@ -64,5 +64,10 @@ class Flat extends Model
     {
         return $this->hasMany('App\Models\EssentialPayment')->withTrashed();
     }
+
+    public function parkings()
+    {
+        return $this->belongsToMany('App\Models\Parking')->withTrashed();
+    }
     
 }

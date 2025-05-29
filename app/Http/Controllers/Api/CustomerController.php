@@ -511,10 +511,10 @@ class CustomerController extends Controller
         $user->save();
         
         $flat = $user->flat->with(['block','building'])->get();
-        if($flat->tanent_id == $user->id){
-            $role = 'tanent';
-        }else{
+        if($flat->owner_id == $user->id){
             $role = 'owner';
+        }else{
+            $role = 'tanent';
         }
         
         return response()->json([

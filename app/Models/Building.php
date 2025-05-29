@@ -129,6 +129,11 @@ class Building extends Model
     {
         return $this->hasMany('App\Models\Role')->withTrashed();
     }
+
+    public function parkings()
+    {
+        return $this->hasMany('App\Models\Parking')->withTrashed();
+    }
     
     public function expenses()
     {

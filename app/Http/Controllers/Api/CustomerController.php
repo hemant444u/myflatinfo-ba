@@ -496,6 +496,7 @@ class CustomerController extends Controller
                 'error' => 'This flat is Inactive'
             ], 422);
         }
+        $user = Auth::User();
         if($flat->owner_id == $user->id){
             $role = 'owner';
         }else{

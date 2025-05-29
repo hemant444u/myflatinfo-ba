@@ -1319,7 +1319,7 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $flat = $user->flat;
-        $family_members = FamilyMember::where('flat_id',$flat->id)->get();
+        $family_members = FamilyMember::where('user_id',$user->id)->get();
         return response()->json([
                 'family_members' => $family_members
         ],200);

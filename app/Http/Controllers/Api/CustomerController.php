@@ -369,7 +369,7 @@ class CustomerController extends Controller
         $flat = $user->flat;
         $block = $flat->block;
         $family_members = $flat->family_members;
-        $vehicles = $flat->vehicles;
+        $vehicles = $user->vehicles;
         return response()->json([
             'user' => $user,
         ],200);

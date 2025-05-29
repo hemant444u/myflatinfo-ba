@@ -386,7 +386,7 @@ class CustomerController extends Controller
             'gender' => 'required|in:Male,Female,Other',
             'city_id' => 'required|exists:cities,id|numeric',
             'address' => 'required|string|min:4',
-            'pincode' => 'required|numeric|digits:6|',
+            // 'pincode' => 'required|numeric|digits:6|',
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -413,7 +413,7 @@ class CustomerController extends Controller
         $user->gender = $request->gender;
         $user->city_id = $request->city_id;
         $user->address = $request->address;
-        $user->pincode = $request->pincode;
+        // $user->pincode = $request->pincode;
         $user->save();
     
         return response()->json([

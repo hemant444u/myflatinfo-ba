@@ -31,8 +31,8 @@ class NoticeboardController extends Controller
     {
         $rules = [
             'building_id' => 'required|exists:buildings,id',
-            'title' => 'required',
-            'desc' => 'required',
+            'title' => 'required|max:65',
+            'desc' => 'required|max:1300',
             'from_time' => 'required',
             'to_time' => 'required',
         ];

@@ -44,8 +44,8 @@ class EventController extends Controller
     {
         $rules = [
             'building_id' => 'required|exists:buildings,id',
-            'name' => 'required',
-            'desc' => 'required',
+            'name' => 'required|max:65',
+            'desc' => 'required|200',
             'from_time' => 'required',
             'to_time' => 'required',
             'is_payment_enabled' => 'required|in:Yes,No',

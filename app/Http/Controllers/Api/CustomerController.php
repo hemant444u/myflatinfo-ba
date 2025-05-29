@@ -2501,9 +2501,9 @@ class CustomerController extends Controller
         }
         $user = Auth::User();
         if($request->ownership == 'All'){
-            $vehicles = $user->flat->vehicles;
+            $vehicles = $user->vehicles;
         }else{
-            $vehicles = $user->flat->vehicles()->where('ownership',$request->ownership)->get();
+            $vehicles = $user->vehicles()->where('ownership',$request->ownership)->get();
         }
         return response()->json([
             'vehicles' => $vehicles

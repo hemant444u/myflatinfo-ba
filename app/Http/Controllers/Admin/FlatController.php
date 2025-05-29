@@ -163,14 +163,15 @@ class FlatController extends Controller
             $flat->bill_no = Null;
         }
         $flat->save();
-
-        if($flat->bill_no == Null || $flat->bill_no == ''){
+        $transaction = Transaction::where('model','CorpusFund')->where('model_id',$flat->id)->first();
+        if(!$transaction){
             $transaction = new Transaction();
+        }
             $transaction->building_id = $flat->building_id;
             $transaction->user_id = $flat->owner_id;
             // $transaction->order_id = $order->order_id;
             $transaction->model = 'CorpusFund';
-            // $transaction->model_id = $order->model_id;
+            $transaction->model_id = $flat->id;
             $transaction->type = 'Credit';
             $transaction->payment_type = 'BA';
             $transaction->amount = $request->corpus_fund;
@@ -178,7 +179,6 @@ class FlatController extends Controller
             $transaction->desc = 'Corpus Fund for '.$flat->name;
             $transaction->status = 'Success';
             $transaction->save();
-        }
         
         return redirect()->back()->with('success', $msg);
     }

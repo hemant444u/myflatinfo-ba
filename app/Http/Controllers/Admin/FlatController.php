@@ -162,6 +162,10 @@ class FlatController extends Controller
             $flat->bill_no = Null;
         }
         $flat->save();
+
+        if($flat->bill_no == Null || $flat->bill_no == ''){
+
+        }
         
         return redirect()->back()->with('success', $msg);
     }

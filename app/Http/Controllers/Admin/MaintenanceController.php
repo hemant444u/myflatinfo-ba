@@ -59,7 +59,7 @@ class MaintenanceController extends Controller
         $msg = 'Maintenance added Susccessfully';
         $maintenance = new Maintenance();
     
-        if ($request->id) {
+        if($request->id) {
             $maintenance = Maintenance::withTrashed()->find($request->id);
             $msg = 'Maintenance udated Susccessfully';
         }
@@ -86,8 +86,10 @@ class MaintenanceController extends Controller
         foreach($user->building->flats as $flat)
         {
             if($flat->sold_out == 'Yes'){
-
                 $maintenance_payment = new MaintenancePayment();
+                if($request->id) {
+                    $maintenance_payment = MaintenancePayment::where('flat_id',$flat->id)->where('maintenance_id',$maintenance->id)->first();
+                }
                 $maintenance_payment->maintenance_id = $maintenance->id;
                 $maintenance_payment->building_id = $maintenance->building_id;
                 $maintenance_payment->flat_id = $flat->id;
@@ -178,8 +180,8 @@ class MaintenanceController extends Controller
         $msg = 'Maintenance payment added Susccessfully';
         $maintenance_payment = new MaintenancePayment();
     
-        if ($request->maintenance_id) {
-            $maintenance_payment = MaintenancePayment::withTrashed()->find($request->maintenance_id);
+        if ($request->id) {
+            $maintenance_payment = MaintenancePayment::withTrashed()->find($request->id);
             $msg = 'Maintenance payment udated Susccessfully';
         }
     

@@ -178,8 +178,8 @@ class MaintenanceController extends Controller
         $msg = 'Maintenance payment added Susccessfully';
         $maintenance_payment = new MaintenancePayment();
     
-        if ($request->id) {
-            $maintenance_payment = MaintenancePayment::withTrashed()->find($request->id);
+        if ($request->maintenance_id) {
+            $maintenance_payment = MaintenancePayment::withTrashed()->find($request->maintenance_id);
             $msg = 'Maintenance payment udated Susccessfully';
         }
     

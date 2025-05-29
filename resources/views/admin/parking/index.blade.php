@@ -70,7 +70,7 @@
                     <td>{{$parking->building->name}}</td>
                     <td>{{$parking->block->name}}</td>
                     <td>{{$parking->name}}</td>
-                    <td>{{$parking->vehicles->count()}}</td>
+                    <td>{{$parking->flats->count()}}</td>
                     <td>{{$parking->status}}</td>
                     <td>
                       <a href="{{route('parking.show',$parking->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>

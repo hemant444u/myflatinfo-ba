@@ -1880,7 +1880,7 @@ class CustomerController extends Controller
         $payment->user_id = Auth::User()->id;
         $payment->event_id = $event->id;
         $payment->type = 'Razorpay';
-        $payment->amount = $amount;
+        $payment->amount = $item_amount;
         $payment->status = 'Created';
         $payment->save();
         
@@ -1891,7 +1891,7 @@ class CustomerController extends Controller
         $order->model_id = $event->id;
         $order->flat_id = $user->flat_id;
         $order->desc = 'Creating order for event '.$event->name;
-        $order->amount = $amount;
+        $order->amount = $item_amount;
         $order->status = 'Created';
         $order->save();
         

@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Gate List
+    Parking List
 @endsection
 
 @section('content')
@@ -23,12 +23,12 @@
                 @endif
             </div>
           <div class="col-sm-6">
-            <h1>Gate List</h1>
+            <h1>Parking List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Gates</li>
+              <li class="breadcrumb-item active">Parkings</li>
             </ol>
           </div>
         </div>
@@ -43,7 +43,7 @@
 
             <div class="card">
               <div class="card-header">
-                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Gate</button>
+                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Parking</button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -55,7 +55,7 @@
                     <th>Building</th>
                     <th>Block Name</th>
                     <th>Name</th>
-                    <th>Guards</th>
+                    <th>Vehicles</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -63,23 +63,23 @@
                   <tbody>
                     
                     <?php $i = 0; ?>
-                  @forelse($building->gates as $gate)
+                  @forelse($building->parkings as $parking)
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td>{{$gate->building->name}}</td>
-                    <td>{{$gate->block->name}}</td>
-                    <td>{{$gate->name}}</td>
-                    <td>{{$gate->guards->count()}}</td>
-                    <td>{{$gate->status}}</td>
+                    <td>{{$parking->building->name}}</td>
+                    <td>{{$parking->block->name}}</td>
+                    <td>{{$parking->name}}</td>
+                    <td>{{$parking->vehicles->count()}}</td>
+                    <td>{{$parking->status}}</td>
                     <td>
-                      <a href="{{route('gate.show',$gate->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
-                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$gate->id}}" data-building_id="{{$gate->building_id}}" 
-                      data-block_id="{{$gate->block_id}}" data-name="{{$gate->name}}" data-status="{{$gate->status}}"><i class="fa fa-edit"></i></button>
-                      @if($gate->deleted_at)
-                      <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$gate->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
+                      <a href="{{route('parking.show',$parking->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
+                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$parking->id}}" data-building_id="{{$parking->building_id}}" 
+                      data-block_id="{{$parking->block_id}}" data-name="{{$parking->name}}" data-status="{{$parking->status}}"><i class="fa fa-edit"></i></button>
+                      @if($parking->deleted_at)
+                      <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$parking->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                       @else
-                      <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$gate->id}}" data-action="delete"><i class="fa fa-trash"></i></button>
+                      <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$parking->id}}" data-action="delete"><i class="fa fa-trash"></i></button>
                       @endif
                     </td>
 
@@ -109,12 +109,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Gate</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add New Parking</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{route('gate.store')}}" method="post" class="add-form" enctype="multipart/form-data">
+      <form action="{{route('parking.store')}}" method="post" class="add-form" enctype="multipart/form-data">
         @csrf
         <div class="modal-body">
           <div class="error"></div>
@@ -137,8 +137,8 @@
           </div>
           
           <div class="form-group">
-            <label for="name" class="col-form-label">Gate Name:</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Gate Name" required>
+            <label for="name" class="col-form-label">Parking Name:</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Parking Name" required>
           </div>
 
           
@@ -211,7 +211,7 @@
     });
 
     $(document).on('click','#delete-button',function(){
-      var url = "{{route('gate.destroy','')}}";
+      var url = "{{route('parking.destroy','')}}";
       $.ajax({
         url : url + '/' + id,
         type: "DELETE",
@@ -231,9 +231,9 @@
       $('#building_id').val(button.data('building_id'));
       $('#block_id').val(button.data('block_id'));
       $('#status').val(button.data('status'));
-      $('.modal-title').text('Add New Gate');
+      $('.modal-title').text('Add New Parking');
       if(edit_id){
-          $('.modal-title').text('Update Gate');
+          $('.modal-title').text('Update Parking');
       }
       
     });
@@ -242,7 +242,7 @@
         $('.status').on('switchChange.bootstrapSwitch',function () {
             var id = $(this).data('id');
             $.ajax({
-                url : "{{url('update-gate-status')}}",
+                url : "{{url('update-parking-status')}}",
                 type: "post",
                 data : {'_token':token,'id':id,},
                 success: function(data)

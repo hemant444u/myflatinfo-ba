@@ -257,7 +257,12 @@
               <p>Gates</p>
             </a>
           </li>
-      
+          <li class="nav-item">
+            <a href="{{route('parking.index')}}" class="nav-link {{ request()->is('parking*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <p>Parking</p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="{{route('event.index')}}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

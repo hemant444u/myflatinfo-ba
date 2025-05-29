@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\EssentialController;
 use App\Http\Controllers\Admin\FundController;
 use App\Http\Controllers\Admin\GateController;
 use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\ParkingController;
 
 Route::get('clear-cache',function(){
     //\Artisan::call('storage:link');
@@ -92,6 +93,8 @@ Route::middleware('admin')->group(function () {
         Route::post('/get-gates',[GateController::class, 'get_gates']);
         Route::resource('/gate', GateController::class);
         Route::post('/update-gate-status',[GateController::class, 'update_gate_status']);
+
+        Route::resource('/parking', ParkingController::class);
         
         Route::resource('/flat', FlatController::class);
         Route::post('/update-flat-status',[FlatController::class, 'update_flat_status']);

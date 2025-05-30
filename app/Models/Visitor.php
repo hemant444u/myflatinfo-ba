@@ -56,7 +56,7 @@ class Visitor extends Model
 
     public function gate_passes()
     {
-        return $this->belongsTo('App\Models\GatePass')->withTrashed();
+        return $this->hasMany('App\Models\GatePass')->withTrashed();
     }
     
 }

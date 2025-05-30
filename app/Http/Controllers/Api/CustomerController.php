@@ -2511,7 +2511,7 @@ class CustomerController extends Controller
         }else if($request->type == 'Completed'){
             $visitors = $user->flat->visitors()->where('status',$request->type)->with(['gate_passes','vehicles','inouts'])->get();
         }else{
-            $visitors = $user->flat->visitors()->where('type',$request->type)->where('status','!=','Completed')->with(['gate_passess','vehicles','inouts'])->get();
+            $visitors = $user->flat->visitors()->where('type',$request->type)->where('status','!=','Completed')->with(['gate_passes','vehicles','inouts'])->get();
         }
         return response()->json([
             'visitors' => $visitors

@@ -524,6 +524,16 @@ class CustomerController extends Controller
             'msg' => 'Flat selected successfully'
         ], 200);
     }
+
+    public function get_parkings(Request $request)
+    {
+        $user = Auth::User();
+        $flat = $user->flat;
+        $parkings = $flat->parkings;
+        return response()->json([
+            'parkings' => $parkings
+        ], 200);
+    }
     
     public function get_noticeboards(Request $request)
     {

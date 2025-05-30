@@ -197,7 +197,7 @@ class FlatController extends Controller
             'flat_id' => 'required|exists:flats,id',
             'flat' => 'required|exists:flats,name',
             'parking_id' => 'required|exists:parkings,id',
-            'id' => 'required|exists:parking_flats,id',
+            'id' => 'required|exists:flat_parkings,id',
         ];
     
         $msg = 'Parking added successfully';

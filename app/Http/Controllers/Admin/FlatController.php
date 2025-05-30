@@ -194,14 +194,16 @@ class FlatController extends Controller
 
     public function store_parking_flat(Request $request) {
         $rules = [
+            'flat_id' => 'required|exists:flats,id',
             'flat' => 'required|exists:flats,name',
+            'parking_id' => 'required|exists:parkings,id',
         ];
     
         $msg = 'Parking added successfully';
         $flat_parking = new FlatParking();
     
         if ($request->id) {
-            $flat_parking = FlatParking::withTrashed()->find($request->id);
+            $flat_parking = FlatParking::find($request->id);
             $msg = 'Parking Updated';
         }
     

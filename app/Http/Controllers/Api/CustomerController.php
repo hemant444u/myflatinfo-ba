@@ -2507,11 +2507,11 @@ class CustomerController extends Controller
         }
         $user = Auth::User();
         if($request->type == 'All'){
-            $visitors = $user->flat->visitors()->where('status','!=','Completed')->with(['vehicles','inouts'])->get();
+            $visitors = $user->flat->visitors()->where('status','!=','Completed')->with(['gate_passess','vehicles','inouts'])->get();
         }else if($request->type == 'Completed'){
-            $visitors = $user->flat->visitors()->where('status',$request->type)->with(['vehicles','inouts'])->get();
+            $visitors = $user->flat->visitors()->where('status',$request->type)->with(['gate_passess','vehicles','inouts'])->get();
         }else{
-            $visitors = $user->flat->visitors()->where('type',$request->type)->where('status','!=','Completed')->with(['vehicles','inouts'])->get();
+            $visitors = $user->flat->visitors()->where('type',$request->type)->where('status','!=','Completed')->with(['gate_passess','vehicles','inouts'])->get();
         }
         return response()->json([
             'visitors' => $visitors

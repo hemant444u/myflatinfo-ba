@@ -53,5 +53,10 @@ class Visitor extends Model
     {
         return $this->attributes['head_photo'] ?? null;
     }
+
+    public function gate_passes()
+    {
+        return $this->belongsTo('App\Models\GatePass')->withTrashed();
+    }
     
 }

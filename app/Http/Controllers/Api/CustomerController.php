@@ -651,7 +651,7 @@ class CustomerController extends Controller
         if($request->category == 'All Building'){
             $classifiedLimit = $all_building;
         }else{
-            $classifiedLimit = $withing_building;
+            $classifiedLimit = $within_building;
         }
         $currentMonthCount = Classified::where('flat_id', $flat->id)
             ->whereYear('created_at', now()->year)

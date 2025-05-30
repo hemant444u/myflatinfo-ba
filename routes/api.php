@@ -54,6 +54,7 @@ use App\Http\Controllers\TruthScreenController;
             
             Route::post('create-visitor',[CustomerController::class,'create_visitor']);
             Route::post('update-visitor',[CustomerController::class,'create_visitor']);
+            Route::post('delete-visitor',[CustomerController::class,'delete_visitor']);
             Route::post('create-gate-pass',[CustomerController::class,'create_gate_pass']);
             Route::post('get-gate-passes',[CustomerController::class,'get_gate_passes']);
             Route::post('take-gate-pass-action',[CustomerController::class,'take_gate_pass_action']);

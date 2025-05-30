@@ -1172,6 +1172,28 @@ class CustomerController extends Controller
                 'msg' => 'Visitor added successfully'
         ],200);
     }
+
+    public function delete_visitor(Request $request)
+    {
+        $rules = [
+            'visitor_id' => 'required|exists|visitors,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+    
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'error' => $validation->errors()->first()
+            ], 422);
+        }
+        $visitor = Visitor::find($request->visitor_id);
+        $visitor->delete();
+        return response()->json([
+                'visitor' => $visitor,
+                'msg' => 'Visitor deleted successfully'
+        ],200);
+    }
     
     public function resend_visitor_request(Request $request)
     {

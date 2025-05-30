@@ -71,6 +71,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Parcel')->withTrashed();
     }
+
+    public function visitors()
+    {
+        return $this->hasMany('App\Models\Visitor')->withTrashed();
+    }
     
     public function department()
     {

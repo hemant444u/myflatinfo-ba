@@ -3139,6 +3139,11 @@ class CustomerController extends Controller
         }
         
         $parcel = Parcel::where('id',$request->parcel_id)->where('user_id',Auth::User()->id)->first();
+        if(!$parcel){
+            return response()->json([
+                'error' => 'Parcel not found'
+            ], 422);
+        }
         $parcel->status = $request->status;
         $parcel->save();
         return response()->json([

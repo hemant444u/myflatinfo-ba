@@ -3138,7 +3138,7 @@ class CustomerController extends Controller
             ], 422);
         }
         
-        $parcel = Parcel::find($request->parcel_id);
+        $parcel = Parcel::where('id',$request->parcel_id)->where('user_id',Auth::User()->id)->first();
         $parcel->status = $request->status;
         $parcel->save();
         return response()->json([

@@ -8,6 +8,7 @@ use App\Models\Block;
 use App\Models\Building;
 use App\Models\Flat;
 use App\Models\Transaction;
+use App\Models\FlatParking;
 use \Auth;
 use Illuminate\Support\Str;
 

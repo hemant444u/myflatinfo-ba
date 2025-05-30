@@ -644,7 +644,7 @@ class CustomerController extends Controller
         }
         $user = Auth::user();
         $flat = $user->flat;
-        $building = $user->building;
+        $building = $flat->building;
         
         // Check monthly limit
         $within_building = $building->classified_limit_within_building;

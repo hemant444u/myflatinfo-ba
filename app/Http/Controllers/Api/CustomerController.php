@@ -2798,7 +2798,11 @@ class CustomerController extends Controller
         do {
             $code = Str::random(10);
         } while (\App\Models\GatePass::where('code', $code)->exists());
-        $visitor->user_id = $user->id;
+        if($flat->tanent_id){
+            $visitor->user_id = $flat->tanent_id;
+        }else{
+            $visitor->user_id = $flat->owner_id;
+        }
         $visitor->building_id = $flat->building_id;
         $visitor->flat_id = $flat->id;
         $visitor->total_members = $request->total_members;

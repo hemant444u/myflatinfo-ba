@@ -103,7 +103,7 @@
                         <tr>
                           <td>{{$i}}</td>
                           <td>{{$flat->building->name}}</td>
-                          <td>{{$flat->block->email}}</td>
+                          <td>{{$flat->block->name}}</td>
                           <td>{{$flat->name}}</td>
                           <td>{{$flat->owner ? $flat->owner->name : ''}}</td>
                           <td>{{$flat->tanent ? $flat->tanent->name : ''}}</td>

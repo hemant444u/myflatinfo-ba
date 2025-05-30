@@ -606,7 +606,7 @@ class CustomerController extends Controller
 
         return response()->json([
                 'classifieds' => $classifieds,
-                'current_month_classified_count' => currentMonthCount
+                'current_month_classified_count' => $currentMonthCount
         ],200);
     }
     

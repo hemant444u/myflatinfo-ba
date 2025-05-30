@@ -1108,7 +1108,7 @@ class CustomerController extends Controller
             'total_members' => 'required|integer|min:1',
             'head_name' => 'required',
             'head_phone' => 'required',
-            'head_photo' => 'required|image',
+            'head_photo' => 'required_without:visitor_id|image',
             'stay_from' => 'required',
             'stay_to' => 'required',
             'visiting_purpose' => 'required',
@@ -1194,7 +1194,6 @@ class CustomerController extends Controller
         }
         $visitor->forceDelete();
         return response()->json([
-                'visitor' => $visitor,
                 'msg' => 'Visitor deleted successfully'
         ],200);
     }

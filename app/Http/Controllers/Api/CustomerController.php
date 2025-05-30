@@ -630,7 +630,7 @@ class CustomerController extends Controller
             'classified_id' => 'nullable|exists:classifieds,id',
             'title' => 'required',
             'desc' => 'required',
-            'category' => 'required|in:All Building, Within Building',
+            'category' => 'required|in:All Building,Within Building',
             'photos' => 'nullable|array',
             'photos.*' => 'image|max:5120',
         ];

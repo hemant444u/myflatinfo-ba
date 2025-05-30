@@ -562,8 +562,8 @@ class CustomerController extends Controller
     {
         $flat = Auth::user()->flat;
         $maintenance_payments = MaintenancePayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
-        $essential_payments = EssentialPayment::where('id',$flat->id)->where('status','!=','Paid')->get();
-        $corpus_fund = Flat::where('flat_id',$flat->id)->where('is_corpus_paid','No')->first();
+        $essential_payments = EssentialPayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
+        $corpus_fund = Flat::where('id',$flat->id)->where('is_corpus_paid','No')->first();
         $building = $flat->building;
 
         $transactionsQuery = Transaction::where('building_id', $building->id)->get();

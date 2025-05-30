@@ -1108,7 +1108,7 @@ class CustomerController extends Controller
             'total_members' => 'required|integer|min:1',
             'head_name' => 'required',
             'head_phone' => 'required',
-            'head_photo' => 'required_without:visitor_id|image',
+            'head_photo' => 'nullable|image|max:5120',
             'stay_from' => 'required',
             'stay_to' => 'required',
             'visiting_purpose' => 'required',
@@ -1322,7 +1322,7 @@ class CustomerController extends Controller
         $rules = [
             'name' => 'required',
             'phone' => 'required',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:5120',
             'relationship' => 'required',
             'family_member_id' => 'nullable|exists:family_members,id',
         ];

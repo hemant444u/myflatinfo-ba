@@ -599,14 +599,27 @@ class CustomerController extends Controller
         $currentTime = now(); // Get current date and time
         
         $classifieds = Classified::where('user_id', $user->id)->with(['photos','user'])->get();
-        $currentMonthCount = Classified::where('flat_id', $user->flat_id)
+        $within_building = Classified::where('flat_id', $user->flat_id)
             ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
+            ->where('category', 'Within Building')
             ->count();
+
+        $all_building = Classified::where('flat_id', $user->flat_id)
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->where('category', 'All Building')
+            ->count();
+
+        $within_building_limit = $building->classified_limit_within_building ?? 2;
+        $all_building_limit = $building->classified_limit_all_building ?? 2;
 
         return response()->json([
                 'classifieds' => $classifieds,
-                'current_month_classified_count' => $currentMonthCount
+                'within_building_count' => $within_building,
+                'all_building_count' => $all_building,
+                'within_building_limit' => $within_building_limit,
+                'all_building_limit' => $all_building_limit,
         ],200);
     }
     
@@ -633,10 +646,17 @@ class CustomerController extends Controller
         $building = $user->building;
         
         // Check monthly limit
-        $classifiedLimit = $building->classified_limit ?? 2;
+        $within_building = $building->classified_limit_within_building ?? 2;
+        $all_building = $building->classified_limit_all_building ?? 2;
+        if($request->category == 'All Building'){
+            $classifiedLimit = $all_building;
+        }else{
+            $classifiedLimit = $withing_building;
+        }
         $currentMonthCount = Classified::where('flat_id', $flat->id)
             ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
+            ->where('category', $request->category)
             ->count();
 
         if (!$request->classified_id && $currentMonthCount >= $classifiedLimit) {

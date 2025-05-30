@@ -102,8 +102,14 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Classified Limit</label>
-                                <input type="number" class="form-control" name="classified_limit" value="{{$setting->classified_limit}}" required>
+                                <label>Classified Limit(Within Building)</label>
+                                <input type="number" class="form-control" name="classified_limit_within_building" value="{{$setting->classified_limit_within_building}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Classified Limit(All Building)</label>
+                                <input type="number" class="form-control" name="classified_limit_all_building" value="{{$setting->classified_limit_all_building}}" required>
                             </div>
                         </div>
                         <!-- <div class="col-md-4">

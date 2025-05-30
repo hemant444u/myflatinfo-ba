@@ -551,12 +551,49 @@ class CustomerController extends Controller
     
     public function get_ads(Request $request)
     {
-        $flat = Auth::user()->flat;
-        $currentTime = now(); // Get current date and time
-    
+        $flat = Auth::user()->flat;    
         $ads = Ad::where('status','Active')->get();
         return response()->json([
                 'ads' => $ads
+        ],200);
+    }
+
+    public function get_overdues(Request $request)
+    {
+        $flat = Auth::user()->flat;
+        $maintenance_payments = MaintenacePayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
+        $essential_payments = EssentialPayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
+        $corpus_fund = Flat::where('flat_id',$flat->id)->where('is_corpus_paid','No')->first();
+        $building = $flat->building;
+
+        $transactionsQuery = Transaction::where('building_id', $building->id)->get();
+
+        // Initialize totals
+        $total_debit = 0;
+        $total_credit = 0;
+        $inhand = 0;
+        $inbank = 0;
+
+        foreach ($transactions as $transaction) {
+            if ($transaction->type == 'Debit') {
+                $total_debit += $transaction->amount;
+            } elseif ($transaction->type == 'Credit') {
+                $total_credit += $transaction->amount;
+            }
+
+            // Separate logic for inhand and inbank
+            if ($transaction->order_id == null) {
+                $inhand += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
+            } elseif ($transaction->order_id > 0) {
+                $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
+            }
+        }
+        return response()->json([
+                'maintenance_payments' => $maintenance_payments,
+                'essential_payments' => $essential_payments,
+                'corpus_fund' => $corpus_fund,
+                'inbank' => $inbank,
+                'inhand' => $inhand
         ],200);
     }
     

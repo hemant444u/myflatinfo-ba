@@ -27,6 +27,7 @@ use App\Http\Controllers\TruthScreenController;
         
         Route::middleware(['flat'])->group(function (){
             Route::post('get-ads',[CustomerController::class,'get_ads']);
+            Route::post('get-overdues',[CustomerController::class,'get_overdues']);
             Route::post('profile',[CustomerController::class,'profile']);
             Route::post('update-profile',[CustomerController::class,'update_profile']);
             Route::post('get-noticeboards',[CustomerController::class,'get_noticeboards']);

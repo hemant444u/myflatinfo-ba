@@ -67,6 +67,7 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('get-vehicles',[CustomerController::class,'get_vehicles']);
             Route::post('get-my-parcels',[CustomerController::class,'get_my_parcels']);
             Route::post('take-parcel-action',[CustomerController::class,'take_parcel_action']);
+            Route::post('update-parcel-status',[CustomerController::class,'update_parcel_status']);
             Route::post('take-visitor-action',[CustomerController::class,'take_visitor_action']);
             
             Route::post('maintenance-payments',[CustomerController::class,'maintenance_payments']);

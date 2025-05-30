@@ -1187,7 +1187,12 @@ class CustomerController extends Controller
                 'error' => $validation->errors()->first()
             ], 422);
         }
-        $visitor = Visitor::where('id',$request->visitor_id)->withTrashed()->first();
+        $visitor = Visitor::where('id',$request->visitor_id)->where('user_id',Auth::User()->id)->withTrashed()->first();
+        if(!$visitor){
+            return response()->json([
+                'error' => 'Visitor not found'
+            ],422);
+        }
         $visitor_inouts = VisitorInout::where('visitor_id',$visitor->id)->get();
         foreach($visitor_inouts as $visitor_inout){
             $visitor_inout->forceDelete();
@@ -3116,6 +3121,31 @@ class CustomerController extends Controller
         return response()->json([
                 'parcels' => $parcels
         ],200);
+    }
+
+    public function update_parcel_status(Request $request)
+    {
+        $rules = [
+            'parcel_id' => 'required|exists:parcels,id',
+            'status' => 'required|in:Recieved,Not Recieved'
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        
+        $parcel = Parcel::find($request->parcel_id);
+        $parcel->status = $request->status;
+        $parcel->save();
+        return response()->json([
+                'parcel' => $parcel,
+                'msg' => 'Parcel status updated successfully'
+        ],200);
+        
     }
     
     public function take_parcel_action(Request $request)

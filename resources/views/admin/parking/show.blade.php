@@ -108,7 +108,9 @@
                           <td>{{$flat->owner ? $flat->owner->name : ''}}</td>
                           <td>{{$flat->tanent ? $flat->tanent->name : ''}}</td>
                           <td>
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->pivot->id}}" data-action="delete"><i class="fa fa-trash"></i></button>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$flat->pivot->id}}" 
+                                 data-flat_id="{{$flat->id}}" data-flat_name="{{$flat->name}}"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->pivot->id}}" data-action="delete"><i class="fa fa-trash"></i></button>
                           </td>
                         </tr>
                         @empty
@@ -257,11 +259,11 @@
       var edit_id = button.data('id');
       $('#edit-id').val(edit_id);
       $('#flat_name').val(button.data('flat_name'));
-      $('#flat').val(button.data('flat'));
-      $('#user_id').val(button.data('user_id'));
-      $('.modal-title').text('Add New Payment');
+      $('#flat').val(button.data('flat_name'));
+      $('#flat_id').val(button.data('flat_id'));
+      $('.modal-title').text('Add New Flat');
       if(edit_id){
-          $('.modal-title').text('Update Payment');
+          $('.modal-title').text('Update Flat');
       }
     });
     

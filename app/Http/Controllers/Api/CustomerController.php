@@ -612,8 +612,8 @@ class CustomerController extends Controller
             ->where('category', 'All Building')
             ->count();
 
-        $within_building_limit = $building->classified_limit_within_building;
-        $all_building_limit = $building->classified_limit_all_building;
+        $within_building_limit = $building->classified_limit_within_building - $within_building;
+        $all_building_limit = $building->classified_limit_all_building - $all_building;
 
         return response()->json([
                 'classifieds' => $classifieds,

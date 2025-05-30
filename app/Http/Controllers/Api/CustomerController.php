@@ -1187,8 +1187,12 @@ class CustomerController extends Controller
                 'error' => $validation->errors()->first()
             ], 422);
         }
-        $visitor = Visitor::find($request->visitor_id);
-        $visitor->delete();
+        $visitor = Visitor::find($request->visitor_id)->withTrashed();
+        $visitor_inouts = VisitorInout::where('visitor_id'.$visitor->id)->get();
+        foreach($visitor_inouts as $visitor_inout){
+            $visitor_inout->forceDelete();
+        }
+        $visitor->forceDelete();
         return response()->json([
                 'visitor' => $visitor,
                 'msg' => 'Visitor deleted successfully'

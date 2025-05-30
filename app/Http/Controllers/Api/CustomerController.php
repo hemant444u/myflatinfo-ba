@@ -630,7 +630,7 @@ class CustomerController extends Controller
             'classified_id' => 'nullable|exists:classifieds,id',
             'title' => 'required',
             'desc' => 'required',
-            'category' => 'required',
+            'category' => 'required|in:All Building, Within Building',
             'photos' => 'nullable|array',
             'photos.*' => 'image|max:5120',
         ];
@@ -647,8 +647,8 @@ class CustomerController extends Controller
         $building = $user->building;
         
         // Check monthly limit
-        $within_building = $building->classified_limit_within_building ?? 2;
-        $all_building = $building->classified_limit_all_building ?? 2;
+        $within_building = $building->classified_limit_within_building;
+        $all_building = $building->classified_limit_all_building;
         if($request->category == 'All Building'){
             $classifiedLimit = $all_building;
         }else{

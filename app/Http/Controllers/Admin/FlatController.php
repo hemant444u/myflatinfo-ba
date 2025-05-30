@@ -201,13 +201,20 @@ class FlatController extends Controller
         ];
     
         $msg = 'Parking added successfully';
-        $flat_parking = new FlatParking();
+        
     
         if ($request->id) {
             $flat_parking = FlatParking::find($request->id);
-            $msg = 'Parking Updated';
+            $msg = 'Parking flat Updated';
+        }else{
+            $msg = 'Parking flat Updated';
+            $flat_parking = FlatParking::where('parking_id',$request->parking_id)->where('flat_id',$request->flat_id)->first();
+            if(!$flat_parking){
+                $flat_parking = new FlatParking();
+                $msg = 'Parking flat added successfully';
+            }
         }
-    
+        
         $validation = \Validator::make($request->all(), $rules);
     
         if ($validation->fails()) {

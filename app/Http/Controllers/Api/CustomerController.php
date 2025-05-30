@@ -1253,6 +1253,7 @@ class CustomerController extends Controller
         $gate_pass->visitor_id = $visitor->id;
         $gate_pass->flat_id = $visitor->flat_id;
         $gate_pass->building_id = $visitor->building_id;
+        $gate_pass->status = 'Approved';
         $gate_pass->desc = $request->desc;
         do {
             $code = Str::random(10);
@@ -1269,7 +1270,7 @@ class CustomerController extends Controller
     public function get_gate_passes(Request $request)
     {
         $rules = [
-            'status' => 'required|in:Approved,Rejected,Recheck,Completed',
+            'status' => 'required|in:Approved,Rejected,Recheck,Completed,All',
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -1280,7 +1281,12 @@ class CustomerController extends Controller
                 'error' => $validation->errors()->first()
             ], 422);
         }
-        $gate_passes = GatePass::where('user_id',Auth::User()->id)->where('status',$request->status)->with(['user','visitor','building','flat.block'])->get();
+        if($request->status == 'All'){
+            $gate_passes = GatePass::where('user_id',Auth::User()->id)->with(['user','visitor','building','flat.block'])->get();
+        }else{
+            $gate_passes = GatePass::where('user_id',Auth::User()->id)->where('status',$request->status)->with(['user','visitor','building','flat.block'])->get();
+        }
+        
         return response()->json([
                 'gate_passes' => $gate_passes,
         ],200);

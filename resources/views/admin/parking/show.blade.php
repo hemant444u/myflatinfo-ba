@@ -305,7 +305,7 @@
             $('#flat_name').val(response.data.name);
             $('#flat_id').val(response.data.id);
           } else {
-            $('.error').text('User not found.');
+            $('.error').text('Flat not found.');
             $('#flat_name').val('');
           }
         },

@@ -164,7 +164,7 @@
 
           
           <input type="hidden" name="id" id="edit-id">
-          <input type="hidden" name="parking_id" id="parking_id">
+          <input type="hidden" name="parking_id" id="parking_id" value="{{$parking->id}}">
           <input type="hidden" name="flat_id" id="flat_id">
         </div>
         <div class="modal-footer">

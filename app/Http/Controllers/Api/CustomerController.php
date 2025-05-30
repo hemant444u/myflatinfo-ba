@@ -596,6 +596,7 @@ class CustomerController extends Controller
     public function my_classifieds(Request $request)
     {
         $user = Auth::user();
+        $building = $user->flat->building;
         $currentTime = now(); // Get current date and time
         
         $classifieds = Classified::where('user_id', $user->id)->with(['photos','user'])->get();
@@ -611,8 +612,8 @@ class CustomerController extends Controller
             ->where('category', 'All Building')
             ->count();
 
-        $within_building_limit = $building->classified_limit_within_building ?? 2;
-        $all_building_limit = $building->classified_limit_all_building ?? 2;
+        $within_building_limit = $building->classified_limit_within_building;
+        $all_building_limit = $building->classified_limit_all_building;
 
         return response()->json([
                 'classifieds' => $classifieds,

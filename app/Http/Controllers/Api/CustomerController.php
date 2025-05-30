@@ -3127,7 +3127,7 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $flat = $user->flat;
-        $parcels = $user->parcels;
+        $parcels = $user->parcels()->where('status',$request->status)->get();
         return response()->json([
                 'parcels' => $parcels
         ],200);

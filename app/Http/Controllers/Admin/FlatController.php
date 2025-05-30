@@ -224,7 +224,6 @@ class FlatController extends Controller
         $rules = [
             'id' => 'nullable|exists:flat_parkings,id',
         ];
-    
         $msg = 'Parking delete successfully';    
         $validation = \Validator::make($request->all(), $rules);
     

@@ -67,7 +67,7 @@ class Flat extends Model
 
     public function parkings()
     {
-        return $this->belongsToMany(Parking::class, 'flat_parkings', 'flat_id', 'parking_id')->withTrashed();
+        return $this->belongsToMany(Parking::class, 'flat_parkings', 'flat_id', 'parking_id')->withTrashed()->withPivot('id');
     }
     
 }

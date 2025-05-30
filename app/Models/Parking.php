@@ -22,7 +22,7 @@ class Parking extends Model
     
     public function flats()
     {
-        return $this->belongsToMany(Flat::class, 'flat_parkings', 'parking_id', 'flat_id')->withTrashed();
+        return $this->belongsToMany(Flat::class, 'flat_parkings', 'parking_id', 'flat_id')->withTrashed()->withPivot('id');
     }
     
 }

@@ -597,10 +597,16 @@ class CustomerController extends Controller
     {
         $user = Auth::user();
         $currentTime = now(); // Get current date and time
-    
+        
         $classifieds = Classified::where('user_id', $user->id)->with(['photos','user'])->get();
+        $currentMonthCount = Classified::where('flat_id', $flat->id)
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->count();
+
         return response()->json([
-                'classifieds' => $classifieds
+                'classifieds' => $classifieds,
+                'current_month_classified_count' => currentMonthCount
         ],200);
     }
     

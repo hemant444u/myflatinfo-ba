@@ -219,4 +219,22 @@ class FlatController extends Controller
     
         return redirect()->back()->with('success', $msg);
     }
+
+    public function delete_parking_flat(Request $request) {
+        $rules = [
+            'id' => 'nullable|exists:flat_parkings,id',
+        ];
+    
+        $msg = 'Parking delete successfully';    
+        $validation = \Validator::make($request->all(), $rules);
+    
+        if ($validation->fails()) {
+            return redirect()->back()->with('error', $validation->errors()->first());
+        }
+        $parking_flat = ParkingFlat::find($request->id);
+        $parking_flat->delete();
+        return response()->json([
+            'msg' => $msg
+        ],200);
+    }
 }

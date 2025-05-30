@@ -212,19 +212,9 @@
       var button = $(event.relatedTarget);
       id = button.data('id');
       $('#delete-id').val(id);
-      action= button.data('action');
-      $('#delete-button').removeClass('btn-success');
-      $('#delete-button').removeClass('btn-danger');
       $('.modal-title').text('Are you sure ?');
-      if(action == 'delete'){
-          $('#delete-button').addClass('btn-danger');
-          $('#delete-button').text('Confirm Delete');
-          $('.text').text('You are going to permanently delete this item..');
-      }else{
-          $('#delete-button').addClass('btn-success');
-          $('#delete-button').text('Confirm Restore');
-          $('.text').text('You are going to restore this item..');
-      }
+      $('#delete-button').text('Confirm Delete');
+      $('.text').text('You are going to permanently delete this item..');
     });
 
     $(document).on('click','#delete-button',function(){
@@ -232,7 +222,7 @@
       $.ajax({
         url : url,
         type: "POST",
-        data : {'_token':token,'id':id,'action':action},
+        data : {'_token':token,'id':id},
         success: function(data)
         {
           window.location.reload();

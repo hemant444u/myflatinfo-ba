@@ -561,7 +561,7 @@ class CustomerController extends Controller
     public function get_overdues(Request $request)
     {
         $flat = Auth::user()->flat;
-        $maintenance_payments = MaintenacePayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
+        $maintenance_payments = MaintenancePayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
         $essential_payments = EssentialPayment::where('flat_id',$flat->id)->where('status','!=','Paid')->get();
         $corpus_fund = Flat::where('flat_id',$flat->id)->where('is_corpus_paid','No')->first();
         $building = $flat->building;

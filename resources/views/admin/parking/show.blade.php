@@ -107,6 +107,7 @@
                           <td>{{$flat->name}}</td>
                           <td>{{$flat->owner ? $flat->owner->name : ''}}</td>
                           <td>{{$flat->tanent ? $flat->tanent->name : ''}}</td>
+                          <td>{{$flat}}</td>
                           <td>
                             <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$flat->pivot->id}}" 
                                  data-flat_id="{{$flat->id}}" data-flat_name="{{$flat->name}}"><i class="fa fa-edit"></i></button>

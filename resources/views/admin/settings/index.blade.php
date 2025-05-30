@@ -103,7 +103,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Classified Limit</label>
-                                <input type="text" class="form-control" name="classified_limit" value="{{$setting->classified_limit}}" required>
+                                <input type="number" class="form-control" name="classified_limit" value="{{$setting->classified_limit}}" required>
                             </div>
                         </div>
                         <!-- <div class="col-md-4">

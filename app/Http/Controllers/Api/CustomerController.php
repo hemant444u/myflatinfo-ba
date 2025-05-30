@@ -1176,7 +1176,7 @@ class CustomerController extends Controller
     public function delete_visitor(Request $request)
     {
         $rules = [
-            'visitor_id' => 'required|exists|visitors,id',
+            'visitor_id' => 'required|exists:visitors,id',
         ];
     
         $validation = \Validator::make($request->all(), $rules);
@@ -1198,7 +1198,7 @@ class CustomerController extends Controller
     public function resend_visitor_request(Request $request)
     {
         $rules = [
-            'visitor_id' => 'required|exists:visitors,id',
+            'visitor_id' => 'required|exists:visitors,id',exists
         ];
     
         $validation = \Validator::make($request->all(), $rules);

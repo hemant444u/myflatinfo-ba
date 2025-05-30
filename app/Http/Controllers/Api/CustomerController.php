@@ -566,7 +566,7 @@ class CustomerController extends Controller
         $corpus_fund = Flat::where('id',$flat->id)->where('is_corpus_paid','No')->first();
         $building = $flat->building;
 
-        $transactionsQuery = Transaction::where('building_id', $building->id)->get();
+        $transactions = Transaction::where('building_id', $building->id)->get();
 
         // Initialize totals
         $total_debit = 0;

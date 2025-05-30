@@ -612,7 +612,7 @@ class CustomerController extends Controller
             'desc' => 'required',
             'category' => 'required',
             'photos' => 'nullable|array',
-            'photos.*' => 'image|max:2048',
+            'photos.*' => 'image|max:5120',
         ];
         $validation = \Validator::make($request->all(), $rules);
     
@@ -622,7 +622,23 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
+        $user = Auth::user();
+        $flat = $user->flat;
+        $building = $user->building;
         
+        // Check monthly limit
+        $classifiedLimit = $building->classified_limit ?? 2;
+        $currentMonthCount = Classified::where('flat_id', $flat->id)
+            ->whereYear('created_at', now()->year)
+            ->whereMonth('created_at', now()->month)
+            ->count();
+
+        if (!$request->classified_id && $currentMonthCount >= $classifiedLimit) {
+            return response()->json([
+                'error' => 'You have reached the monthly limit of classified posts.'
+            ], 403);
+        }
+
         $msg = 'Classified added Susccessfully';
         $classified = new Classified();
     
@@ -631,8 +647,6 @@ class CustomerController extends Controller
             $msg = 'Classified updated Susccessfully';
         }
         
-        $user = Auth::user();
-        $flat = $user->flat;
         $classified->building_id = $flat->building_id;
         $classified->block_id = $flat->block_id;
         $classified->flat_id = $flat->id;

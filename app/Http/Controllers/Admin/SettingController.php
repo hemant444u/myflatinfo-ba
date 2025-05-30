@@ -29,6 +29,7 @@ class SettingController extends Controller
         $building->razorpay_key = $request->razorpay_key;
         $building->razorpay_secret = $request->razorpay_secret;
         $building->gst_no = $request->gst_no;
+        $building->classified_limit = $request->classified_limit;
         $building->save();
         return redirect()->back()->with('success','Setting saved');
     }

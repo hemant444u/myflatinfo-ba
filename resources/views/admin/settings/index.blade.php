@@ -100,6 +100,12 @@
                                 <input type="text" class="form-control" name="gst_no" value="{{$setting->gst_no}}" required>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Classified Limit</label>
+                                <input type="text" class="form-control" name="classified_limit" value="{{$setting->classified_limit}}" required>
+                            </div>
+                        </div>
                         <!-- <div class="col-md-4">
                             <div class="form-group">
                                 <label>FCM Key</label>

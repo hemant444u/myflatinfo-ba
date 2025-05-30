@@ -3020,6 +3020,8 @@ class CustomerController extends Controller
         }
         if($request->flat_id){
             $flat = Flat::find($request->flat_id);
+        }else{
+            $flat = $user->flat;
         }
         $parcel = new Parcel();
         if($request->hasFile('photo')) {
@@ -3035,7 +3037,11 @@ class CustomerController extends Controller
         do {
             $code = Str::random(10);
         } while (\App\Models\Parcel::where('code', $code)->exists());
-        $parcel->user_id = $user->id;
+        if($flat->tanent_id){
+            $parcel->user_id = $flat->tanent_id;
+        }else{
+            $parcel->user_id = $flat->owner_id;
+        }
         $parcel->building_id = $flat->building_id;
         $parcel->flat_id = $flat->id;
         $parcel->guard_id = $guard->id;
@@ -3117,7 +3123,7 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $flat = $user->flat;
-        $parcels = $flat->parcels;
+        $parcels = $user->parcels;
         return response()->json([
                 'parcels' => $parcels
         ],200);
@@ -3137,8 +3143,8 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
-        
-        $parcel = Parcel::where('id',$request->parcel_id)->where('user_id',Auth::User()->id)->first();
+        $user = Auth::User();
+        $parcel = Parcel::where('id',$request->parcel_id)->where('user_id',$user->id)->first();
         if(!$parcel){
             return response()->json([
                 'error' => 'Parcel not found'
@@ -3168,7 +3174,8 @@ class CustomerController extends Controller
             ], 422);
         }
         
-        $parcel = Parcel::find($request->parcel_id);
+        $user = Auth::User();
+        $parcel = Parcel::where('id',$request->parcel_id)->where('user_id',$user->id)->first();
         $parcel->status = $request->action;
         $parcel->save();
         return response()->json([

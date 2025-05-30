@@ -298,7 +298,7 @@
       $.ajax({
         url: '{{ url("get-flat") }}', // Update with your actual route
         type: 'POST',
-        data: { _token:token,email: email },
+        data: { _token:token,flat: flat },
         success: function (response) {
           if (response.success) {
             $('#flat_name').val(response.data.name);

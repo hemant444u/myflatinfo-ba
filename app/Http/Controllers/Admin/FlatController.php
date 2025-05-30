@@ -182,4 +182,12 @@ class FlatController extends Controller
         
         return redirect()->back()->with('success', $msg);
     }
+
+    public function get_flat(Request $request) {
+        $flat = Flat::where('name', $request->flat)->where('status','Active')->first();
+        if ($flat) {
+            return response()->json(['success' => true, 'data' => ['id' => $flat->id,'name' => $flat->name]]);
+        }
+        return response()->json(['success' => false, 'message' => 'Flat not found']);
+    }
 }

@@ -101,7 +101,8 @@ Route::middleware('admin')->group(function () {
         Route::get('/get-flats/{blockId}',[FlatController::class, 'getFlats']);
         Route::post('/update-corpus-fund',[FlatController::class, 'update_corpus_fund']);
         Route::post('/get-flat',[FlatController::class, 'get_flat']);
-        
+        Route::post('/store-parking-flat',[FlatController::class, 'store_parking_flat']);
+
         Route::resource('/event', EventController::class);
         Route::post('/update-event-status',[EventController::class, 'update_event_status']);
         Route::resource('/payment', PaymentController::class);

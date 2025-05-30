@@ -190,4 +190,29 @@ class FlatController extends Controller
         }
         return response()->json(['success' => false, 'message' => 'Flat not found']);
     }
+
+    public function store_parking_flat(Request $request) {
+        $rules = [
+            'flat' => 'required|exists:flats,name',
+        ];
+    
+        $msg = 'Parking added successfully';
+        $flat_parking = new FlatParking();
+    
+        if ($request->id) {
+            $flat_parking = FlatParking::withTrashed()->find($request->id);
+            $msg = 'Parking Updated';
+        }
+    
+        $validation = \Validator::make($request->all(), $rules);
+    
+        if ($validation->fails()) {
+            return redirect()->back()->with('error', $validation->errors()->first());
+        }
+        $flat_parking->flat_id = $request->flat_id;
+        $flat_parking->parking_id = $request->parking_id;
+        $flat_parking->save();
+    
+        return redirect()->back()->with('success', $msg);
+    }
 }

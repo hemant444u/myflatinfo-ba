@@ -164,7 +164,8 @@
 
           
           <input type="hidden" name="id" id="edit-id">
-          <input type="hidden" name="user_id" id="user_id">
+          <input type="hidden" name="parking_id" id="parking_id">
+          <input type="hidden" name="flat_id" id="flat_id">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

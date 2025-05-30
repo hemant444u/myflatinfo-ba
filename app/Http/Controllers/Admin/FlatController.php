@@ -186,7 +186,7 @@ class FlatController extends Controller
 
     public function get_flat(Request $request) {
         $flat = Flat::where('name', $request->flat)->where('status','Active')->first();
-        if ($flat) {
+        if($flat) {
             return response()->json(['success' => true, 'data' => ['id' => $flat->id,'name' => $flat->name]]);
         }
         return response()->json(['success' => false, 'message' => 'Flat not found']);
@@ -197,7 +197,7 @@ class FlatController extends Controller
             'flat_id' => 'required|exists:flats,id',
             'flat' => 'required|exists:flats,name',
             'parking_id' => 'required|exists:parkings,id',
-            'id' => 'required|exists:flat_parkings,id',
+            'id' => 'nullable|exists:flat_parkings,id',
         ];
     
         $msg = 'Parking added successfully';

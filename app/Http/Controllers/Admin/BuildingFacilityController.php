@@ -75,7 +75,7 @@ class BuildingFacilityController extends Controller
 
     public function show($id)
     {
-        $facility = Facility::where('id',$id)->withTrashed()->first();
+        $facility = BuildingFacility::where('id',$id)->withTrashed()->first();
         if(!$facility){
             return redirect()->route('facility.index');
         }

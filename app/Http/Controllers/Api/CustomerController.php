@@ -963,95 +963,95 @@ class CustomerController extends Controller
     }
     
     public function get_facility_timings(Request $request)
-{
-    $rules = [
-        'date' => 'required|date',
-        'facility_id' => 'required|exists:building_facilities,id',
-    ];
-    $validation = \Validator::make($request->all(), $rules);
+    {
+        $rules = [
+            'date' => 'required|date',
+            'facility_id' => 'required|exists:building_facilities,id',
+        ];
+        $validation = \Validator::make($request->all(), $rules);
 
-    if ($validation->fails()) {
-        return response()->json([
-            'status' => 'error',
-            'error' => $validation->errors()->first()
-        ], 422);
-    }
-
-    $date = Carbon::parse($request->date);
-    $facility_id = $request->facility_id;
-    $today = Carbon::today(); // Get today's date
-
-    // Get facility details
-    $facility = BuildingFacility::find($facility_id);
-    if (!$facility) {
-        return response()->json(['status' => 'error', 'error' => 'Facility not found'], 404);
-    }
-    $max_members = $facility->max_booking;
-
-    // Get all active timings
-    $allTimings = Timing::where('building_facility_id', $facility_id)
-                        ->where('status', 'Active')
-                        ->get();
-
-    if ($allTimings->isEmpty()) {
-        Log::info('No active timings found for facility ID: ' . $facility_id);
-        return response()->json([], 200);
-    }
-
-    // Get first and last date of the month
-    $startDate = max($date->startOfMonth(), $today); // Ensure the start date is not in the past
-    $endDate = $date->endOfMonth();
-
-    // Fetch bookings for the month
-    $bookedMembersPerTiming = Booking::where('building_facility_id', $facility_id)
-        ->whereBetween('date', [$startDate->toDateString(), $endDate->toDateString()])
-        ->groupBy('date', 'timing_id')
-        ->selectRaw('date, timing_id, SUM(members) as total_members')
-        ->get()
-        ->groupBy('date');
-
-    Log::info('Booked Members:', $bookedMembersPerTiming->toArray());
-
-    // Generate slot data for each date in the month
-    $availableData = [];
-    for ($day = 1; $day <= $date->daysInMonth; $day++) {
-        $currentDate = $date->copy()->startOfMonth()->addDays($day - 1);
-
-        // Skip past dates
-        if ($currentDate->lt($today)) {
-            continue;
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'error' => $validation->errors()->first()
+            ], 422);
         }
 
-        $formattedDate = $currentDate->format('d-m-Y');
-        
-        Log::info('Processing Date:', ['date' => $formattedDate]);
+        $date = Carbon::parse($request->date);
+        $facility_id = $request->facility_id;
+        $today = Carbon::today(); // Get today's date
 
-        $dailyBookings = $bookedMembersPerTiming[$currentDate->toDateString()] ?? collect();
+        // Get facility details
+        $facility = BuildingFacility::find($facility_id);
+        if (!$facility) {
+            return response()->json(['status' => 'error', 'error' => 'Facility not found'], 404);
+        }
+        $max_members = $facility->max_booking;
 
-        $slotTimeArray = $allTimings->map(function ($timing) use ($dailyBookings, $max_members) {
-            $bookedMembers = $dailyBookings->firstWhere('timing_id', $timing->id)['total_members'] ?? 0;
-            $availableSlots = max($max_members - $bookedMembers, 0);
+        // Get all active timings
+        $allTimings = Timing::where('building_facility_id', $facility_id)
+                            ->where('status', 'Active')
+                            ->get();
 
-            if ($availableSlots > 0) {
-                return [
-                    'id' => $timing->id,
-                    'slotTimeStartToEnd' => Carbon::parse($timing->from)->format('h:i A') . ' to ' . Carbon::parse($timing->to)->format('h:i A'),
+        if ($allTimings->isEmpty()) {
+            Log::info('No active timings found for facility ID: ' . $facility_id);
+            return response()->json([], 200);
+        }
+
+        // Get first and last date of the month
+        $startDate = max($date->startOfMonth(), $today); // Ensure the start date is not in the past
+        $endDate = $date->endOfMonth();
+
+        // Fetch bookings for the month
+        $bookedMembersPerTiming = Booking::where('building_facility_id', $facility_id)
+            ->whereBetween('date', [$startDate->toDateString(), $endDate->toDateString()])
+            ->groupBy('date', 'timing_id')
+            ->selectRaw('date, timing_id, SUM(members) as total_members')
+            ->get()
+            ->groupBy('date');
+
+        Log::info('Booked Members:', $bookedMembersPerTiming->toArray());
+
+        // Generate slot data for each date in the month
+        $availableData = [];
+        for ($day = 1; $day <= $date->daysInMonth; $day++) {
+            $currentDate = $date->copy()->startOfMonth()->addDays($day - 1);
+
+            // Skip past dates
+            if ($currentDate->lt($today)) {
+                continue;
+            }
+
+            $formattedDate = $currentDate->format('d-m-Y');
+            
+            Log::info('Processing Date:', ['date' => $formattedDate]);
+
+            $dailyBookings = $bookedMembersPerTiming[$currentDate->toDateString()] ?? collect();
+
+            $slotTimeArray = $allTimings->map(function ($timing) use ($dailyBookings, $max_members) {
+                $bookedMembers = $dailyBookings->firstWhere('timing_id', $timing->id)['total_members'] ?? 0;
+                $availableSlots = max($max_members - $bookedMembers, 0);
+
+                if ($availableSlots > 0) {
+                    return [
+                        'id' => $timing->id,
+                        'slotTimeStartToEnd' => Carbon::parse($timing->from)->format('h:i A') . ' to ' . Carbon::parse($timing->to)->format('h:i A'),
+                    ];
+                }
+                return null;
+            })->filter()->values();
+
+            if ($slotTimeArray->isNotEmpty()) {
+                $availableData[] = [
+                    'id' => Str::uuid()->toString(),
+                    'slotDate' => $formattedDate,
+                    'slotTimeArray' => $slotTimeArray,
                 ];
             }
-            return null;
-        })->filter()->values();
-
-        if ($slotTimeArray->isNotEmpty()) {
-            $availableData[] = [
-                'id' => Str::uuid()->toString(),
-                'slotDate' => $formattedDate,
-                'slotTimeArray' => $slotTimeArray,
-            ];
         }
-    }
 
-    return response()->json($availableData, 200);
-}
+        return response()->json($availableData, 200);
+    }
 
 
     public function book_facility(Request $request)
@@ -1084,7 +1084,7 @@ class CustomerController extends Controller
         $max_members = $facility->max_booking;
     
         // Get total booked members per timing
-        $bookedMembersPerTiming = Booking::where('facility_id', $facility_id)
+        $bookedMembersPerTiming = Booking::where('building_facility_id', $facility_id)
             ->where('date', $date)
             ->groupBy('timing_id')
             ->selectRaw('timing_id, SUM(members) as total_members')

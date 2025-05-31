@@ -43,7 +43,7 @@ class TimingController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->with('error', $validation->errors()->first());
         }
-        $timing->facility_id = $request->facility_id;
+        $timing->building_facility_id = $request->facility_id;
         $timing->from = $request->from;
         $timing->to = $request->to;
         $timing->status = $request->status;

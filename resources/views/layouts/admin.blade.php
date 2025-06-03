@@ -183,27 +183,6 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-bar-chart"></i>
-              <p>Accounts<i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <p>Statement<i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item ">
-                    <a href="{{ url('/') }}" class="nav-link {{ request()->is('admin/expenses') ? 'active' : '' }}">
-                      <p>Expenses</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-
           <li class="nav-item">
             <a href="{{url('/building-option')}}" class="nav-link {{ request()->is('building-option*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-bar-chart"></i>

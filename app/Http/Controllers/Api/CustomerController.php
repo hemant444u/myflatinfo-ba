@@ -1563,7 +1563,6 @@ class CustomerController extends Controller
             $total = $payment->dues_amount + $late_fine;
             $payment->save();
             $payment->gst = $total * 18 / 100;
-            $last_payment = 
             $total_payment += $total;
         }
 
@@ -1712,7 +1711,7 @@ class CustomerController extends Controller
             $transaction->save();
             
             $maintenance_payment = MaintenancePayment::find($order->model_id);
-            $maintenance_payment->paid_amount = $order->amount;
+            $maintenance_payment->paid_amount = $maintenance_payment->dues_amount;
             $maintenance_payment->dues_amount = 0;
             $maintenance_payment->type = 'Razorpay';
             $maintenance_payment->status = 'Paid';
@@ -3302,7 +3301,7 @@ class CustomerController extends Controller
         $user = Auth::User();
         $department = $user->department;
         $issues = Issue::where('building_id',$department->building_id)->where('role_id',$department->role_id)->where('status',$request->status)
-        ->with(['flat','block','building','photos','department','comments.replies'])->get();
+        ->with(['user','flat','block','building','photos','department','comments.user','comments.replies.user'])->get();
         return response()->json([
                 'issues' => $issues
         ],200);

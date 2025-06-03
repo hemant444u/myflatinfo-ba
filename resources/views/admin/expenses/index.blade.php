@@ -267,6 +267,22 @@
       }
     });
 
+    $(document).on('change','#model',function(){
+      var model = $(this).val();
+      if(model == 'Event'){
+        alert(model)
+      }
+      $.ajax({
+        url : "{{url('/get-flats')}}",
+        type: "post",
+        data : {'_token':token,'block_id':block_id,'flat_id':flat_id},
+        success: function(data)
+        {
+          $('.flats').html(data);
+        }
+      });
+    });
+
   });
 </script>
 

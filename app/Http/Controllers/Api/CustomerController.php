@@ -2210,10 +2210,10 @@ class CustomerController extends Controller
         ],200);
     }
     
-    public function even_history(Request $request)
+    public function event_history(Request $request)
     {
         $user = Auth::User();
-        $events = Event::with(['payments' => function($query) use ($user) {
+        $events = Event::where('building_id',$user->flat->building_id)->with(['payments' => function($query) use ($user) {
             $query->where('user_id', $user->id);
         }])->get();
         return response()->json([

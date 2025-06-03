@@ -156,7 +156,7 @@
                 <option value="Event">Event</option>
                 <option value="Corpus">Corpus</option>
                 <option value="Booking">Booking</option>
-                <option value="Assential">Assential</option>
+                <option value="Essential">Essential</option>
             </select>
           </div>
           <div class="model-id"></div>

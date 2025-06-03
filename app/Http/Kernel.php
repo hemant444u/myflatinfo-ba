@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         'building' => \App\Http\Middleware\BuildingMiddleware::class,
         'flat' => \App\Http\Middleware\FlatMiddleware::class,
         'security' => \App\Http\Middleware\SecurityMiddleware::class,
+        'department' => \App\Http\Middleware\DepartmentMiddleware::class,
         //'cors' => \App\Http\Middleware\CorsMiddleware::class,
     ];
 }

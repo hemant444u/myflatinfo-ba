@@ -2224,7 +2224,7 @@ class CustomerController extends Controller
     public function essential_history(Request $request)
     {
         $user = Auth::User();
-        $essentials = Essential::with(['payments' => function($query) use ($user) {
+        $essentials = Essential::where('building_id',$user->flat->building_id)->with(['payments' => function($query) use ($user) {
             $query->where('user_id', $user->id);
         }])->get();
         $flat = Flat::where('owner_id',$user->id)->orWhere('tanent_id',$user->id)->with(['owner','tanent','block','building'])->first();

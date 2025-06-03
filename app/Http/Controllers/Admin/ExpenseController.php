@@ -114,11 +114,12 @@ class ExpenseController extends Controller
     public function get_model_data(Request $request)
     {
         $model = $request->model;
-        $user =Auth::User();
-        if($model == 'Booking'){
-            $results = Facility::all();
-        }else{
-            $results = $model::where('building_id',$user->building_id)->get();
+        $user = Auth::User();
+        if($model == 'Event'){
+            $results = Event::where('building_id',$user->building_id)->get();
+        }
+        if($model == 'Essential'){
+            $results = Essential::where('building_id',$user->building_id)->get();
         }
         return view('admin.partials.model_data',compact('results'));
     }

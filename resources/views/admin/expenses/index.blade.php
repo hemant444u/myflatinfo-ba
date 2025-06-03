@@ -270,7 +270,7 @@
     $(document).on('change','#model',function(){
       var model = $(this).val();
       $('.model-id').html('');
-      if(model == 'Event' || model == 'Essential' || model == 'Booking'){
+      if(model == 'Event' || model == 'Essential'){
         $.ajax({
           url : "{{url('/get-model-data')}}",
           type: "post",

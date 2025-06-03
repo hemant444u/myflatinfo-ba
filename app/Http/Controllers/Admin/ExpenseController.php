@@ -107,4 +107,15 @@ class ExpenseController extends Controller
     {
         //
     }
+
+    public function get_model_data(Request $request)
+    {
+        $model = $request->model;
+        if($model == 'Booking'){
+            $results = Facility::all();
+        }else{
+            $results = $model::where('building_id',$user->building_id)->get();
+        }
+        return view('admin.partials.model_data',compact('results'));
+    }
 }

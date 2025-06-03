@@ -121,6 +121,7 @@ Route::middleware('admin')->group(function () {
         Route::resource('/visitor', VisitorController::class);
         Route::resource('/vehicles', VehicleController::class);
         Route::resource('/expense', ExpenseController::class);
+        Route::post('/get-model-data',[ExpenseController::class, 'get_model_data']);
         Route::get('/vehicle-inouts',[VehicleController::class, 'vehicle_inouts']);
         Route::resource('/maintenance', MaintenanceController::class);
         Route::post('/update-maintenance-status',[MaintenanceController::class, 'update_maintenance_status']);

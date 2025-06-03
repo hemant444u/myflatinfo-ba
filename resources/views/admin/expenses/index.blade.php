@@ -269,18 +269,18 @@
 
     $(document).on('change','#model',function(){
       var model = $(this).val();
-      if(model == 'Event'){
-        alert(model)
+      $('.model-id').html('');
+      if(model == 'Event' || model == 'Essential' || model == 'Booking'){
+        $.ajax({
+          url : "{{url('/get-model-data')}}",
+          type: "post",
+          data : {'_token':token,'model':model},
+          success: function(data)
+          {
+            $('.model-id').html(data);
+          }
+        });
       }
-      $.ajax({
-        url : "{{url('/get-flats')}}",
-        type: "post",
-        data : {'_token':token,'block_id':block_id,'flat_id':flat_id},
-        success: function(data)
-        {
-          $('.flats').html(data);
-        }
-      });
     });
 
   });

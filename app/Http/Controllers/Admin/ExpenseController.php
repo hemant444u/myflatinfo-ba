@@ -114,6 +114,7 @@ class ExpenseController extends Controller
     public function get_model_data(Request $request)
     {
         $model = $request->model;
+        $user =Auth::User();
         if($model == 'Booking'){
             $results = Facility::all();
         }else{

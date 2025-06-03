@@ -189,12 +189,12 @@
               <p>Accounts<i class="right fas fa-angle-left"></i></p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="has-treeview">
-                <a href="#" class="nav-link sub-menu">
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
                   <p>Statement<i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
-                  <li class="nav-item">
+                  <li class="nav-item ">
                     <a href="{{ url('/') }}" class="nav-link {{ request()->is('admin/expenses') ? 'active' : '' }}">
                       <p>Expenses</p>
                     </a>

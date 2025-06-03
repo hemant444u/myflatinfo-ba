@@ -1493,7 +1493,6 @@ class CustomerController extends Controller
             $total = $payment->dues_amount + $late_fine;
             $payment->save();
             $payment->gst = $total * 18 / 100;
-            $last_payment = 
             $total_payment += $total;
         }
 

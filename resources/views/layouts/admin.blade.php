@@ -79,7 +79,7 @@
     .btn-success{background-color:black;color:white;}
     .btn-success:hover{background-color:white;color:black;border-color:black;}
     .humburger-menu:hover{color:white !important;}
-    .nav-link{color:#red;}
+    
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -189,8 +189,8 @@
               <p>Accounts<i class="right fas fa-angle-left"></i></p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
+              <li class="has-treeview">
+                <a href="#" class="nav-link sub-menu">
                   <p>Statement<i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview">

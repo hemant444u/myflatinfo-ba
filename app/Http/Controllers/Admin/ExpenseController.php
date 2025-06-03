@@ -121,6 +121,6 @@ class ExpenseController extends Controller
         if($model == 'Essential'){
             $results = Essential::where('building_id',$user->building_id)->get();
         }
-        return view('admin.partials.model_data',compact('results'));
+        return view('partials.model_data',compact('results'));
     }
 }

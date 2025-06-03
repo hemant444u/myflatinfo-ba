@@ -182,33 +182,27 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Account<i class="right fas fa-angle-left"></i></p>
+              <p>Accounts<i class="right fas fa-angle-left"></i></p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{url('admin/index.html')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Society Funds</p>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <p>Statement<i class="right fas fa-angle-left"></i></p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('admin/index.html')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Maintenance</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('admin/index.html')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Esssential</p>
-                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('admin.expenses') }}" class="nav-link {{ request()->is('admin/expenses') ? 'active' : '' }}">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Expenses</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>
-      
+          
           <li class="nav-item">
             <a href="{{url('/building-option')}}" class="nav-link {{ request()->is('building-option*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-bar-chart"></i>

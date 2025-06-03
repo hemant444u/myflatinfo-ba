@@ -1724,7 +1724,7 @@ class CustomerController extends Controller
             ->get();
             
             foreach($maintenance_payments as $maintenance_payment){
-                $maintenance_payment->paid_amount = $order->amount;
+                $maintenance_payment->paid_amount = $maintenance_payment->dues_amount;
                 $maintenance_payment->dues_amount = 0;
                 $maintenance_payment->type = 'Razorpay';
                 $maintenance_payment->status = 'Paid';

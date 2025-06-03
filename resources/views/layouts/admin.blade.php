@@ -79,6 +79,7 @@
     .btn-success{background-color:black;color:white;}
     .btn-success:hover{background-color:white;color:black;border-color:black;}
     .humburger-menu:hover{color:white !important;}
+    .nav-link{color:#ddd;}
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

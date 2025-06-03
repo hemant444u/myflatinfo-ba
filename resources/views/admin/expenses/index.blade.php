@@ -150,11 +150,16 @@
         <div class="modal-body">
           <div class="error"></div>
           <div class="form-group">
-            <label for="name" class="col-form-label">Building:</label>
-            <select name="building_id" id="building_id" class="form-control" id="building_id" required>
-                <option value="{{$building->id}}">{{$building->name}}</option>
+            <label for="name" class="col-form-label">Type:</label>
+            <select name="model" id="model" class="form-control" id="model" required>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Event">Event</option>
+                <option value="Corpus">Corpus</option>
+                <option value="Booking">Booking</option>
+                <option value="Assential">Assential</option>
             </select>
           </div>
+          <div class="model-id"></div>
           <div class="form-group">
             <label for="name" class="col-form-label">Reason:</label>
             <textarea name="reason" id="reason" class="form-control" required></textarea>
@@ -165,12 +170,13 @@
           </div>
           <div class="form-group">
             <label for="code" class="col-form-label">Bill Image:<image src="" id="image2" style="width:40px;"></image></label>
-            <input type="file" name="image" class="form-control" id="image" accept="image/*" required>
+            <input type="file" name="image" class="form-control" id="image" accept="image/*">
           </div>
           <div class="form-group">
             <label for="code" class="col-form-label">Date:</label>
             <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
           </div>
+          <input type="hidden" name="building_id" id="building_id" value="{{$building->id}}">
           <input type="hidden" name="id" id="edit-id">
         </div>
         <div class="modal-footer">

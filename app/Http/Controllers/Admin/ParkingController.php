@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Parking;
 use \Auth;
+use \DB;
 
 class ParkingController extends Controller
 {
 
     public function index()
     {
+        DB::table('parking')->truncate();
         $building = Auth::User()->building;
         return view('admin.parking.index',compact('building'));
     }

@@ -196,7 +196,7 @@
               </li>
             </ul>
           </li>
-          
+      
           <li class="nav-item">
             <a href="{{url('/building-option')}}" class="nav-link {{ request()->is('building-option*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-bar-chart"></i>

@@ -116,11 +116,16 @@ class ExpenseController extends Controller
         $model = $request->model;
         $user = Auth::User();
         if($model == 'Event'){
-            $results = Event::where('building_id',$user->building_id)->get();
+            $events = Event::where('building_id',$user->building_id)->get();
+            return view('partials.events',compact('events'));
         }
         if($model == 'Essential'){
-            $results = Essential::where('building_id',$user->building_id)->get();
+            $essentials = Essential::where('building_id',$user->building_id)->get();
+            return view('partials.essentials',compact('essentials'));
         }
-        return view('partials.model_data',compact('results','model'));
+        if($model == 'Booking'){
+            $building_facilities = BuildingFacility::where('building_id',$user->building_id)->get();
+            return view('partials.facilities',compact('building_facilities'));
+        }
     }
 }

@@ -1,12 +1,11 @@
     <div class="model-id">
         <div class="form-group">
-            <label for="name" class="col-form-label">{{$model}}:</label>
+            <label for="name" class="col-form-label">Events:</label>
             <select name="model_id" class="form-control" id="model_id" required>
-                @forelse($results as $data)
-                <option value="{{$data->id}}">{{$data->name}}</option>
+                @forelse($events as $event)
+                <option value="{{$event->id}}">{{$event->name}}</option>
                 @empty
                 @endforelse
             </select>
         </div>
     </div>
-</div>

@@ -193,7 +193,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{ route('admin.expenses') }}" class="nav-link {{ request()->is('admin/expenses') ? 'active' : '' }}">
+                    <a href="{{ url('/') }}" class="nav-link {{ request()->is('admin/expenses') ? 'active' : '' }}">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Expenses</p>
                     </a>
@@ -202,7 +202,7 @@
               </li>
             </ul>
           </li>
-          
+
           <li class="nav-item">
             <a href="{{url('/building-option')}}" class="nav-link {{ request()->is('building-option*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-bar-chart"></i>

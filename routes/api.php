@@ -137,11 +137,15 @@ use App\Http\Controllers\TruthScreenController;
         });
         
         // guards route
-        
-        Route::post('my-departments',[CustomerController::class,'my_departments']);
-        Route::post('select-department',[CustomerController::class,'select_department']);
-        Route::post('get-issues',[CustomerController::class,'get_issues']);
-        Route::post('update-issue-status',[CustomerController::class,'update_issue_status']);
+        Route::middleware(['department'])->group(function (){
+
+            Route::post('my-departments',[CustomerController::class,'my_departments']);
+            Route::post('select-department',[CustomerController::class,'select_department']);
+            Route::post('get-issues',[CustomerController::class,'get_issues']);
+            Route::post('add-isuue-comment',[CustomerController::class,'add_comment']);
+            Route::post('add-issue-reply',[CustomerController::class,'add_reply']);
+            Route::post('update-issue-status',[CustomerController::class,'update_issue_status']);
+        });
     });
     
     

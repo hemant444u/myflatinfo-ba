@@ -13,7 +13,7 @@ class ParkingController extends Controller
 
     public function index()
     {
-        DB::table('parking')->truncate();
+        DB::table('parkings')->truncate();
         $building = Auth::User()->building;
         return view('admin.parking.index',compact('building'));
     }

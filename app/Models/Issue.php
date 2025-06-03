@@ -19,6 +19,11 @@ class Issue extends Model
     {
         return $this->belongsTo('App\Models\Block')->withTrashed();
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User')->withTrashed();
+    }
     
     public function flat()
     {

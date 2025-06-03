@@ -28,10 +28,10 @@ class DepartmentMiddleware
             ], 422));
         }
 
-        if($user->department){
+        if(!$user->department){
             abort(response()->json(
             [
-                'error' => 'department is not Active',
+                'error' => 'department not found',
                 'redirect' => 'select_department_screen',
             ], 422));
         }

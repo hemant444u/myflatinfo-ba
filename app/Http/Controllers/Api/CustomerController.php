@@ -3301,7 +3301,7 @@ class CustomerController extends Controller
         $user = Auth::User();
         $department = $user->department;
         $issues = Issue::where('building_id',$department->building_id)->where('role_id',$department->role_id)->where('status',$request->status)
-        ->with(['user','flat','block','building','photos','department','comments.user','comments.replies.user'])->get();
+        ->with(['flat.tanent','flat.owner','block','building','photos','department','comments.user','comments.replies.user'])->get();
         return response()->json([
                 'issues' => $issues
         ],200);

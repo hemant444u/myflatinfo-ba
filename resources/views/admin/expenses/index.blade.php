@@ -90,6 +90,8 @@
                     <th>Bill/Reciept</th>
                     <th>Reason</th>
                     <th>Amount</th>
+                    <th>Model</th>
+                    <th>Type</th>
                     <th>Date</th>
                     <th>Created at</th>
                     <th>Action</th>
@@ -105,6 +107,8 @@
                     <td><img src="{{$expense->image}}" style="width:40px;"></td>
                     <td>{{$expense->reason}}</td>
                     <td>{{$expense->amount}}</td>
+                    <td>{{$expense->model}}</td>
+                    <td>{{$expense->payment_type}}</td>
                     <td>{{$expense->date}}</td>
                     <td>{{$expense->created_at}}</td>
                     <td>

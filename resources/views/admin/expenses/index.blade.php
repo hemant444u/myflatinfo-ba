@@ -184,7 +184,6 @@
             <label for="code" class="col-form-label">Date:</label>
             <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
           </div>
-          <input type="hidden" name="building_id" id="building_id" value="{{$building->id}}">
           <input type="hidden" name="id" id="edit-id">
         </div>
         <div class="modal-footer">

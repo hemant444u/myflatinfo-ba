@@ -147,6 +147,7 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('add-issue-reply',[CustomerController::class,'add_reply']);
             Route::post('update-issue-status',[CustomerController::class,'update_issue_status']);
             Route::post('get-issue-comments',[CustomerController::class,'get_issue_comments']);
+            Route::post('get-comment-replies',[CustomerController::class,'get_comment_replies']);
         });
     });
     

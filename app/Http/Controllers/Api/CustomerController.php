@@ -3356,6 +3356,25 @@ class CustomerController extends Controller
                 'comments' => $comments,
         ],200);
     }
+
+    public function get_comment_replies(Request $request)
+    {
+        $rules = [
+            'comment_id' => 'required|exists:comments,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $comment = Comment::where('id',$request->comment_id)->with(['user','replies.user'])->first();
+        return response()->json([
+                'comment' => $comment,
+        ],200);
+    }
     
     public function get_building_gate_passes(Request $request)
     {

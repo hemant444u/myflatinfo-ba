@@ -346,6 +346,7 @@ class CustomerController extends Controller
                 Auth::login($user, true);
                 return response()->json([
                     'token' => $token,
+                    'user' => $user,
                     'msg' => 'Login Successfull.'
                 ],200);
             }else{

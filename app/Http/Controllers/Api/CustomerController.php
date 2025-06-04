@@ -2816,7 +2816,6 @@ class CustomerController extends Controller
         }
         
         $user = Auth::User();
-        $flat = Flat::find($request->flat_id);
         if($request->flat_id){
             $flat = Flat::find($request->flat_id);
         }
@@ -2834,7 +2833,7 @@ class CustomerController extends Controller
         do {
             $code = Str::random(10);
         } while (\App\Models\GatePass::where('code', $code)->exists());
-        if($flat->tanent_id){
+        if($flat->tanent_id > 0){
             $visitor->user_id = $flat->tanent_id;
         }else{
             $visitor->user_id = $flat->owner_id;

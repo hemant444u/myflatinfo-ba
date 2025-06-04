@@ -33,7 +33,6 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'building_id' => 'required|exists:buildings,id',
             'reason' => 'required',
             'amount' => 'required',
             'date' => 'required',
@@ -60,6 +59,9 @@ class ExpenseController extends Controller
         $user = Auth::User();
         $expense->user_id = $user->id;
         $expense->building_id = $user->building_id;
+        $expense->model = $request->model;
+        $expense->model_id = $request->model_id;
+        $expense->payment_type = $request->payment_type;
         $expense->reason = $request->reason;
         $expense->date = $request->date;
         $expense->amount = $request->amount;
@@ -78,13 +80,13 @@ class ExpenseController extends Controller
         $transaction = new Transaction();
         $transaction->building_id = $user->building_id;
         $transaction->user_id = $user->id;
-        $transaction->model = 'Expense';
-        $transaction->model_id = $expense->id;
+        $transaction->model = $request->model;
+        $transaction->model_id = $request->model_id;
         $transaction->type = 'Debit';
-        $transaction->payment_type = 'BA';
-        $transaction->amount = $expense->amount;
+        $transaction->payment_type = $request->payment_type;
+        $transaction->amount = $request->amount;
         $transaction->reciept_no = 'EXPS'.rand(10000000,99999999);
-        $transaction->desc = $expense->reason;
+        $transaction->desc = $request->reason;
         $transaction->status = 'Success';
         $transaction->save();
     

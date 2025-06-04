@@ -162,8 +162,8 @@
           <div class="model-id"></div>
 
           <div class="form-group">
-            <label for="name" class="col-form-label">Payment Mode:</label>
-            <select name="payment_mode" id="payment_mode" class="form-control" id="payment_mode" required>
+            <label for="name" class="col-form-label">Payment Type:</label>
+            <select name="payment_type" id="payment_type" class="form-control" id="payment_type" required>
                 <option value="Inhand">From Inhand</option>
                 <option value="InBank">From InBank</option>
             </select>

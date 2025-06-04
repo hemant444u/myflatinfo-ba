@@ -160,6 +160,14 @@
             </select>
           </div>
           <div class="model-id"></div>
+
+          <div class="form-group">
+            <label for="name" class="col-form-label">Payment Mode:</label>
+            <select name="payment_mode" id="payment_mode" class="form-control" id="payment_mode" required>
+                <option value="Inhand">From Inhand</option>
+                <option value="InBank">From InBank</option>
+            </select>
+          </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Reason:</label>
             <textarea name="reason" id="reason" class="form-control" required></textarea>

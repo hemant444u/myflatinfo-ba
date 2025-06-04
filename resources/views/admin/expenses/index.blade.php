@@ -93,7 +93,7 @@
                     <th>Model</th>
                     <th>Type</th>
                     <th>Date</th>
-                    <th>Created at</th>
+                    <!-- <th>Created at</th> -->
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -110,7 +110,7 @@
                     <td>{{$expense->model}}</td>
                     <td>{{$expense->payment_type}}</td>
                     <td>{{$expense->date}}</td>
-                    <td>{{$expense->created_at}}</td>
+                    <!-- <td>{{$expense->created_at}}</td> -->
                     <td>
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$expense->id}}" data-reason="{{$expense->reason}}" data-amount="{{$expense->amount}}"   
                       data-image="{{$expense->image}}" data-date="{{$expense->date}}"><i class="fa fa-edit"></i></button>

@@ -3338,6 +3338,25 @@ class CustomerController extends Controller
                 'msg' => 'Issue status updated'
         ],200);
     }
+
+    public function get_issue_comments(Request $request)
+    {
+        $rules = [
+            'issue_id' => 'required|exists:issues,id',
+        ];
+    
+        $validation = \Validator::make($request->all(), $rules);
+        $error = $validation->errors()->first();
+        if ($error) {
+            return response()->json([
+                'error' => $error
+            ], 422);
+        }
+        $comments = Comment::where('issue_id',$request->issue_id)->with(['replies'])->get();
+        return response()->json([
+                'comments' => $comments,
+        ],200);
+    }
     
     public function get_building_gate_passes(Request $request)
     {

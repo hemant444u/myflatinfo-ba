@@ -109,7 +109,7 @@
                     <td>{{$expense->created_at}}</td>
                     <td>
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$expense->id}}" data-reason="{{$expense->reason}}" data-amount="{{$expense->amount}}"   
-                      data-image="{{$expense->image}}" data-date="{{$expense->date}}" data-building_id="{{$expense->building_id}}"><i class="fa fa-edit"></i></button>
+                      data-image="{{$expense->image}}" data-date="{{$expense->date}}"><i class="fa fa-edit"></i></button>
                     </td>
 
                   </tr>
@@ -262,7 +262,6 @@
       var button = $(event.relatedTarget);
       var edit_id = button.data('id');
       $('#edit-id').val(button.data('id'));
-      $('#building_id').val(button.data('building_id'));
       $('#reason').val(button.data('reason'));
       $('#amount').val(button.data('amount'));
       $('#date').val(button.data('date'));

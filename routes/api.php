@@ -117,7 +117,7 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('vehicle-in-out',[CustomerController::class,'vehicle_in_out']);
             Route::post('vehicle-in-out-history',[CustomerController::class,'vehicle_in_out_history']);
             Route::post('search-flat',[CustomerController::class,'search_flat']);
-            Route::post('create-unplanned-visitor',[CustomerController::class,'create_visitor']);
+            Route::post('create-unplanned-visitor',[CustomerController::class,'create_unplanned_visitor']);
             Route::post('resend-visitor-request',[CustomerController::class,'resend_visitor_request']);
             Route::post('get-building-parcels',[CustomerController::class,'get_building_parcels']);
             Route::post('get-flat-parcels',[CustomerController::class,'get_flat_parcels']);

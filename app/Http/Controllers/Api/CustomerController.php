@@ -880,9 +880,9 @@ class CustomerController extends Controller
         }
         $flat = Auth::user()->flat;
         if($request->status == 'All'){
-            $issues = Issue::where('flat_id', $flat->id)->with(['department','photos','comments.replies'])->get();
+            $issues = Issue::where('flat_id', $flat->id)->with(['department','photos','comments.replies.user'])->get();
         }else{
-            $issues = Issue::where('flat_id', $flat->id)->where('status',$request->status)->with(['department','photos','comments.replies'])->get();
+            $issues = Issue::where('flat_id', $flat->id)->where('status',$request->status)->with(['department','photos','comments.replies.user'])->get();
         }
         return response()->json([
                 'issues' => $issues
@@ -893,7 +893,7 @@ class CustomerController extends Controller
     {
         $flat = Auth::user()->flat;
 
-        $issues = Issue::where('flat_id', $flat->id)->where('status','Solved')->with(['department','comments.replies'])->get();
+        $issues = Issue::where('flat_id', $flat->id)->where('status','Solved')->with(['department','comments.replies.user'])->get();
         return response()->json([
                 'issues' => $issues
         ],200);

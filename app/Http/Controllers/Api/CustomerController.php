@@ -3251,6 +3251,15 @@ class CustomerController extends Controller
     
     
     // department routes
+
+    public function depatment_profile(Request $request)
+    {
+        $user = Auth::User();
+        $department = $user->department;
+        return response()->json([
+            'user' => $user,
+        ],200);
+    }
     
     public function my_departments(Request $request)
     {

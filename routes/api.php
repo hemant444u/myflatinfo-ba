@@ -21,8 +21,6 @@ use App\Http\Controllers\TruthScreenController;
         Route::post('update-password',[CustomerController::class,'update_password']);
         
         Route::post('change-password',[CustomerController::class,'change_password']);
-        Route::post('profile',[CustomerController::class,'profile']);
-        Route::post('update-profile',[CustomerController::class,'update_profile']);
         
         Route::post('get-flats',[CustomerController::class,'get_flats']);
         Route::post('select-flat',[CustomerController::class,'select_flat']);
@@ -30,6 +28,8 @@ use App\Http\Controllers\TruthScreenController;
         Route::middleware(['flat'])->group(function (){
             Route::post('get-ads',[CustomerController::class,'get_ads']);
             Route::post('get-overdues',[CustomerController::class,'get_overdues']);
+            Route::post('profile',[CustomerController::class,'profile']);
+            Route::post('update-profile',[CustomerController::class,'update_profile']);
             Route::post('get-noticeboards',[CustomerController::class,'get_noticeboards']);
             Route::post('get-events',[CustomerController::class,'get_events']);
             Route::post('get-classifieds',[CustomerController::class,'get_classifieds']);
@@ -141,6 +141,7 @@ use App\Http\Controllers\TruthScreenController;
         Route::post('select-department',[CustomerController::class,'select_department']);
         
         Route::middleware(['department'])->group(function (){
+            Route::post('department-profile',[CustomerController::class,'department_profile']);
             Route::post('get-issues',[CustomerController::class,'get_issues']);
             Route::post('add-issue-comment',[CustomerController::class,'add_comment']);
             Route::post('add-issue-reply',[CustomerController::class,'add_reply']);

@@ -3352,7 +3352,7 @@ class CustomerController extends Controller
                 'error' => $error
             ], 422);
         }
-        $comments = Comment::where('issue_id',$request->issue_id)->with(['replies.user'])->get();
+        $comments = Comment::where('issue_id',$request->issue_id)->with(['user','replies.user'])->get();
         return response()->json([
                 'comments' => $comments,
         ],200);

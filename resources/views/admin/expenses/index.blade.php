@@ -268,9 +268,9 @@
       $('#date').val(button.data('date'));
       $('#image2').attr('src',button.data('image'));
       $('.modal-title').text('Add New Expense');
-      $('#image').attr('required',true);
+      // $('#image').attr('required',true);
       if(edit_id){
-          $('#image').attr('required',false);
+          // $('#image').attr('required',false);
           $('.modal-title').text('Update Expense');
       }
     });

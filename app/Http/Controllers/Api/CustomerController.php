@@ -3252,7 +3252,7 @@ class CustomerController extends Controller
     
     // department routes
 
-    public function depatment_profile(Request $request)
+    public function department_profile(Request $request)
     {
         $user = Auth::User();
         $department = $user->department;

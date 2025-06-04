@@ -53,6 +53,7 @@
                   <tr>
                     <th>S No</th>
                     <th>Flat</th>
+                    <th>User</th>
                     <th>Type</th>
                     <th>Head photo</th>
                     <th>Head Name</th>
@@ -73,6 +74,7 @@
                   <tr>
                     <td>{{$i}}</td>
                     <td>{{$visitor->flat->name}}</td>
+                    <td>{{$visitor->user ? $visitor->user->name : $visitor->user_id}}</td>
                     <td>{{$visitor->type}}</td>
                     <td><img src="{{$visitor->head_photo}}" style="width:40px"></td>
                     <td>{{$visitor->head_name}}</td>

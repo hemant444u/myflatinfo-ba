@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Storage;
 class AccountController extends Controller
 {
 
-    public function income_and_expenditure()
+    public function income_and_expenditure(Request $request)
     {
         $building = Auth::User()->building;
         $expenses = $building->expenses()

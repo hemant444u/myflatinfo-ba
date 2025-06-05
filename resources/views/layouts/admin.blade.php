@@ -94,7 +94,7 @@
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
-    background-color: #ddd;
+    background-color: black;
     color: black;
 }
 

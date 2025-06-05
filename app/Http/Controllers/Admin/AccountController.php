@@ -20,8 +20,16 @@ class AccountController extends Controller
 
     public function income_and_expenditure()
     {
-        $building = Auth::User()->building;
-        return view('admin.account.income_and_expenditure',compact('building'));
+        $expenses = $building->expenses()
+        ->when($request->from_date, function ($query) use ($request) {
+            $query->whereDate('date', '>=', $request->from_date);
+        })
+        ->when($request->to_date, function ($query) use ($request) {
+            $query->whereDate('date', '<=', $request->to_date);
+        })
+        ->get();
+
+        return view('admin.account.income_and_expenditure',compact('expenses'));
     }
 
 }

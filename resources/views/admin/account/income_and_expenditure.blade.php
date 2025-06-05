@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Society Funds
+    Income & Expenditure
 @endsection
 
 @section('content')
@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Society Funds</h1>
+            <h1>Income & Expenditure</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Society Funds</li>
+              <li class="breadcrumb-item active">Income & Expenditure</li>
             </ol>
           </div>
         </div>
@@ -43,7 +43,7 @@
                 
             <div class="card">
               <div class="card-header">
-                <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Expense</button>
+                <!-- <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Expense</button> -->
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -65,7 +65,7 @@
                   <tbody>
                     
                     <?php $i = 0; ?>
-                  @forelse($building->expenses as $expense)
+                  @forelse($expenses as $expense)
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>

@@ -261,8 +261,38 @@
                       </ul>
                   </li>
               </ul>
-          </li>
+              @php
+                $isFormOpen = request()->is('account/forms*');
+                $isPaymentActive = request()->is('account/forms/payment*');
+                $isRecieptActive = request()->is('account/forms/reciept*');
+              @endphp
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item has-treeview {{ $isFormOpen ? 'menu-open' : '' }}">
+                      <a href="#" class="nav-link {{ $isFormOpen ? 'second-active' : '' }}">
+                          <p>
+                              Forms
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
 
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/forms/payment') }}" class="nav-link {{ $isPaymentActive ? 'third-active' : '' }}">
+                                <p>Payments</p>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/forms/reciept') }}" class="nav-link {{ $isRecieptActive ? 'third-active' : '' }}">
+                                <p>Reciepts</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </li>
+          
 
 
           <li class="nav-item">

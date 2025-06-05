@@ -79,6 +79,28 @@
     .btn-success{background-color:black;color:white;}
     .btn-success:hover{background-color:white;color:black;border-color:black;}
     .humburger-menu:hover{color:white !important;}
+
+    /* For active sub-menu links (like "Income & Expenditure") */
+.sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link.active,
+.sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link.active {
+    background-color: black;
+    color: white !important;
+    border-radius: 0px;
+}
+
+.sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
+.sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
+    background-color: #222;
+    color: white;
+}
+
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: black;
+    color: white !important;
+    border-radius: 0px;
+}
+
     
   </style>
 </head>

@@ -96,9 +96,6 @@
     color: black;
 }
 
-.second{
-  margin-left:2px;
-}
 .third{
   margin-left:16px;
 }

@@ -172,6 +172,7 @@
           }
         });
       }
+    $('#model_id').val(model_id);
 
   });
 </script>

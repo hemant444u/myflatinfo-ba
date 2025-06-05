@@ -142,7 +142,9 @@
     var id = '';
     var action = '';
     var token = "{{csrf_token()}}";
-
+    var model = "{{ request('model') }}";
+    var model_id = "{{ request('model_id') }}";
+    
     $(document).on('change','#model',function(){
       var model = $(this).val();
       $('.model-id').html('');
@@ -159,6 +161,17 @@
       }
     });
 
+    if(model == 'Event' || model == 'Essential' || model == 'Booking'){
+        $.ajax({
+          url : "{{url('/get-model-data')}}",
+          type: "post",
+          data : {'_token':token,'model':model},
+          success: function(data)
+          {
+            $('.model-id').html(data);
+          }
+        });
+      }
 
   });
 </script>

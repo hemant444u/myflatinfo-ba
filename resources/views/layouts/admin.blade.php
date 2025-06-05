@@ -222,34 +222,41 @@
             </a>
           </li>
 
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link {{ request()->is('account/*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Accounts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
+          @php
+              $isAccountOpen = request()->is('account/*');
+              $isStatementOpen = request()->is('account/statement/*');
+              $isIncomeActive = request()->is('account/statement/income-and-expenditure*');
+          @endphp
 
-            <ul class="nav nav-treeview second">
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link {{ request()->is('account/statement/*') ? 'active' : '' }}">
+          <li class="nav-item has-treeview {{ $isAccountOpen ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ $isAccountOpen ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
-                    Statements
-                    <i class="right fas fa-angle-left"></i>
+                      Accounts
+                      <i class="right fas fa-angle-left"></i>
                   </p>
-                </a>
+              </a>
 
-                <ul class="nav nav-treeview third">
-                  <li class="nav-item">
-                    <a href="{{ url('account/statement/income-and-expenditure') }}" class="nav-link {{ request()->is('account/income-and-expenditure*') ? 'active' : '' }}">
-                      <p>Income & Expenditure</p>
-                    </a>
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item has-treeview {{ $isStatementOpen ? 'menu-open' : '' }}">
+                      <a href="#" class="nav-link {{ $isStatementOpen ? 'active' : '' }}">
+                          <p>
+                              Statements
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/statement/income-and-expenditure') }}" class="nav-link {{ $isIncomeActive ? 'active' : '' }}">
+                                  <p>Income & Expenditure</p>
+                              </a>
+                          </li>
+                      </ul>
                   </li>
-                </ul>
-              </li>
-            </ul>
+              </ul>
           </li>
+
 
 
           <li class="nav-item">

@@ -90,12 +90,19 @@
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
     background-color: #f9f9f9bd;
-    color: black;
+    color: #ddd;
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
     background-color: #ddd;
     color: white;
+}
+.second-active{
+  color: black;
+}
+.third-active{
+  background-color: #ddd;
+  color: black;
 }
 
 .second{
@@ -239,7 +246,7 @@
 
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isStatementOpen ? 'menu-open' : '' }}">
-                      <a href="#" class="nav-link {{ $isStatementOpen ? 'active' : '' }}">
+                      <a href="#" class="nav-link {{ $isStatementOpen ? 'second-active' : '' }}">
                           <p>
                               Statements
                               <i class="right fas fa-angle-left"></i>
@@ -248,7 +255,7 @@
 
                       <ul class="nav nav-treeview third">
                           <li class="nav-item">
-                              <a href="{{ url('account/statement/income-and-expenditure') }}" class="nav-link {{ $isIncomeActive ? 'active' : '' }}">
+                              <a href="{{ url('account/statement/income-and-expenditure') }}" class="nav-link {{ $isIncomeActive ? 'third-active' : '' }}">
                                   <p>Income & Expenditure</p>
                               </a>
                           </li>

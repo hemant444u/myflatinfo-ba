@@ -293,6 +293,7 @@
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isStatementOpen ? 'menu-open' : '' }}">
                       <a href="#" class="nav-link {{ $isStatementOpen ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
                           <p>
                               Statements
                               <i class="right fas fa-angle-left"></i>
@@ -316,6 +317,7 @@
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isFormOpen ? 'menu-open' : '' }}">
                       <a href="#" class="nav-link {{ $isFormOpen ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
                           <p>
                               Forms
                               <i class="right fas fa-angle-left"></i>
@@ -346,6 +348,7 @@
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isMaintenanceOpen ? 'menu-open' : '' }}">
                       <a href="#" class="nav-link {{ $isMaintenanceOpen ? 'second-active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                           <p>
                               Maintenance
                               <i class="right fas fa-angle-left"></i>
@@ -376,6 +379,7 @@
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isContributionOpen ? 'menu-open' : '' }}">
                       <a href="#" class="nav-link {{ $isContributionOpen ? 'second-active' : '' }}">
+                        <i class="far fa-circle nav-icon"></i>
                           <p>
                               Contributions
                               <i class="right fas fa-angle-left"></i>

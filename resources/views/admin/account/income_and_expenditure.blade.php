@@ -40,11 +40,31 @@
                     </div>
                     @endif
                 </div>
-                
+
             <div class="card">
-              <div class="card-header">
-                <!-- <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Expense</button> -->
-              </div>
+                <div class="card-body">
+                  <form method="GET" action="{{ url('account/statement/income-and-expenditure') }}">
+                    <div class="form-row align-items-end">
+                        <div class="form-group col-md-4">
+                        <label for="from_date">From Date</label>
+                        <input type="date" id="from_date" name="from_date" class="form-control" value="{{ request('from_date') }}">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                        <label for="to_date">To Date</label>
+                        <input type="date" id="to_date" name="to_date" class="form-control" value="{{ request('to_date') }}">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+
+
+            <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="table-responsive">

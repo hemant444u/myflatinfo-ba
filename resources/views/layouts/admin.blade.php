@@ -237,7 +237,6 @@
             <ul class="nav nav-treeview second">
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
                   <p>
                     Statements
                     <i class="right fas fa-angle-left"></i>
@@ -247,7 +246,6 @@
                 <ul class="nav nav-treeview third">
                   <li class="nav-item">
                     <a href="{{ url('society-fund/expenses') }}" class="nav-link {{ request()->is('society-fund/expenses*') ? 'active' : '' }}">
-                      <i class="far fa-dot-circle nav-icon"></i>
                       <p>Income & Expenditure</p>
                     </a>
                   </li>

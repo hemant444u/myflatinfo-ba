@@ -91,35 +91,27 @@
                   <thead>
                   <tr>
                     <th>S No</th>
-                    <th>Bill/Reciept</th>
-                    <th>Reason</th>
-                    <th>Amount</th>
-                    <th>Model</th>
-                    <th>Type</th>
                     <th>Date</th>
-                    <!-- <th>Created at</th> -->
-                    <th>Action</th>
+                    <th>Particulars</th>
+                    <th>Cash Debit</th>
+                    <th>Cash Credit</th>
+                    <th>Bank Debit</th>
+                    <th>Bank Credit</th>
                   </tr>
                   </thead>
                   <tbody>
                     
                     <?php $i = 0; ?>
-                  @forelse($expenses as $expense)
+                  @forelse($transactions as $transaction)
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td><img src="{{$expense->image}}" style="width:40px;"></td>
-                    <td>{{$expense->reason}}</td>
-                    <td>{{$expense->amount}}</td>
-                    <td>{{$expense->model}}</td>
-                    <td>{{$expense->payment_type}}</td>
-                    <td>{{$expense->date}}</td>
-                    <!-- <td>{{$expense->created_at}}</td> -->
-                    <td>
-                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$expense->id}}" data-reason="{{$expense->reason}}" data-amount="{{$expense->amount}}"   
-                      data-image="{{$expense->image}}" data-date="{{$expense->date}}"><i class="fa fa-edit"></i></button>
-                    </td>
-
+                    <td>{{$transaction->date}}</td>
+                    <td>{{$transaction->desc}}</td>
+                    <td>{{$transaction->model}}</td>
+                    <td>{{$transaction->payment_type}}</td>
+                    <td>{{$transaction->date}}</td>
+                    <td>{{$transaction}}</td>
                   </tr>
                   @empty
                   @endforelse
@@ -142,89 +134,6 @@
 
 
 
-<!-- Add Modal -->
-
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Expense</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="{{route('expense.store')}}" method="post" class="add-form" enctype="multipart/form-data">
-        @csrf
-        <div class="modal-body">
-          <div class="error"></div>
-          <div class="form-group">
-            <label for="name" class="col-form-label">Type:</label>
-            <select name="model" id="model" class="form-control" id="model" required>
-                <option value="Maintenance">Maintenance</option>
-                <option value="Event">Event</option>
-                <option value="Corpus">Corpus</option>
-                <option value="Booking">Booking</option>
-                <option value="Essential">Essential</option>
-            </select>
-          </div>
-          <div class="model-id"></div>
-
-          <div class="form-group">
-            <label for="name" class="col-form-label">Payment Type:</label>
-            <select name="payment_type" id="payment_type" class="form-control" id="payment_type" required>
-                <option value="Inhand">From Inhand</option>
-                <option value="InBank">From InBank</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="name" class="col-form-label">Reason:</label>
-            <textarea name="reason" id="reason" class="form-control" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="name" class="col-form-label">Amount:</label>
-            <input type="text" name="amount" class="form-control" id="amount" placeholder="Amount" required>
-          </div>
-          <div class="form-group">
-            <label for="code" class="col-form-label">Bill Image:<image src="" id="image2" style="width:40px;"></image></label>
-            <input type="file" name="image" class="form-control" id="image" accept="image/*">
-          </div>
-          <div class="form-group">
-            <label for="code" class="col-form-label">Date:</label>
-            <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
-          </div>
-          <input type="hidden" name="id" id="edit-id">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="save-button">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="text"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" id="delete-button">Confirm Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 @section('script')
 
 
@@ -233,53 +142,6 @@
     var id = '';
     var action = '';
     var token = "{{csrf_token()}}";
-    
-    $('#deleteModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      id = button.data('id');
-      $('#delete-id').val(id);
-      action= button.data('action');
-      $('#delete-button').removeClass('btn-success');
-      $('#delete-button').removeClass('btn-danger');
-      if(action == 'delete'){
-          $('#delete-button').addClass('btn-danger');
-          $('#delete-button').text('Confirm Delete');
-          $('.text').text('You are going to permanently delete this item..');
-      }else{
-          $('#delete-button').addClass('btn-success');
-          $('#delete-button').text('Confirm Restore');
-          $('.text').text('You are going to restore this item..');
-      }
-    });
-
-    $(document).on('click','#delete-button',function(){
-      var url = "{{route('expense.destroy','')}}";
-      $.ajax({
-        url : url + '/' + id,
-        type: "DELETE",
-        data : {'_token':token,'action':action},
-        success: function(data)
-        {
-          window.location.reload();
-        }
-      });
-    });
-
-    $('#addModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var edit_id = button.data('id');
-      $('#edit-id').val(button.data('id'));
-      $('#reason').val(button.data('reason'));
-      $('#amount').val(button.data('amount'));
-      $('#date').val(button.data('date'));
-      $('#image2').attr('src',button.data('image'));
-      $('.modal-title').text('Add New Expense');
-      // $('#image').attr('required',true);
-      if(edit_id){
-          // $('#image').attr('required',false);
-          $('.modal-title').text('Update Expense');
-      }
-    });
 
     $(document).on('change','#model',function(){
       var model = $(this).val();

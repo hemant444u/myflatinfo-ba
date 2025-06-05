@@ -96,11 +96,6 @@
     color: black;
 }
 
-.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
-.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-    color: black !important;
-}
-
 .second{
   margin-left:16px;
 }

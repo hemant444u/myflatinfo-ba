@@ -47,7 +47,7 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="model" class="col-form-label">Type:</label>
-                        <select name="model" id="model" class="form-control" required>
+                        <select name="model" id="model" class="form-control" value="{{ request('model') }}" required>
                             <option value="Maintenance">Maintenance</option>
                             <option value="Event">Event</option>
                             <option value="Corpus">Corpus</option>
@@ -158,6 +158,7 @@
         });
       }
     });
+
 
   });
 </script>

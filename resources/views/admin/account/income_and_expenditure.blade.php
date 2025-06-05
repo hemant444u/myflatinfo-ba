@@ -27,42 +27,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                <h3 class="profile-username text-center">{{$building->name}}</h3>
-                </div>
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <a href="{{url('society-fund/expenses')}}" class="">Expenses</a>
-                  </li>
-                  <li class="list-group-item">
-                    <a href="{{url('society-fund/maintenance')}}" class="" style="color:black">Maintenance Funds</a>
-                  </li>
-                  <li class="list-group-item">
-                    <a href="{{url('society-fund/essential')}}" class="" style="color:black">Essential Funds</a>
-                  </li>
-                  <li class="list-group-item">
-                    <a href="{{url('society-fund/event')}}" class="" style="color:black">Event Funds</a>
-                  </li>
-                  <li class="list-group-item">
-                    <a href="{{url('society-fund/corpus')}}" class="" style="color:black">Corpus Funds</a>
-                  </li>
-                  <li class="list-group-item">
-                    <a href="{{url('society-fund/reciepts')}}" class="" style="color:black">Reciepts</a>
-                  </li>
-                </ul>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-          </div>
-          <!-- /.col -->
-          <div class="col-md-9">
+          <div class="col-md-12">
                 <div class="">
                     @if(session()->has('error'))
                     <div class="alert alert-danger">
@@ -76,7 +41,7 @@
                     @endif
                 </div>
                 
-                <div class="card">
+            <div class="card">
               <div class="card-header">
                 <button class="btn btn-sm btn-success right" data-toggle="modal" data-target="#addModal">Add New Expense</button>
               </div>

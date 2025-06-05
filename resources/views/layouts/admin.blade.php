@@ -95,7 +95,7 @@
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
     background-color: black;
-    color: black;
+    color: white;
 }
 
 .third{

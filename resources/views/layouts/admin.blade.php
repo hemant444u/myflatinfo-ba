@@ -291,6 +291,66 @@
                       </ul>
                   </li>
               </ul>
+              @php
+                $isMaintenanceOpen = request()->is('account/maintenance*');
+                $isGenerateInvoiceActive = request()->is('account/maintenance/generate-invoice*');
+                $isManageActive = request()->is('account/maintenance/manage*');
+              @endphp
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item has-treeview {{ $isMaintenanceOpen ? 'menu-open' : '' }}">
+                      <a href="#" class="nav-link {{ $isMaintenanceOpen ? 'second-active' : '' }}">
+                          <p>
+                              Maintenance
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/maintenance/generate-invoice') }}" class="nav-link {{ $isGenerateInvoiceActive ? 'third-active' : '' }}">
+                                <p>Generate Invoice</p>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/maintenance/manage') }}" class="nav-link {{ $isManageActive ? 'third-active' : '' }}">
+                                <p>Manage</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+              @php
+                $isContributionOpen = request()->is('account/contribution*');
+                $isEventActive = request()->is('account/contribution/event*');
+                $isEssentialActive = request()->is('account/contribution/essential*');
+              @endphp
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item has-treeview {{ $isContributionOpen ? 'menu-open' : '' }}">
+                      <a href="#" class="nav-link {{ $isContributionOpen ? 'second-active' : '' }}">
+                          <p>
+                              Contributions
+                              <i class="right fas fa-angle-left"></i>
+                          </p>
+                      </a>
+
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/contribution/event') }}" class="nav-link {{ $isEventActive ? 'third-active' : '' }}">
+                                <p>Generate Invoice</p>
+                              </a>
+                          </li>
+                      </ul>
+                      <ul class="nav nav-treeview third">
+                          <li class="nav-item">
+                              <a href="{{ url('account/contribution/essential') }}" class="nav-link {{ $isEssentialActive ? 'third-active' : '' }}">
+                                <p>Manage</p>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
           </li>
           
 

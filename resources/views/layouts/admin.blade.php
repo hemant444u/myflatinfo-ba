@@ -89,10 +89,12 @@
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
+    background-color: #ddd;
     color: black;
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
+    background-color: #ddd;
     color: black;
 }
 

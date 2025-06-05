@@ -44,24 +44,43 @@
             <div class="card">
                 <div class="card-body">
                   <form method="GET" action="{{ url('account/statement/income-and-expenditure') }}">
-                    <div class="form-row align-items-end">
-                        <div class="form-group col-md-4">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="model" class="col-form-label">Type:</label>
+                        <select name="model" id="model" class="form-control" required>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Event">Event</option>
+                            <option value="Corpus">Corpus</option>
+                            <option value="Booking">Booking</option>
+                            <option value="Essential">Essential</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <div class="model-id"></div>
+                      </div>
+                    </div>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
                         <label for="from_date">From Date</label>
                         <input type="date" id="from_date" name="from_date" class="form-control" value="{{ request('from_date') }}">
-                        </div>
-
-                        <div class="form-group col-md-4">
+                      </div>
+                      <div class="form-group col-md-6">
                         <label for="to_date">To Date</label>
                         <input type="date" id="to_date" name="to_date" class="form-control" value="{{ request('to_date') }}">
                         </div>
-
-                        <div class="form-group col-md-4">
-                        <button type="submit" class="btn btn-primary w-100">Filter</button>
-                        </div>
                     </div>
-                  </form>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-primary btn-block mt-2">Filter</button>
+                      </div>
+                    </div>
+                    </form>
                 </div>
             </div>
+
 
 
             <div class="card">

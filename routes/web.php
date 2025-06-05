@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\FundController;
 use App\Http\Controllers\Admin\GateController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\ParkingController;
+use App\Http\Controllers\Admin\AccountController;
 
 Route::get('clear-cache',function(){
     //\Artisan::call('storage:link');
@@ -139,7 +140,7 @@ Route::middleware('admin')->group(function () {
 
         // new routes
 
-        Route::get('/account/statement/income-and-expenditure',[FundController::class, 'income_and_expenditure']);
+        Route::get('/account/statement/income-and-expenditure',[AccountController::class, 'income_and_expenditure']);
 
 
 

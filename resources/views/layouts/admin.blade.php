@@ -89,7 +89,7 @@
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
-    background-color: #ddd;
+    background-color: #f9f9f9bd;
     color: black;
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,

@@ -195,8 +195,14 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item has-treeview {{ request()->is('society-fund/*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->is('society-fund/*') ? 'active' : '' }}">
+
+          @php
+              $isAccountsOpen = request()->is('society-fund/*');
+              $isStatementsOpen = request()->is('society-fund/expenses*');
+          @endphp
+
+          <li class="nav-item has-treeview {{ $isAccountsOpen ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ $isAccountsOpen ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Accounts
@@ -205,8 +211,8 @@
             </a>
 
             <ul class="nav nav-treeview">
-              <li class="nav-item has-treeview {{ request()->is('society-fund/expenses*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ request()->is('society-fund/expenses*') ? 'active' : '' }}">
+              <li class="nav-item has-treeview {{ $isStatementsOpen ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ $isStatementsOpen ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Statements

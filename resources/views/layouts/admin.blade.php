@@ -99,7 +99,10 @@
 }
 
 .third{
-  margin-left:16px;
+  margin-left:6px;
+}
+.third{
+  margin-left:12px;
 }
 
     

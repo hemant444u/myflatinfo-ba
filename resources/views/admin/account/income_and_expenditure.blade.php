@@ -165,7 +165,7 @@
         $.ajax({
           url : "{{url('/get-model-data')}}",
           type: "post",
-          data : {'_token':token,'model':model},
+          data : {'_token':token,'model':model,'model_id':model_id},
           success: function(data)
           {
             $('.model-id').html(data);

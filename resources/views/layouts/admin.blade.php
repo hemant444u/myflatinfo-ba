@@ -89,18 +89,18 @@
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
-    background-color: #f9f9f9bd;
-    color: #ddd;
+    color: black;
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
     background-color: #ddd;
-    color: white;
 }
 .second-active{
+  background-color: #ddd;
   color: black !important;
 }
 .third-active{
+  background-color: #ddd;
   color: black !important;
 }
 

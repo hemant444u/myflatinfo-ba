@@ -89,20 +89,16 @@
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
-    background-color: #222;
-    color: white;
+    color: black;
 }
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
-    background-color: #222;
-    color: white;
+    color: black;
 }
 
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
 .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-    background-color: black;
-    color: white !important;
-    border-radius: 0px;
+    color: black !important;
 }
 
 .second{

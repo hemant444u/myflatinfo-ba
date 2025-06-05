@@ -98,11 +98,10 @@
     color: white;
 }
 .second-active{
-  color: black;
+  color: black !important;
 }
 .third-active{
-  background-color: #ddd;
-  color: black;
+  color: black !important;
 }
 
 .second{

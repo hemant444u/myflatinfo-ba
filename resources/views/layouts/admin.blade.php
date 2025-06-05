@@ -201,36 +201,37 @@
               $isStatementsOpen = request()->is('society-fund/expenses*');
           @endphp
 
-          <li class="nav-item has-treeview {{ $isAccountsOpen ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ $isAccountsOpen ? 'active' : '' }}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Accounts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
+          <li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+      Accounts
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
 
-            <ul class="nav nav-treeview">
-              <li class="nav-item has-treeview {{ $isStatementsOpen ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ $isStatementsOpen ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Statements
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item has-treeview">
+      <a href="#" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>
+          Statements
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
 
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{ url('society-fund/expenses') }}" class="nav-link {{ request()->is('society-fund/expenses*') ? 'active' : '' }}">
-                      <i class="far fa-dot-circle nav-icon"></i>
-                      <p>Income & Expenditure</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ url('society-fund/expenses') }}" class="nav-link {{ request()->is('society-fund/expenses*') ? 'active' : '' }}">
+            <i class="far fa-dot-circle nav-icon"></i>
+            <p>Income & Expenditure</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
 
           <li class="nav-item">
             <a href="{{url('/profile')}}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">

@@ -97,10 +97,10 @@
 }
 
 .second{
-  margin-left:16px;
+  margin-left:2px;
 }
 .third{
-  margin-left:20px;
+  margin-left:16px;
 }
 
     

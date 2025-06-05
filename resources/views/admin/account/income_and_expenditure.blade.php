@@ -111,7 +111,7 @@
                     <td>{{$transaction->model}}</td>
                     <td>{{$transaction->payment_type}}</td>
                     <td>{{$transaction->date}}</td>
-                    <td>{{$transaction}}</td>
+                    <td>{{$transaction->amount}}</td>
                   </tr>
                   @empty
                   @endforelse

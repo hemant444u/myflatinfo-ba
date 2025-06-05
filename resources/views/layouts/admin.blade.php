@@ -87,7 +87,11 @@
     color: white !important;
     border-radius: 0px;
 }
-
+.sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
+.sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
+    background-color: #222;
+    color: white;
+}
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link:hover {
     background-color: #222;

@@ -229,9 +229,53 @@
           </li>
 
           @php
+            $isInformationOpen = request()->is('information/*');
+            $isOwnerAndTanentOpen = request()->is('information/owner-and-tanent*');
+            $isBlockActive = request()->is('information/information/block*');
+            $isFlatActive = request()->is('information/information/flat*');
+            $isParkingActive = request()->is('information/information/parking*');
+          @endphp
+
+          <li class="nav-item has-treeview {{ $isInformationOpen ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ $isInformationOpen ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                      Information
+                      <i class="right fas fa-angle-left"></i>
+                  </p>
+              </a>
+
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a href="{{ url('information/owner-and-tanent') }}" class="nav-link {{ $isOwnerAndTanentOpen ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Owner & Tenant</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url('information/information/block') }}" class="nav-link {{ $isBlockActive ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Block</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url('information/information/flat') }}" class="nav-link {{ $isFlatActive ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Flat</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url('information/information/parking') }}" class="nav-link {{ $isParkingActive ? 'active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Parking</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+
+
+          @php
               $isAccountOpen = request()->is('account/*');
-              $isStatementOpen = request()->is('account/statement/*');
-              $isIncomeActive = request()->is('account/statement/income-and-expenditure*');
           @endphp
 
           <li class="nav-item has-treeview {{ $isAccountOpen ? 'menu-open' : '' }}">
@@ -242,7 +286,10 @@
                       <i class="right fas fa-angle-left"></i>
                   </p>
               </a>
-
+              @php
+              $isStatementOpen = request()->is('account/statement/*');
+              $isIncomeActive = request()->is('account/statement/income-and-expenditure*');
+              @endphp
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isStatementOpen ? 'menu-open' : '' }}">
                       <a href="#" class="nav-link {{ $isStatementOpen ? 'second-active' : '' }}">

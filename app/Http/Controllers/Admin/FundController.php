@@ -60,6 +60,12 @@ class FundController extends Controller
         return view('admin.fund.reciepts',compact('building','maintenance','essential','event','corpus','expense','total_fund','remaining_fund'));
     }
 
+    public function income_and_expenditure()
+    {
+        $building = Auth::User()->building;
+        return view('admin.fund.index',compact('building'));
+    }
+
 
     
 }

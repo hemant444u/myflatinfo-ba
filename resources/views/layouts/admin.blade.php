@@ -222,13 +222,8 @@
             </a>
           </li>
 
-          @php
-              $isAccountsOpen = request()->is('society-fund/*');
-              $isStatementsOpen = request()->is('society-fund/expenses*');
-          @endphp
-
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link {{ request()->is('account/*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Accounts
@@ -238,7 +233,7 @@
 
             <ul class="nav nav-treeview second">
               <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link {{ request()->is('account/statement/*') ? 'active' : '' }}">
                   <p>
                     Statements
                     <i class="right fas fa-angle-left"></i>
@@ -247,7 +242,7 @@
 
                 <ul class="nav nav-treeview third">
                   <li class="nav-item">
-                    <a href="{{ url('society-fund/expenses') }}" class="nav-link {{ request()->is('society-fund/expenses*') ? 'active' : '' }}">
+                    <a href="{{ url('account/statement/income-and-expenditure') }}" class="nav-link {{ request()->is('account/income-and-expenditure*') ? 'active' : '' }}">
                       <p>Income & Expenditure</p>
                     </a>
                   </li>

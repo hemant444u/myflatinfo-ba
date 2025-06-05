@@ -136,6 +136,20 @@ Route::middleware('admin')->group(function () {
         Route::get('/society-fund/event',[FundController::class, 'get_event_funds']);
         Route::get('/society-fund/corpus',[FundController::class, 'get_corpus_funds']);
         Route::get('/society-fund/reciepts',[FundController::class, 'get_reciepts']);
+
+        // new routes
+
+        Route::get('/account/statement/income-and-expenditure',[FundController::class, 'income_and_expenditure']);
+
+
+
+
+
+
+
+
+
+        //
         
         Route::resource('/notification', NotificationController::class);
         Route::resource('/setting',SettingController::class);

@@ -105,10 +105,10 @@
 }
 
 .second{
-  margin-left:6px;
+  margin-left:12px;
 }
 .third{
-  margin-left:12px;
+  margin-left:24px;
 }
 
     

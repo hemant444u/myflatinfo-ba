@@ -106,7 +106,7 @@
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td>{{ $transaction->created_at->format('d M Y') }}</td>
+                    <td>{{ $transaction->created_at->format('d/y/M') }}</td>
                     <td>{{$transaction->desc}}</td>
                     <td>{{$transaction->type == 'Debit' && $transaction->payment_type == 'InHand' ? $transaction->amount : ''}}</td>
                     <td>{{$transaction->type == 'Credit' && $transaction->payment_type == 'InHand' ? $transaction->amount : ''}}</td>

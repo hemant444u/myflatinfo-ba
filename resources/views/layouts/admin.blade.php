@@ -98,7 +98,7 @@
     color: white;
 }
 
-.third{
+.second{
   margin-left:6px;
 }
 .third{

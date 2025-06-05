@@ -47,12 +47,12 @@
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="model" class="col-form-label">Type:</label>
-                        <select name="model" id="model" class="form-control" value="{{ request('model') }}" required>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Event">Event</option>
-                            <option value="Corpus">Corpus</option>
-                            <option value="Booking">Booking</option>
-                            <option value="Essential">Essential</option>
+                        <select name="model" id="model" class="form-control" required>
+                            <option value="Maintenance" {{ request('model') == 'Maintenance' ? 'selected' : ''}}>Maintenance</option>
+                            <option value="Event" {{ request('model') == 'Event' ? 'selected' : ''}}>Event</option>
+                            <option value="Corpus" {{ request('model') == 'Corpus' ? 'selected' : ''}}>Corpus</option>
+                            <option value="Booking" {{ request('model') == 'Booking' ? 'selected' : ''}}>Booking</option>
+                            <option value="Essential" {{ request('model') == 'Essential' ? 'selected' : ''}}>Essential</option>
                         </select>
                       </div>
                       <div class="form-group col-md-6">

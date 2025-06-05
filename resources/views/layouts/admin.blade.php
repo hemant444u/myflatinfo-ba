@@ -108,7 +108,7 @@
 /* Sub-menu links (like "Income & Expenditure") */
 .sidebar-dark-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link,
 .sidebar-light-primary .nav-sidebar .nav-treeview > .nav-item > .nav-link {
-    padding-left: 10px; /* Adjust as needed (default is 1.5rem in AdminLTE) */
+    margin-left: 16px; /* Adjust as needed (default is 1.5rem in AdminLTE) */
 }
 
     

@@ -35,4 +35,19 @@ class Expense extends Model
         return $this->attributes['image'] ?? null;
     }
 
+    public function getModelNameAttribute()
+    {
+        // Prefix the model name with the App\Models\ namespace
+        $class = 'App\\Models\\' . $this->model;
+
+        if (class_exists($class)) {
+            $instance = $class::find($this->model_id);
+
+            // Return name/title/whatever field is common in your models
+            return $instance ? ($instance->name ?? $instance->title ?? 'N/A') : 'N/A';
+        }
+
+        return 'N/A';
+    }
+
 }

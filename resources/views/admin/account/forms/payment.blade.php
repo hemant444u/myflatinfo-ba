@@ -118,7 +118,7 @@
                   <tr>
                     <td>{{$i}}</td>
                     <td>{{ $expense->model}}</td>
-                    <td>{{$expense->model_id}}</td>
+                    <td>{{$expense->model_name}}</td>
                     <td><img src="{{$expense->image}}" style="width:40px"></td>
                     <td>{{$expense->reason}}</td>
                     <td>{{$expense->amount}}</td>

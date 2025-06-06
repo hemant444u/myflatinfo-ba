@@ -70,7 +70,7 @@ class AccountController extends Controller
     {
         $user = Auth::User();
         $building = $user->building;
-        $expenses = $building->expenses;
+        $expenses = $building->expenses()->where('type','Credit')->get();;
         return view('admin.account.forms.payment',compact('expenses'));
     }
 
@@ -78,7 +78,7 @@ class AccountController extends Controller
     {
         $user = Auth::User();
         $building = $user->building;
-        $expenses = $building->expenses;
+        $expenses = $building->expenses()->where('type','Credit')->get();
         return view('admin.account.forms.reciept',compact('expenses'));
     }
 

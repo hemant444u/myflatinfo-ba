@@ -80,7 +80,7 @@
                     <td>{{$maintenance->status}}</td>
                     <td>
                       <!--<a href="{{route('maintenance.show',$maintenance->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>-->
-                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$maintenance->id}}" data-from_date="{{$maintenance->from_date}}"
+                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$maintenance->id}}" data-from_date="{{$maintenance->from_date}}" data-vacant_amount="{{$maintenance->vacant_amount}}"
                       data-to_date="{{$maintenance->to_date}}" data-building_id="{{$maintenance->building_id}}" data-amount="{{$maintenance->amount}}" data-status="{{$maintenance->status}}" data-gst="{{$maintenance->gst}}" 
                       data-due_date="{{$maintenance->due_date}}" data-late_fine_type="{{$maintenance->late_fine_type}}" data-late_fine_value="{{$maintenance->late_fine_value}}"><i class="fa fa-edit"></i></button>
                       <!--@if($maintenance->deleted_at)-->
@@ -261,7 +261,9 @@
       $('#from_date').val(button.data('from_date'));
       $('#to_date').val(button.data('to_date'));
       $('#amount').val(button.data('amount'));
+      $('#vacant_amount').val(button.data('vacant_amount'));
       $('#due_date').val(button.data('due_date'));
+
       $('#late_fine_type').val(button.data('late_fine_type'));
       $('#late_fine_value').val(button.data('late_fine_value'));
       $('#gst').val(button.data('gst'));

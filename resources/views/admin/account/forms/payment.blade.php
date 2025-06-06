@@ -123,7 +123,7 @@
                     <td><img src="{{$expense->image}}" style="width:40px"></td>
                     <td>{{$expense->reason}}</td>
                     <td>{{$expense->amount}}</td>
-                    <td>{{$expense->date->format('d/m/Y')}}</td>
+                    <td>{{$expense->date}}</td>
                     <td>{{$expense->payment_type}}</td>
                   </tr>
                   @empty

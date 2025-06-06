@@ -485,12 +485,12 @@
               <p>Essentials</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{url('society-fund/expenses')}}" class="nav-link {{ request()->is('society-fund*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Society Fund</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{{route('role.index')}}" class="nav-link {{ request()->is('role*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

@@ -119,7 +119,7 @@
                     <td>{{$i}}</td>
                     <td>{{ $expense->model}}</td>
                     <td>{{$expense->model_id}}</td>
-                    <td><img src="{{$expense->bill_no}}" style="width:40px"></td>
+                    <td><img src="{{$expense->image}}" style="width:40px"></td>
                     <td>{{$expense->reason}}</td>
                     <td>{{$expense->amount}}</td>
                     <td>{{$expense->created_at->format('d/m/Y')}}</td>

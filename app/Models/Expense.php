@@ -49,7 +49,7 @@ class Expense extends Model
                 $instance = Facility::find($building_facility->facility_id);
             }else{
                 $instance = $class::find($this->model_id);
-                return $instance ? ($instance->name ?? $instance->title ?? 'N/A') : 'N/A';
+                return $instance ? ($instance->name ?? $instance->title ?? $this->model_id) : $this->model_id;
             }
         }
 

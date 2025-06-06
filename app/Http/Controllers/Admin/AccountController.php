@@ -71,7 +71,7 @@ class AccountController extends Controller
         $user = Auth::User();
         $building = $user->building;
         $expenses = $building->expenses;
-        return view('admin.account.forms.payment');
+        return view('admin.account.forms.payment',compact('expenses'));
     }
 
 }

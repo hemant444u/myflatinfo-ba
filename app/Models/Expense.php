@@ -51,8 +51,8 @@ class Expense extends Model
                 }
             }else{
                 $instance = $class::find($this->model_id);
-                return $instance ? ($instance->name ?? $instance->title ?? $this->model_id) : $this->model_id;
             }
+            return $instance ? ($instance->name ?? $instance->title ?? $this->model_id) : $this->model_id;
         }
 
         return 'N/A';

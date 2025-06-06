@@ -82,6 +82,7 @@ class ExpenseController extends Controller
         $transaction->user_id = $user->id;
         $transaction->model = $request->model;
         $transaction->model_id = $request->model_id;
+        $transaction->date = $request->date;
         $transaction->type = $request->type;
         $transaction->payment_type = $request->payment_type;
         $transaction->amount = $request->amount;

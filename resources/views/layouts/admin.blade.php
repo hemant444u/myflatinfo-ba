@@ -230,10 +230,10 @@
 
           @php
             $isInformationOpen = request()->is('information/*');
-            $isOwnerAndTanentOpen = request()->is('information/owner-and-tanent*');
-            $isBlockActive = request()->is('information/information/block*');
-            $isFlatActive = request()->is('information/information/flat*');
-            $isParkingActive = request()->is('information/information/parking*');
+            $isOwnerAndTanentOpen = request()->is('user*');
+            $isBlockActive = request()->is('block*');
+            $isFlatActive = request()->is('flat*');
+            $isParkingActive = request()->is('parking*');
           @endphp
 
           <li class="nav-item has-treeview {{ $isInformationOpen ? 'menu-open' : '' }}">
@@ -247,25 +247,25 @@
 
               <ul class="nav nav-treeview second">
                   <li class="nav-item">
-                      <a href="{{ url('information/owner-and-tanent') }}" class="nav-link {{ $isOwnerAndTanentOpen ? 'second-active' : '' }}">
+                      <a href="{{ url('/user') }}" class="nav-link {{ $isOwnerAndTanentOpen ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Owner & Tenant</p>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ url('information/information/block') }}" class="nav-link {{ $isBlockActive ? 'second-active' : '' }}">
+                      <a href="{{ route('block.index') }}" class="nav-link {{ $isBlockActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Block</p>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ url('information/information/flat') }}" class="nav-link {{ $isFlatActive ? 'second-active' : '' }}">
+                      <a href="{{ route('flat.index') }}" class="nav-link {{ $isFlatActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Flat</p>
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ url('information/information/parking') }}" class="nav-link {{ $isParkingActive ? 'second-active' : '' }}">
+                      <a href="{{ route('parking.index') }}" class="nav-link {{ $isParkingActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Parking</p>
                       </a>

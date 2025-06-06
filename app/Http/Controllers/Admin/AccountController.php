@@ -74,4 +74,12 @@ class AccountController extends Controller
         return view('admin.account.forms.payment',compact('expenses'));
     }
 
+    public function reciept()
+    {
+        $user = Auth::User();
+        $building = $user->building;
+        $expenses = $building->expenses;
+        return view('admin.account.forms.reciept',compact('expenses'));
+    }
+
 }

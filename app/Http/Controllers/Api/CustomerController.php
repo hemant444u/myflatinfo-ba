@@ -1468,7 +1468,7 @@ class CustomerController extends Controller
             ->get();
 
         $total_payment = 0;
-
+        $total_gst = 0;
         foreach ($maintenance_payments as $payment) {
             $maintenance = $payment->maintenance;
             $late_fine = 0;
@@ -1495,9 +1495,10 @@ class CustomerController extends Controller
             $payment->save();
             $payment->gst = $total * $payment->maintenance->gst / 100;
             $total_payment += $total;
+            $total_gst += $payment->gst;
         }
 
-        $gst = $total_payment * $payment->maintenance->gst / 100;
+        $gst = $total_gst;
         $grand_total = $total_payment + $gst;
         $paid_maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
             ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
@@ -1537,7 +1538,7 @@ class CustomerController extends Controller
             ->get();
 
         $total_payment = 0;
-
+        $total_gst = 0;
         foreach ($maintenance_payments as $payment) {
             $maintenance = $payment->maintenance;
             $late_fine = 0;
@@ -1564,9 +1565,10 @@ class CustomerController extends Controller
             $payment->save();
             $payment->gst = $total * $payment->maintenance->gst / 100;
             $total_payment += $total;
+            $total_gst += $payment->gst;
         }
 
-        $gst = $total_payment * $payment->maintenance->gst / 100;
+        $gst = $total_gst;
         $grand_total = $total_payment + $gst;
 
         $maintenance_payment = MaintenancePayment::find($request->maintenance_payment_id);

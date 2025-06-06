@@ -59,7 +59,7 @@ class AccountController extends Controller
             // Separate logic for inhand and inbank
             if ($transaction->payment_type == 'InHand') {
                 $inhand += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
-            } elseif ($transaction->InBank == 'InBank') {
+            } elseif ($transaction->payment_type == 'InBank') {
                 $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
             }
         }

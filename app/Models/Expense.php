@@ -45,12 +45,10 @@ class Expense extends Model
         if (class_exists($class)) {
             if($this->model == 'Booking'){
                 $user = Auth::User();
-                $building_facility = BuildingFacility::where('building_id',$user->building_id)->get();
+                $building_facility = BuildingFacility::where('building_id',$user->building_id)->where('facility_id',$this->model_id)->get();
                 $instance = Facility::find($building_facility->facility_id);
             }else{
                 $instance = $class::find($this->model_id);
-
-                // Return name/title/whatever field is common in your models
                 return $instance ? ($instance->name ?? $instance->title ?? 'N/A') : 'N/A';
             }
         }

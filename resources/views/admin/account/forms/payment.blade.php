@@ -84,6 +84,7 @@
                             <label for="code" class="col-form-label">Date:</label>
                             <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
                         </div>
+                        <input type="hidden" name="type" id="type" value="Debit">
                         <input type="hidden" name="id" id="edit-id">
                         </div>
                         <div>

@@ -82,7 +82,7 @@ class ExpenseController extends Controller
         $transaction->user_id = $user->id;
         $transaction->model = $request->model;
         $transaction->model_id = $request->model_id;
-        $transaction->type = 'Debit';
+        $transaction->type = $request->type;
         $transaction->payment_type = $request->payment_type;
         $transaction->amount = $request->amount;
         $transaction->reciept_no = 'EXPS'.rand(10000000,99999999);

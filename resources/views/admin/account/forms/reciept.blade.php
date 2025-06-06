@@ -77,13 +77,10 @@
                             <input type="text" name="amount" class="form-control" id="amount" placeholder="Amount" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="code" class="col-form-label">Bill Image:<image src="" id="image2" style="width:40px;"></image></label>
-                            <input type="file" name="image" class="form-control" id="image" accept="image/*">
-                        </div>
-                        <div class="form-group col-md-6">
                             <label for="code" class="col-form-label">Date:</label>
                             <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
                         </div>
+                        <input type="hidden" name="type" id="type" value="Credit">
                         <input type="hidden" name="id" id="edit-id">
                         </div>
                         <div>
@@ -119,7 +116,7 @@
                     <td>{{$i}}</td>
                     <td>{{ $expense->model}}</td>
                     <td>{{$expense->model_name}}</td>
-                    <td><img src="{{$expense->image}}" style="width:40px"></td>
+                    <td>{{$expense->reciept_name}}</td>
                     <td>{{$expense->reason}}</td>
                     <td>{{$expense->amount}}</td>
                     <td>{{$expense->created_at->format('d/m/Y')}}</td>

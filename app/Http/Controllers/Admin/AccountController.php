@@ -63,7 +63,15 @@ class AccountController extends Controller
                 $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
             }
         }
-        return view('admin.account.income_and_expenditure',compact('transactions','inhand','inbank','total_debit','total_credit'));
+        return view('admin.account.statement.income_and_expenditure',compact('transactions','inhand','inbank','total_debit','total_credit'));
+    }
+
+    public function payment()
+    {
+        $user = Auth::User();
+        $building = $user->building;
+        $expenses = $building->expenses;
+        return view('admin.account.forms.payment');
     }
 
 }

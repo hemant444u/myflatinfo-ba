@@ -141,7 +141,8 @@ Route::middleware('admin')->group(function () {
         // new routes
 
         Route::get('/account/statement/income-and-expenditure',[AccountController::class, 'income_and_expenditure']);
-
+        Route::get('/account/forms/payment',[AccountController::class, 'payment']);
+        
 
 
 

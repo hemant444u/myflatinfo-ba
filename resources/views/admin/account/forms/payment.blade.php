@@ -105,6 +105,7 @@
                     <th>Model Name</th>
                     <th>Bill Number</th>
                     <th>Reason</th>
+                    <th>Paid Amount</th>
                     <th>Paid On</th>
                     <th>Payment Mode</th>
                   </tr>
@@ -118,8 +119,9 @@
                     <td>{{$i}}</td>
                     <td>{{ $expense->model}}</td>
                     <td>{{$expense->model_id}}</td>
-                    <td>{{$expense->bill_no}}</td>
+                    <td><img src="{{$expense->bill_no}}" style="width:40px"></td>
                     <td>{{$expense->reason}}</td>
+                    <td>{{$expense->amount}}</td>
                     <td>{{$expense->created_at->format('d/m/Y')}}</td>
                     <td>{{$expense->payment_type}}</td>
                   </tr>

@@ -58,6 +58,7 @@
                     <th>Due Date</th>
                     <th>Late Fine Type</th>
                     <th>Late Fine Value</th>
+                    <th>GST(%)</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -75,11 +76,12 @@
                     <td>{{$maintenance->due_date}}</td>
                     <td>{{$maintenance->late_fine_type}}</td>
                     <td>{{$maintenance->late_fine_value}}</td>
+                    <td>{{$maintenance->gst}}</td>
                     <td>{{$maintenance->status}}</td>
                     <td>
                       <!--<a href="{{route('maintenance.show',$maintenance->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>-->
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$maintenance->id}}" data-from_date="{{$maintenance->from_date}}"
-                      data-to_date="{{$maintenance->to_date}}" data-building_id="{{$maintenance->building_id}}" data-amount="{{$maintenance->amount}}" data-status="{{$maintenance->status}}" 
+                      data-to_date="{{$maintenance->to_date}}" data-building_id="{{$maintenance->building_id}}" data-amount="{{$maintenance->amount}}" data-status="{{$maintenance->status}}" data-status="{{$maintenance->gst}}" 
                       data-due_date="{{$maintenance->due_date}}" data-late_fine_type="{{$maintenance->late_fine_type}}" data-late_fine_value="{{$maintenance->late_fine_value}}"><i class="fa fa-edit"></i></button>
                       <!--@if($maintenance->deleted_at)-->
                       <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$maintenance->id}}" data-action="restore"><i class="fa fa-undo"></i></button>-->
@@ -167,6 +169,10 @@
           <div class="form-group">
             <label for="code" class="col-form-label">Late Fine Value:</label>
             <input type="number" name="late_fine_value" class="form-control" id="late_fine_value" placeholder="Late Fine Value" required>
+          </div>
+          <div class="form-group">
+            <label for="code" class="col-form-label">GST(%):</label>
+            <input type="number" name="gst" class="form-control" id="gst" placeholder="GST" required>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Payment Status:</label>
@@ -258,6 +264,7 @@
       $('#due_date').val(button.data('due_date'));
       $('#late_fine_type').val(button.data('late_fine_type'));
       $('#late_fine_value').val(button.data('late_fine_value'));
+      $('#gst').val(button.data('gst'));
       $('#status').val(button.data('status'));
     //   $('#building_id').val(button.data('building_id'));
       $('.modal-title').text('Add New Maintenance');

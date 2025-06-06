@@ -53,6 +53,7 @@ class MaintenanceController extends Controller
             'due_date' => 'required',
             'late_fine_type' => 'required',
             'late_fine_value' => 'required',
+            'gst' => 'required',
             'status' => 'required|in:Active,Inactive',
         ];
     
@@ -80,6 +81,7 @@ class MaintenanceController extends Controller
         $maintenance->due_date = $request->due_date;
         $maintenance->late_fine_type = $request->late_fine_type;
         $maintenance->late_fine_value = $request->late_fine_value;
+        $maintenance->gst = $request->gst;
         $maintenance->status = $request->status;
         $maintenance->save();
         

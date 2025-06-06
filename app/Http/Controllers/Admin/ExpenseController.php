@@ -77,7 +77,6 @@ class ExpenseController extends Controller
             $expense->image = $filename;
         }
         $expense->save();
-
         $transaction = new Transaction();
         $transaction->building_id = $user->building_id;
         $transaction->user_id = $user->id;

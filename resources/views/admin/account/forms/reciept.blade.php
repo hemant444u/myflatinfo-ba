@@ -64,7 +64,7 @@
                         <div class="form-group col-md-6">
                             <label for="name" class="col-form-label">Payment Type:</label>
                             <select name="payment_type" id="payment_type" class="form-control" id="payment_type" required>
-                                <option value="Inhand">From Inhand</option>
+                                <option value="InHand">From Inhand</option>
                                 <option value="InBank">From InBank</option>
                             </select>
                         </div>
@@ -119,7 +119,7 @@
                     <td>{{$expense->reciept_name}}</td>
                     <td>{{$expense->reason}}</td>
                     <td>{{$expense->amount}}</td>
-                    <td>{{$expense->created_at->format('d/m/Y')}}</td>
+                    <td>{{$expense->date->format('d/m/Y')}}</td>
                     <td>{{$expense->payment_type}}</td>
                   </tr>
                   @empty

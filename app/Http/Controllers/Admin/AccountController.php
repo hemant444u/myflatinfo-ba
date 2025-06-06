@@ -57,9 +57,9 @@ class AccountController extends Controller
             }
 
             // Separate logic for inhand and inbank
-            if ($transaction->order_id == null) {
+            if ($transaction->payment_type == 'InHand') {
                 $inhand += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
-            } elseif ($transaction->order_id > 0) {
+            } elseif ($transaction->InBank == 'InBank') {
                 $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
             }
         }

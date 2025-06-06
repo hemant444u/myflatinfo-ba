@@ -583,9 +583,9 @@ class CustomerController extends Controller
             }
 
             // Separate logic for inhand and inbank
-            if ($transaction->order_id == null) {
+            if ($transaction->payment_type == 'InHand') {
                 $inhand += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
-            } elseif ($transaction->order_id > 0) {
+            } elseif ($transaction->order_id == 'InBank') {
                 $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
             }
         }
@@ -1703,7 +1703,7 @@ class CustomerController extends Controller
             $transaction->model = $order->model;
             $transaction->model_id = $order->model_id;
             $transaction->type = 'Credit';
-            $transaction->payment_type = 'Razorpay';
+            $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Maintenance Payment Order Verified '.$order->order_id;
@@ -1902,7 +1902,7 @@ class CustomerController extends Controller
             $transaction->model = $order->model;
             $transaction->model_id = $order->model_id;
             $transaction->type = 'Credit';
-            $transaction->payment_type = 'Razorpay';
+            $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
@@ -2089,7 +2089,7 @@ class CustomerController extends Controller
             $transaction->model = $order->model;
             $transaction->model_id = $order->model_id;
             $transaction->type = 'Credit';
-            $transaction->payment_type = 'Razorpay';
+            $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
@@ -2175,9 +2175,9 @@ class CustomerController extends Controller
             }
 
             // Separate logic for inhand and inbank
-            if ($transaction->order_id == null) {
+            if ($transaction->payment_type == 'Inhand') {
                 $inhand += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
-            } elseif ($transaction->order_id > 0) {
+            } elseif ($transaction->payment_type == 'InBank') {
                 $inbank += ($transaction->type == 'Credit' ? $transaction->amount : -$transaction->amount);
             }
         }

@@ -229,7 +229,7 @@
           </li>
 
           @php
-            $isInformationOpen = request()->is('information/*');
+            $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('parking*');
             $isOwnerAndTanentOpen = request()->is('user*');
             $isBlockActive = request()->is('block*');
             $isFlatActive = request()->is('flat*');

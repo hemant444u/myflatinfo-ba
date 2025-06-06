@@ -81,7 +81,7 @@
                     <td>
                       <!--<a href="{{route('maintenance.show',$maintenance->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>-->
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$maintenance->id}}" data-from_date="{{$maintenance->from_date}}"
-                      data-to_date="{{$maintenance->to_date}}" data-building_id="{{$maintenance->building_id}}" data-amount="{{$maintenance->amount}}" data-status="{{$maintenance->status}}" data-status="{{$maintenance->gst}}" 
+                      data-to_date="{{$maintenance->to_date}}" data-building_id="{{$maintenance->building_id}}" data-amount="{{$maintenance->amount}}" data-status="{{$maintenance->status}}" data-gst="{{$maintenance->gst}}" 
                       data-due_date="{{$maintenance->due_date}}" data-late_fine_type="{{$maintenance->late_fine_type}}" data-late_fine_value="{{$maintenance->late_fine_value}}"><i class="fa fa-edit"></i></button>
                       <!--@if($maintenance->deleted_at)-->
                       <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$maintenance->id}}" data-action="restore"><i class="fa fa-undo"></i></button>-->

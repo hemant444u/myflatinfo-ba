@@ -229,10 +229,11 @@
           </li>
 
           @php
-            $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('parking*');
+            $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('gate*') || request()->is('parking*');
             $isOwnerAndTanentOpen = request()->is('user*');
             $isBlockActive = request()->is('block*');
             $isFlatActive = request()->is('flat*');
+            $isGateActive = request()->is('gate*');
             $isParkingActive = request()->is('parking*');
           @endphp
 
@@ -262,6 +263,12 @@
                       <a href="{{ route('flat.index') }}" class="nav-link {{ $isFlatActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Flat</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('gate.index') }}" class="nav-link {{ $isGateActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Gate</p>
                       </a>
                   </li>
                   <li class="nav-item">

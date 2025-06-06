@@ -115,7 +115,7 @@
                     <td>{{$i}}</td>
                     <td>{{ $expense->model}}</td>
                     <td>{{$expense->model_id}}</td>
-                    <td>{{expense->bill_no}}</td>
+                    <td>{{$expense->bill_no}}</td>
                     <td>{{$transaction->reason}}</td>
                     <td>{{$transaction->created_at->format('d/m/Y')}}</td>
                     <td>{{$transaction->payment_type}}</td>

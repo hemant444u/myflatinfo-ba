@@ -84,7 +84,9 @@
 
 
             <div class="card">
-              <!-- /.card-header -->
+              <div class="card-header">
+                <b>Cash Balance: {{$inhand}}</b> <b class="right">Bank Balance: {{$inbank}}</b>
+              </div>
               <div class="card-body">
                 <div class="table-responsive">
                 <table id="example1" class="table table-bordered table-striped">

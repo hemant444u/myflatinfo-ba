@@ -248,7 +248,7 @@
 
               <ul class="nav nav-treeview second">
                   <li class="nav-item">
-                      <a href="{{ url('/user') }}" class="nav-link {{ $isOwnerAndTanentOpen ? 'second-active' : '' }}">
+                      <a href="{{ url('user') }}" class="nav-link {{ $isOwnerAndTanentOpen ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Owner & Tenant</p>
                       </a>
@@ -419,47 +419,10 @@
               <p>Profile</p>
             </a>
           </li>
-
-          <li class="nav-item">
-            <a href="{{url('user')}}" class="nav-link {{ request()->is('user*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Users</p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="{{route('guard.index')}}" class="nav-link {{ request()->is('guard*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Security Guards</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('buildings.index')}}" class="nav-link {{ request()->is('buildings*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Buildings</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('block.index')}}" class="nav-link {{ request()->is('block*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Blocks</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('flat.index')}}" class="nav-link {{ request()->is('flat*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Flats</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('gate.index')}}" class="nav-link {{ request()->is('gate*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Gates</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('parking.index')}}" class="nav-link {{ request()->is('parking*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Parking</p>
             </a>
           </li>
           <li class="nav-item">

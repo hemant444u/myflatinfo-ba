@@ -116,9 +116,9 @@
                     <td>{{ $expense->model}}</td>
                     <td>{{$expense->model_id}}</td>
                     <td>{{$expense->bill_no}}</td>
-                    <td>{{$transaction->reason}}</td>
-                    <td>{{$transaction->created_at->format('d/m/Y')}}</td>
-                    <td>{{$transaction->payment_type}}</td>
+                    <td>{{$expense->reason}}</td>
+                    <td>{{$expense->created_at->format('d/m/Y')}}</td>
+                    <td>{{$expense->payment_type}}</td>
                   </tr>
                   @empty
                   @endforelse

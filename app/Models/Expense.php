@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
-
+use \Auth;
 class Expense extends Model
 {
     use HasFactory;
@@ -41,10 +41,16 @@ class Expense extends Model
         $class = 'App\\Models\\' . $this->model;
 
         if (class_exists($class)) {
-            $instance = $class::find($this->model_id);
+            if($this->model == 'Booking'){
+                $user = Auth::User();
+                $building_facility = BuildingFacility::where('building_id',$user->building_id)->get();
+                $instance = Facility::find($building_facility->facility_id);
+            }else{
+                $instance = $class::find($this->model_id);
 
-            // Return name/title/whatever field is common in your models
-            return $instance ? ($instance->name ?? $instance->title ?? 'N/A') : 'N/A';
+                // Return name/title/whatever field is common in your models
+                return $instance ? ($instance->name ?? $instance->title ?? 'N/A') : 'N/A';
+            }
         }
 
         return 'N/A';

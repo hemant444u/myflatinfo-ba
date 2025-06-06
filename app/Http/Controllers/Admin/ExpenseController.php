@@ -63,6 +63,7 @@ class ExpenseController extends Controller
         $expense->model_id = $request->model_id;
         $expense->payment_type = $request->payment_type;
         $expense->reason = $request->reason;
+        $expense->type = $request->type;
         $expense->date = $request->date;
         $expense->amount = $request->amount;
         if($request->hasFile('image')) {

@@ -243,10 +243,10 @@
     
     $(document).on('change','#block',function(){
       var block = $(this).val();
-      var url = "{{url('/get-flats/')}}";
+      var url = "{{url('/get-flats')}}";
       $('.flat-id').html('');
         $.ajax({
-          url : url + block,
+          url : url + '/' + block,
           type: "post",
           data : {'_token':token,'block':block},
           success: function(data)
@@ -259,7 +259,7 @@
     var block = $('#block').val();
     var url = "{{url('/get-flats/')}}";
     $.ajax({
-          url : url + block,
+          url : url + '/' + block,
           type: "post",
           data : {'_token':token,'block':block},
           success: function(data)

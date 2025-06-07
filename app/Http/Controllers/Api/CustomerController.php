@@ -2105,7 +2105,7 @@ class CustomerController extends Controller
             $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
-            $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
+            $transaction->desc = 'Event Payment Order Verified '.$order->order_id;
             $transaction->status = 'Success';
             $transaction->date = now()->toDateString();
             $transaction->save();

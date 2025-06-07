@@ -220,7 +220,7 @@ class CustomerController extends Controller
         Mail::send('email.forget_password2', $info, function ($message) use ($user)
         {
             $message->to($user->email, $user->name)
-            ->subject('Allons-Z Forget Password');
+            ->subject('Forget Password');
         });
 
         $user->otp = Hash::make($otp);

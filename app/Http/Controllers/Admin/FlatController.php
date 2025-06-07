@@ -136,8 +136,9 @@ class FlatController extends Controller
 
     public function get_flat_data(Request $request)
     {
+        $flat_id = '';
         $flats = Flat::where('block_id', $request->block_id)->get();
-        return view('partials.flats',compact('flats'));
+        return view('partials.flats',compact('flats','flat_id'));
 
     }
 

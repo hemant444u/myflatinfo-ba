@@ -50,6 +50,10 @@
                       <thead>
                           <tr>
                               <th>S No</th>
+                              <th>Block</th>
+                              <th>Flat</th>
+                              <th>Tananet</th>
+                              <th>Owner</th>
                               <th>From</th>
                               <th>To</th>
                               <th>Maintenance Fee</th>
@@ -68,6 +72,9 @@
                         <?php $i++; ?>
                         <tr>
                           <td>{{$i}}</td>
+                          <td>{{$payment->block->name}}</td>
+                          <td>{{$payment->flat->name}}</td>
+                          <td>{{$payment->flat->tanent ? $payment->flat->tanent->name : $payment->flat->owner->name}}</td>
                           <td>{{$payment->maintenance->from_date}}</td>
                           <td>{{$payment->maintenance->to_date}}</td>
                           <td>{{$payment->maintenance->amount}}</td>

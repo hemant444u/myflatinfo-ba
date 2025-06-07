@@ -108,7 +108,7 @@
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td>{{ $transaction->date }}</td>
+                    <td>{{ $transaction->date}}</td>
                     <td>{{$transaction->desc}}</td>
                     <td>{{$transaction->type == 'Debit' && $transaction->payment_type == 'InHand' ? $transaction->amount : ''}}</td>
                     <td>{{$transaction->type == 'Credit' && $transaction->payment_type == 'InHand' ? $transaction->amount : ''}}</td>

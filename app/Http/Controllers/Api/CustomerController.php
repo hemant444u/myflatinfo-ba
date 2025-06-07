@@ -519,6 +519,10 @@ class CustomerController extends Controller
         }
         $user = Auth::User();
         $user->flat_id = $request->flat_id;
+        $user->device_token = $request->device_token;
+        $user->fcm_token = $request->fcm_token;
+        $user->platform = $request->platform;
+        $user->flat_id = $request->flat_id;
         $user->save();
         
         $flat = $user->flat->with(['block','building'])->get();

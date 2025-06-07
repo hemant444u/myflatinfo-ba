@@ -33,6 +33,8 @@ use App\Http\Controllers\Admin\GateController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\ParkingController;
 use App\Http\Controllers\Admin\AccountController;
+use Illuminate\Support\Facades\Mail;
+
 
 Route::get('clear-cache',function(){
     //\Artisan::call('storage:link');

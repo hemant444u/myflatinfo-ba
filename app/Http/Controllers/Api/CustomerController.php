@@ -40,6 +40,7 @@ use App\Models\Essential;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
+use App\Jobs\SendForgetPasswordEmail;
 
 use DB;
 use \Session;
@@ -217,16 +218,12 @@ class CustomerController extends Controller
             'otp' => $otp,
             'logo' => $logo
         );
-        try{
-            Mail::send('email.forget_password2', $info, function ($message) use ($user)
-            {
-                $message->to($user->email, $user->name)
-                ->subject('Forget Password');
-            });
+        try {
+            dispatch(new SendForgetPasswordEmail($user, $info));
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
-            ], 422);
+                'error' => 'Failed to queue email. ' . $e->getMessage()
+            ], 500);
         }
 
         $user->otp = Hash::make($otp);

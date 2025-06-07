@@ -25,13 +25,16 @@ class SendForgetPasswordEmail implements ShouldQueue
     public function handle()
     {
         try {
+            Log::info('Trying to send email to ' . $this->user->email);
+
             Mail::send('email.forget_password2', $this->info, function ($message) {
                 $message->to($this->user->email, $this->user->name)
                         ->subject('Forget Password');
             });
+
+            Log::info('Mail sent successfully to ' . $this->user->email);
         } catch (\Exception $e) {
-            Log::error('Failed to send forget password email: ' . $e->getMessage());
-            throw $e; // Re-throw so the queue marks it as failed
+            Log::error('Failed to send email: ' . $e->getMessage());
         }
     }
 }

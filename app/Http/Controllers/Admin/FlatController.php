@@ -156,6 +156,7 @@ class FlatController extends Controller
         $flat->corpus_fund = $request->corpus_fund;
         $flat->is_corpus_paid = $request->is_corpus_paid;
         $flat->corpus_paid_on = $request->corpus_paid_on;
+        $flat->corpus_payment_type = $request->payment_type;
         if($flat->bill_no == Null || $flat->bill_no == ''){
             $flat->bill_no = Str::random(16);
         }

@@ -217,11 +217,17 @@ class CustomerController extends Controller
             'otp' => $otp,
             'logo' => $logo
         );
-        Mail::send('email.forget_password2', $info, function ($message) use ($user)
-        {
-            $message->to($user->email, $user->name)
-            ->subject('Forget Password');
-        });
+        try{
+            Mail::send('email.forget_password2', $info, function ($message) use ($user)
+            {
+                $message->to($user->email, $user->name)
+                ->subject('Forget Password');
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 422);
+        }
 
         $user->otp = Hash::make($otp);
         $user->otp_status = 'Sent';

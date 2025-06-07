@@ -220,6 +220,7 @@
     var id = '';
     var action = '';
     var token = "{{csrf_token()}}";
+    var url = '';
 
     $('#addModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);

@@ -64,7 +64,7 @@ class User extends Authenticatable
     
     public function departments()
     {
-        return $this->hasMany('App\Models\BuildingUser')->with('role')->withTrashed();
+        return $this->hasMany('App\Models\BuildingUser')->with('role');
     }
 
     public function parcels()

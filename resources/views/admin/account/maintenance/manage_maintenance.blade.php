@@ -41,6 +41,61 @@
                     @endif
                 </div>
             <div class="card">
+                <div class="card-body">
+                  <form action="{{route('expense.store')}}" method="post" class="add-form" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="error"></div>
+                        <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="name" class="col-form-label">Type:</label>
+                            <select name="model" id="model" class="form-control" id="model" required>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Event">Event</option>
+                                <option value="Corpus">Corpus</option>
+                                <option value="Booking">Booking</option>
+                                <option value="Essential">Essential</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="model-id"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name" class="col-form-label">Payment Type:</label>
+                            <select name="payment_type" id="payment_type" class="form-control" id="payment_type" required>
+                                <option value="InHand">From Inhand</option>
+                                <option value="InBank">From InBank</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name" class="col-form-label">Reason:</label>
+                            <textarea name="reason" id="reason" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name" class="col-form-label">Amount:</label>
+                            <input type="text" name="amount" class="form-control" id="amount" placeholder="Amount" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="code" class="col-form-label">Bill Image:<image src="" id="image2" style="width:40px;"></image></label>
+                            <input type="file" name="image" class="form-control" id="image" accept="image/*">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="code" class="col-form-label">Date:</label>
+                            <input type="date" name="date" class="form-control" id="date" placeholder="Date" value="{{ old('date', now()->toDateString()) }}" required>
+                        </div>
+                        <input type="hidden" name="type" id="type" value="Debit">
+                        <input type="hidden" name="id" id="edit-id">
+                        </div>
+                        <div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="save-button">Save</button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+            
+            <div class="card">
               <div class="card-header p-2">
               </div><!-- /.card-header -->
               <div class="card-body">

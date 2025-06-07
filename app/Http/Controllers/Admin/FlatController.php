@@ -141,6 +141,7 @@ class FlatController extends Controller
             'corpus_fund' => 'required',
             'is_corpus_paid' => 'required',
             'corpus_paid_on' => 'nullable',
+            'payment_type' => 'required',
         ];
     
         $msg = 'Corpus fund Added';
@@ -174,7 +175,7 @@ class FlatController extends Controller
             $transaction->model = 'CorpusFund';
             $transaction->model_id = $flat->id;
             $transaction->type = 'Credit';
-            $transaction->payment_type = 'BA';
+            $transaction->payment_type = $request->payment_type;
             $transaction->amount = $request->corpus_fund;
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Corpus Fund for '.$flat->name;

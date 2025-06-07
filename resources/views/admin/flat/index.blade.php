@@ -97,7 +97,7 @@
                              data-owner_email="{{$flat->owner ? $flat->owner->email : ''}}" data-tanent_email="{{$flat->tanent ? $flat->tanent->email : ''}}"><i class="fa fa-edit"></i></button>
                       @if($flat->owner_id >= 1)
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#corpusModal" data-id="{{$flat->id}}" data-corpus-fund="{{$flat->corpus_fund}}" data-is_corpus_paid="{{$flat->is_corpus_paid}}" 
-                      data-corpus_paid_on="{{$flat->corpus_paid_on}}" data-bill_no="{{$flat->bill_no}}"><i class="fa fa-money"></i></button>
+                      data-corpus_paid_on="{{$flat->corpus_paid_on}}" data-bill_no="{{$flat->bill_no}}" data-payment_type="{{$flat->payment_type}}"><i class="fa fa-money"></i></button>
                       @endif
                           @if($flat->deleted_at)
                           <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
@@ -251,7 +251,13 @@
               <option value="No">Unpaid</option>
             </select>
           </div>
-
+          <div class="form-group">
+            <label for="phone" class="col-form-label">Payment Mode:</label>
+            <select name="payment_type" class="form-control" id="payment_type">
+              <option value="InHand">InHand</option>
+              <option value="InHand">InBank</option>
+            </select>
+          </div>
           <div class="form-group">
             <label for="phone" class="col-form-label">Paid On:</label>
             <input type="date" name="corpus_paid_on" class="form-control" id="corpus_paid_on" placeholder="corpus_paid_on">
@@ -548,6 +554,7 @@
       $('#corpus_fund2').val(button.data('corpus-fund'));
       $('#is_corpus_paid').val(button.data('is_corpus_paid'));
       $('#corpus_paid_on').val(button.data('corpus_paid_on'));
+      $('#payment_type').val(button.data('payment_type'));
       $('#bill_no').val(button.data('bill_no'));
       $('.modal-title').text('Corpus Fund');
 

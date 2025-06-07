@@ -348,8 +348,8 @@
                   </li>
               </ul>
               @php
-                $isMaintenanceOpen = request()->is('account/maintenance*');
-                $isGenerateInvoiceActive = request()->is('account/maintenance/generate-invoice*');
+                $isMaintenanceOpen = request()->is('account/maintenance*') || request()->is('maintenance/*');
+                $isGenerateActive = request()->is('maintenance/*');
                 $isManageActive = request()->is('account/maintenance/manage*');
               @endphp
               <ul class="nav nav-treeview second">
@@ -364,8 +364,8 @@
 
                       <ul class="nav nav-treeview third">
                           <li class="nav-item">
-                              <a href="{{ url('account/maintenance/generate-invoice') }}" class="nav-link {{ $isGenerateInvoiceActive ? 'third-active' : '' }}">
-                                <p>Generate Invoice</p>
+                              <a href="{{ route('maintenance.index') }}" class="nav-link {{ $isGenerateActive ? 'third-active' : '' }}">
+                                <p>Generate</p>
                               </a>
                           </li>
                       </ul>

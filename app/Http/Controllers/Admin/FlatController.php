@@ -176,6 +176,7 @@ class FlatController extends Controller
             $transaction->model_id = $flat->id;
             $transaction->type = 'Credit';
             $transaction->payment_type = $request->payment_type;
+            $transaction->date = $request->date;
             $transaction->amount = $request->corpus_fund;
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Corpus Fund for '.$flat->name;

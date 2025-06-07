@@ -75,7 +75,7 @@
                           <td>{{$payment->flat->block->name}}</td>
                           <td>{{$payment->flat->name}}</td>
                           <td>{{$payment->flat->tanent ? $payment->flat->tanent->name : ''}}</td>
-                          <td>{{$payment->flat->tanent ? '' : $payment->flat->tanent->name}}</td>
+                          <td>{{$payment->flat->tanent ? '' : $payment->flat->owner->name}}</td>
                           <td>{{$payment->maintenance->from_date}}</td>
                           <td>{{$payment->maintenance->to_date}}</td>
                           <td>{{$payment->maintenance->amount}}</td>

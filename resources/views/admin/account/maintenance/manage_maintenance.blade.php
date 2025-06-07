@@ -257,7 +257,7 @@
 
     var block = $('#block').val();
     $.ajax({
-          url : "{{url('/get-flat-data')}}",
+          url : "{{url('/get-flat')}}",
           type: "post",
           data : {'_token':token,'block':block},
           success: function(data)

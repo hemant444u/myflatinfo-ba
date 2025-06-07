@@ -255,7 +255,7 @@
             <label for="phone" class="col-form-label">Payment Mode:</label>
             <select name="payment_type" class="form-control" id="payment_type">
               <option value="InHand">InHand</option>
-              <option value="InHand">InBank</option>
+              <option value="InBank">InBank</option>
             </select>
           </div>
           <div class="form-group">

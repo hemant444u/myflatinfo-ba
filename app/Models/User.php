@@ -19,7 +19,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $hidden = [
-        'password', 'remember_token','api_token','device_token','otp',
+        'password', 'remember_token','api_token','otp',
     ];
 
     protected $casts = [

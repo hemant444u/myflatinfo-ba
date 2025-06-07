@@ -1714,6 +1714,7 @@ class CustomerController extends Controller
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Maintenance Payment Order Verified '.$order->order_id;
             $transaction->status = 'Success';
+            $transaction->date = new Date();
             $transaction->save();
             
             $maintenance_payment = MaintenancePayment::find($order->model_id);
@@ -1913,6 +1914,7 @@ class CustomerController extends Controller
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
             $transaction->status = 'Success';
+            $transaction->date = new Date();
             $transaction->save();
             
             $essential_payment = EssentialPayment::find($order->model_id);
@@ -2100,6 +2102,7 @@ class CustomerController extends Controller
             $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
             $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
             $transaction->status = 'Success';
+            $transaction->date = new Date();
             $transaction->save();
             
             $payment = Payment::find($order->model_id);
@@ -2429,6 +2432,7 @@ class CustomerController extends Controller
             $transaction->reason = $package->name;
             $transaction->amount = $package->price;
             $transaction->balance = $user->wallet;
+            $transaction->date = new Date();
             $transaction->save();
             
             return response()->json([

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Jobs\SendForgetPasswordEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
@@ -40,7 +40,7 @@ use App\Models\Essential;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
-use App\Jobs\SendForgetPasswordEmail;
+
 
 
 use DB;

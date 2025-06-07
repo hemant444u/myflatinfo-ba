@@ -44,9 +44,6 @@
               <div class="card-header p-2">
               </div><!-- /.card-header -->
               <div class="card-body">
-                <div class="tab-content">
-                  
-                  <div class="tab-pane" id="payments">
                     <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addModal">Add New Maintenance Payment</button>-->
                     <div class="table-responsive">
                     <table class="table table-bordered table-striped">
@@ -96,11 +93,6 @@
                       </tbody>
                     </table>
                     </div>
-                  </div>
-                  <!-- /.tab-pane -->
-                  
-                </div>
-                <!-- /.tab-content -->
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->

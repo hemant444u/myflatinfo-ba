@@ -348,8 +348,8 @@
                   </li>
               </ul>
               @php
-                $isMaintenanceOpen = request()->is('account/maintenance*') || request()->is('maintenance/*');
-                $isGenerateActive = request()->is('maintenance/*');
+                $isMaintenanceOpen = request()->is('account/maintenance*') || request()->is('maintenance*');
+                $isGenerateActive = request()->is('maintenance*');
                 $isManageActive = request()->is('account/maintenance/manage*');
               @endphp
               <ul class="nav nav-treeview second">
@@ -473,12 +473,12 @@
               <p>Vehicle Inouts</p>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{route('maintenance.index')}}" class="nav-link {{ request()->is('maintenance*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Maintenance</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{{route('essential.index')}}" class="nav-link {{ request()->is('essential*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

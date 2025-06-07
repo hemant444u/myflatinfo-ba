@@ -72,7 +72,7 @@
                         <?php $i++; ?>
                         <tr>
                           <td>{{$i}}</td>
-                          <td>{{$payment->block->name}}</td>
+                          <td>{{$payment->flat->block->name}}</td>
                           <td>{{$payment->flat->name}}</td>
                           <td>{{$payment->flat->tanent ? $payment->flat->tanent->name : $payment->flat->owner->name}}</td>
                           <td>{{$payment->maintenance->from_date}}</td>

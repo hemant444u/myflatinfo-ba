@@ -1,4 +1,4 @@
-        <div class="flat-id">
+
             <select name="flat_id" class="form-control" id="flat_id">
                 <option value="">All</option>
                 @forelse($flats as $flat)
@@ -6,4 +6,3 @@
                 @empty
                 @endforelse
             </select>
-        </div>

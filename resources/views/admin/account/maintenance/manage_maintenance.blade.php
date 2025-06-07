@@ -246,7 +246,7 @@
       var block = $(this).val();
       $('.flat-id').html('');
         $.ajax({
-          url : "{{url('get-flats')}}",
+          url : "{{url('/get-flats')}}",
           url : url + block,
           type: "post",
           data : {'_token':token,'block':block},
@@ -259,7 +259,7 @@
 
     var block = $('#block').val();
     $.ajax({
-          url : "{{url('get-flats/')}}",
+          url : "{{url('/get-flats/')}}",
           url : url + block,
           type: "post",
           data : {'_token':token,'block':block},

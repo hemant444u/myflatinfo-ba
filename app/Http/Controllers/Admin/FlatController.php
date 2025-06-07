@@ -166,6 +166,7 @@ class FlatController extends Controller
             $flat->bill_no = Null;
         }
         $flat->save();
+        
         $transaction = Transaction::where('model','CorpusFund')->where('model_id',$flat->id)->first();
         if(!$transaction){
             $transaction = new Transaction();
@@ -173,8 +174,7 @@ class FlatController extends Controller
             $transaction->building_id = $flat->building_id;
             $transaction->user_id = $flat->owner_id;
             // $transaction->order_id = $order->order_id;
-            $transaction->model = 'CorpusFund';
-            $transaction->model_id = $flat->id;
+            $transaction->model = 'Corpus';
             $transaction->type = 'Credit';
             $transaction->payment_type = $request->payment_type;
             $transaction->date = $request->corpus_paid_on;

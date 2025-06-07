@@ -97,7 +97,7 @@
                              data-owner_email="{{$flat->owner ? $flat->owner->email : ''}}" data-tanent_email="{{$flat->tanent ? $flat->tanent->email : ''}}"><i class="fa fa-edit"></i></button>
                       @if($flat->owner_id >= 1)
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#corpusModal" data-id="{{$flat->id}}" data-corpus-fund="{{$flat->corpus_fund}}" data-is_corpus_paid="{{$flat->is_corpus_paid}}" 
-                      data-corpus_paid_on="{{$flat->corpus_paid_on}}" data-bill_no="{{$flat->bill_no}}" data-payment_type="{{$flat->payment_type}}"><i class="fa fa-money"></i></button>
+                      data-corpus_paid_on="{{$flat->corpus_paid_on}}" data-bill_no="{{$flat->bill_no}}" data-payment_type="{{$flat->corpus_payment_type}}"><i class="fa fa-money"></i></button>
                       @endif
                           @if($flat->deleted_at)
                           <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$flat->id}}" data-action="restore"><i class="fa fa-undo"></i></button>

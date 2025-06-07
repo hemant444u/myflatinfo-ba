@@ -44,6 +44,19 @@ Route::get('clear-cache',function(){
     \Artisan::call('config:cache');
 });
 
+Route::get('/test-mail', function () {
+    try {
+        Mail::raw('This is a test email.', function ($message) {
+            $message->to('your_receiver_email@gmail.com')
+                    ->subject('Test Mail');
+        });
+
+        return 'Mail sent!';
+    } catch (\Exception $e) {
+        return 'Failed: ' . $e->getMessage();
+    }
+});
+
 
 Route::middleware('guest')->group(function () {
 

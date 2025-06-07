@@ -220,7 +220,6 @@
     var id = '';
     var action = '';
     var token = "{{csrf_token()}}";
-    var url = '';
 
     $('#addModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);
@@ -244,9 +243,9 @@
     
     $(document).on('change','#block',function(){
       var block = $(this).val();
+      var url = "{{url('/get-flats/')}}",
       $('.flat-id').html('');
         $.ajax({
-          url : "{{url('/get-flats')}}",
           url : url + block,
           type: "post",
           data : {'_token':token,'block':block},
@@ -258,8 +257,8 @@
     });
 
     var block = $('#block').val();
+    var url = "{{url('/get-flats/')}}",
     $.ajax({
-          url : "{{url('/get-flats/')}}",
           url : url + block,
           type: "post",
           data : {'_token':token,'block':block},

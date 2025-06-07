@@ -134,6 +134,12 @@ class FlatController extends Controller
         return response()->json(['success' => true, 'flats' => $flats]);
     }
 
+    public function get_flat_data($blockId)
+    {
+        $flats = Flat::where('block_id', $request->block_id)->get();
+        return response()->json(['success' => true, 'flats' => $flats]);
+    }
+
     public function update_corpus_fund(Request $request)
     {
         $rules = [

@@ -246,9 +246,9 @@
       var url = "{{url('/get-flats')}}";
       $('.flat-id').html('');
         $.ajax({
-          url : url + '/' + block,
+          url : "{{url('/get-flat-data')}}",
           type: "post",
-          data : {'_token':token,'block':block},
+          data : {'_token':token,'block_id':block},
           success: function(data)
           {
             $('.flat-id').html(data);
@@ -259,9 +259,9 @@
     var block = $('#block').val();
     var url = "{{url('/get-flats/')}}";
     $.ajax({
-          url : url + '/' + block,
+          url : "{{url('/get-flat-data')}}",
           type: "post",
-          data : {'_token':token,'block':block},
+          data : {'_token':token,'block_id':block},
           success: function(data)
           {
             $('.flat-id').html(data);

@@ -289,9 +289,11 @@
       $('#address').val(button.data('address'));
       $('.modal-title').text('Add New User');
       $('#password').attr('required',true);
+      $('#password').attr('disabled',false);
       if(edit_id){
           $('.modal-title').text('Update User');
           $('#password').attr('required',false);
+          $('#password').attr('disabled',true);
       }
     });
     

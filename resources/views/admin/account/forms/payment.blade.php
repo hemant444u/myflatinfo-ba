@@ -82,7 +82,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="code" class="col-form-label">Date:</label>
-                            <input type="date" name="date" class="form-control" id="date" placeholder="Date" required>
+                            <input type="date" name="date" class="form-control" id="date" placeholder="Date" value="{{ old('date', now()->toDateString()) }}" required>
                         </div>
                         <input type="hidden" name="type" id="type" value="Debit">
                         <input type="hidden" name="id" id="edit-id">

@@ -285,7 +285,7 @@ class AdminController extends Controller
         $user->gender = $request->gender;
         $user->city_id = $request->city_id;
         $user->address = $request->address;
-    
+        $user->status = 'Active';
         // Only set a password if provided
         if ($request->password) {
             $user->password = Hash::make($request->password);

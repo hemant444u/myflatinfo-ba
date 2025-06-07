@@ -67,7 +67,7 @@
                       </thead>
                       <tbody>
                         <?php $i = 0;?>
-                        @forelse(maintenance_payments as $payment)
+                        @forelse($maintenance_payments as $payment)
                         <?php $i++; ?>
                         <tr>
                           <td>{{$i}}</td>

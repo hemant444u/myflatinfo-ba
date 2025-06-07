@@ -28,3 +28,4 @@ class SendForgetPasswordEmail implements ShouldQueue
         });
     }
 }
+

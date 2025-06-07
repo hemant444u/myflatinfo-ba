@@ -42,6 +42,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use App\Jobs\SendForgetPasswordEmail;
 
+
 use DB;
 use \Session;
 use Mail;

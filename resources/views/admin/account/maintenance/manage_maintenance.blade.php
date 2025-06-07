@@ -46,17 +46,16 @@
                   <form method="GET" action="{{ url('account/statement/income-and-expenditure') }}">
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="model" class="col-form-label">Type:</label>
-                        <select name="model" id="model" class="form-control" required>
-                            <option value="Maintenance" {{ request('model') == 'Maintenance' ? 'selected' : ''}}>Maintenance</option>
-                            <option value="Event" {{ request('model') == 'Event' ? 'selected' : ''}}>Event</option>
-                            <option value="Corpus" {{ request('model') == 'Corpus' ? 'selected' : ''}}>Corpus</option>
-                            <option value="Booking" {{ request('model') == 'Booking' ? 'selected' : ''}}>Booking</option>
-                            <option value="Essential" {{ request('model') == 'Essential' ? 'selected' : ''}}>Essential</option>
+                        <label for="block" class="col-form-label">Block:</label>
+                        <select name="block" id="block" class="form-control" required>
+                            @forelse($blocks as $block)
+                            <option value="{{$block->id}}" {{ request('block') == $block->id ? 'selected' : ''}}>{{$block->name}}</option>
+                            @empty
+                            @endforelse
                         </select>
                       </div>
                       <div class="form-group col-md-6">
-                        <div class="model-id"></div>
+                        <div class="flat-id"></div>
                       </div>
                     </div>
 
@@ -81,7 +80,7 @@
                 </div>
             </div>
 
-            
+
             <div class="card">
               <div class="card-header p-2">
               </div><!-- /.card-header -->
@@ -213,83 +212,6 @@
   </div>
 </div>
 
-    
-<!-- Essential Modal -->
-
-<div class="modal fade" id="essentialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Payment</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="{{url('store-essential-payment')}}" method="post" class="add-form">
-        @csrf
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="phone" class="col-form-label">Dues Amount:</label>
-            <input type="text" name="dues_amount" class="form-control" id="dues_amount2" placeholder="Dues Amount" required />
-          </div>
-          <div class="form-group">
-            <label for="name" class="col-form-label">Payment Type:</label>
-            <select name="type" id="type2" class="form-control" required>
-              <option value="Created">Created</option>
-              <option value="Cash">Cash</option>
-              <option value="Online">Online</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="phone" class="col-form-label">Paid Amount:</label>
-            <input type="text" name="amount" class="form-control" id="amount2" placeholder="Amount" value="" required />
-          </div>
-          
-          <div class="form-group">
-            <label for="status" class="col-form-label">Status:</label>
-            <select name="status" id="status2" class="form-control">
-              <option value="Paid">Paid</option>
-              <option value="Unpaid">Unpaid</option>
-            </select>
-          </div>
-          
-          <input type="hidden" name="id" id="edit-id2">
-          <input type="hidden" name="user_id" id="user_id2">
-          <input type="hidden" name="essential_id" id="essential_id" value="">
-          <input type="hidden" name="flat_id" id="flat_id2" value="">
-          <input type="hidden" name="building_id" id="building_id2" value="">
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" id="save-button">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p class="text"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" id="delete-button">Confirm Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 @section('script')
 
 
@@ -298,38 +220,6 @@
     var id = '';
     var action = '';
     var token = "{{csrf_token()}}";
-    
-    $('#deleteModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      id = button.data('id');
-      $('#delete-id').val(id);
-      action= button.data('action');
-      $('#delete-button').removeClass('btn-success');
-      $('#delete-button').removeClass('btn-danger');
-      $('.modal-title').text('Are you sure ?');
-      if(action == 'delete'){
-          $('#delete-button').addClass('btn-danger');
-          $('#delete-button').text('Confirm Delete');
-          $('.text').text('You are going to permanently delete this item..');
-      }else{
-          $('#delete-button').addClass('btn-success');
-          $('#delete-button').text('Confirm Restore');
-          $('.text').text('You are going to restore this item..');
-      }
-    });
-
-    $(document).on('click','#delete-button',function(){
-      var url = "{{url('delete-building-user')}}";
-      $.ajax({
-        url : url,
-        type: "POST",
-        data : {'_token':token,'id':id,'action':action},
-        success: function(data)
-        {
-          window.location.reload();
-        }
-      });
-    });
 
     $('#addModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);
@@ -351,73 +241,30 @@
       }
     });
     
-    $('#essentialModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var edit_id = button.data('id');
-      $('#edit-id2').val(edit_id);
-      $('#dues_amount2').val(button.data('dues_amount'));
-      $('#amount2').val(button.data('dues_amount'));
-      $('#flat_no2').val(button.data('flat_no'));
-      $('#user_id2').val(button.data('user_id'));
-      $('#building_id2').val(button.data('building_id'));
-      $('#flat_id2').val(button.data('flat_id'));
-      $('#essential_id').val(button.data('essential_id'));
-      $('.modal-title').text('Add New Essential Payment');
-      if(edit_id){
-          $('.modal-title').text('Update Essential Payment');
-      }
-    });
-    
-    $('.status').bootstrapSwitch('state');
-        $('.status').on('switchChange.bootstrapSwitch',function () {
-            var id = $(this).data('id');
-            $.ajax({
-                url : "{{url('update-flat-status')}}",
-                type: "post",
-                data : {'_token':token,'id':id,},
-                success: function(data)
-                {
-                  //
-                }
-            });
-        });
-        
-    $('.add-form').on('submit', function (event) {
-      if ($('#name').val().trim() === '') {
-        event.preventDefault();
-        $('.error').text('Customer Name is required. Please fetch user data.');
-      }
-    });
-    
-    // Fetch user data when clicking "Get User Data"
-    $('#getUserData').on('click', function () {
-      var email = $('#email').val().trim();
-      if (email === '') {
-        $('.error').text('Please enter an email to fetch user data.');
-        return;
-      }
-      
-      $('.error').text(''); // Clear previous errors
-      
-      $.ajax({
-        url: '{{ url("get-user-by-email") }}', // Update with your actual route
-        type: 'GET',
-        data: { email: email },
-        success: function (response) {
-          if (response.success) {
-            $('#name').val(response.data.name);
-            $('#user_id').val(response.data.id);
-          } else {
-            $('.error').text('User not found.');
-            $('#name').val('');
+    $(document).on('change','#block',function(){
+      var block = $(this).val();
+      $('.flat-id').html('');
+        $.ajax({
+          url : "{{url('/get-flat-data')}}",
+          type: "post",
+          data : {'_token':token,'block':block},
+          success: function(data)
+          {
+            $('.flat-id').html(data);
           }
-        },
-        error: function () {
-          $('.error').text('Error fetching user data.');
-          $('#name').val('');
-        }
-      });
+        });
     });
+
+    var block = $('#block').val();
+    $.ajax({
+          url : "{{url('/get-flat-data')}}",
+          type: "post",
+          data : {'_token':token,'block':block},
+          success: function(data)
+          {
+            $('.flat-id').html(data);
+          }
+        });
 
   });
 </script>

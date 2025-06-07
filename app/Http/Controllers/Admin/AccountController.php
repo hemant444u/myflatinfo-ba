@@ -86,8 +86,9 @@ class AccountController extends Controller
     {
         $user = Auth::User();
         $building = $user->building;
+        $blocks = $building->blocks;
         $maintenance_payments = MaintenancePayment::where('building_id',$building->id)->orderBy('created_at','desc')->get();
-        return view('admin.account.maintenance.manage_maintenance',compact('maintenance_payments'));
+        return view('admin.account.maintenance.manage_maintenance',compact('maintenance_payments','blocks'));
     }
 
 }

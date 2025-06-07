@@ -41,7 +41,7 @@ class AccountController extends Controller
             $transactionsQuery->whereDate('created_at', '<=', $request->to_date);
         }
 
-        $transactions = $transactionsQuery->get();
+        $transactions = $transactionsQuery->orderBy('date','desc')->get();
 
         // Initialize totals
         $total_debit = 0;

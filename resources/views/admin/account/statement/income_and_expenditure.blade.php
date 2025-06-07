@@ -92,7 +92,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>S No</th>
+                    <!-- <th>S No</th> -->
                     <th>Date</th>
                     <th>Particulars</th>
                     <th>Cash Debit</th>
@@ -107,7 +107,7 @@
                   @forelse($transactions as $transaction)
                   <?php $i++; ?>
                   <tr>
-                    <td>{{$i}}</td>
+                    <!-- <td>{{$i}}</td> -->
                     <td>{{ $transaction->date}}</td>
                     <td>{{$transaction->desc}}</td>
                     <td>{{$transaction->type == 'Debit' && $transaction->payment_type == 'InHand' ? $transaction->amount : ''}}</td>

@@ -101,7 +101,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>S No</th>
+                    <!-- <th>S No</th> -->
                     <th>Model Type</th>
                     <th>Model Name</th>
                     <th>Bill Number</th>
@@ -117,7 +117,7 @@
                   @forelse($expenses as $expense)
                   <?php $i++; ?>
                   <tr>
-                    <td>{{$i}}</td>
+                    <!-- <td>{{$i}}</td> -->
                     <td>{{ $expense->model}}</td>
                     <td>{{$expense->model_name}}</td>
                     <td><img src="{{$expense->image}}" style="width:40px"></td>

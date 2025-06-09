@@ -152,7 +152,7 @@
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Price:</label>
-            <input type="number" name="price" id="price" class="form-control" placeholder="Price" min="1" max="100" required>
+            <input type="number" name="price" id="price" class="form-control" placeholder="Price" min="1" required>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Cancellation Type:</label>
@@ -164,7 +164,7 @@
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Cancellation Value:</label>
-            <input type="number" name="cancellation_value" id="cancellation_value" class="form-control" placeholder="1" min="1" max="100" required>
+            <input type="number" name="cancellation_value" id="cancellation_value" class="form-control" placeholder="1" min="1" required>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Status:</label>

@@ -268,6 +268,7 @@
       $('#status').val(button.data('status'));
       $('.modal-title').text('Add New Facility');
       $('#icon').attr('required',true);
+      alert(edit_id);
       if(edit_id){
           $('#icon').attr('required',false);
           $('.modal-title').text('Update Facility');

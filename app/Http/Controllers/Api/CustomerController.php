@@ -265,6 +265,7 @@ class CustomerController extends Controller
                     Auth::login($user, true);
                     return response()->json([
                         'token' => $token,
+                        'user' => $user,
                         'msg' => 'OTP verified successfully.'
                     ],200);
                 }
@@ -272,6 +273,10 @@ class CustomerController extends Controller
                         'error' => 'This OTP has already been used. Please request a new OTP'
                 ],422);
                 
+            }else{
+                return response()->json([
+                        'error' => 'Invalid OTP'
+                ],422);
             }
         }
         return response()->json([

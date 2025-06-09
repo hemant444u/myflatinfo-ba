@@ -133,7 +133,6 @@
           </div>
           <input type="hidden" name="id" id="edit-id">
           <input type="hidden" name="user_id" id="user_id" value="">
-          <input type="hidden" name="building_id" id="building_id" value="{{$role->building_id}}">
           <input type="hidden" name="role_id" id="role_id" value="{{$role->id}}">
         </div>
         <div class="modal-footer">

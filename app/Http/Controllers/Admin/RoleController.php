@@ -114,7 +114,6 @@ class RoleController extends Controller
     public function store_user_role(Request $request)
     {
         $rules = [
-            'building_id' => 'required|exists:buildings,id',
             'role_id' => 'required|exists:roles,id',
             'user_id' => 'required|exists:users,id',
         ];
@@ -131,7 +130,7 @@ class RoleController extends Controller
         if ($validation->fails()) {
             return redirect()->back()->with('error', $validation->errors()->first());
         }
-        $building_user->building_id = $request->building_id;
+        $building_user->building_id = Auth::User()->building_id;
         $building_user->role_id = $request->role_id;
         $building_user->user_id = $request->user_id;
         $building_user->save();

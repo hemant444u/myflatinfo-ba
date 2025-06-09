@@ -133,7 +133,7 @@
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Icon:</label>
-            <input type="file" name="icon" id="icon" class="form-control" placeholder="Icon" required>
+            <input type="file" name="icon" id="icon" class="form-control" placeholder="Icon" accept="image/*" required>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Color:</label>

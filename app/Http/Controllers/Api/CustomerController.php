@@ -1727,7 +1727,7 @@ class CustomerController extends Controller
             $maintenance_payment->paid_date = now()->toDateString();
             $maintenance_payment->dues_amount = 0;
             $maintenance_payment->type = 'Credit';
-            $maintenance_payment->payment_tye = 'InBank';
+            $maintenance_payment->payment_type = 'InBank';
             $maintenance_payment->status = 'Paid';
             $maintenance_payment->save();
 
@@ -1742,7 +1742,7 @@ class CustomerController extends Controller
                 $maintenance_payment->paid_date = now()->toDateString();
                 $maintenance_payment->dues_amount = 0;
                 $maintenance_payment->type = 'Credit';
-                $maintenance_payment->payment_tye = 'InBank';
+                $maintenance_payment->payment_type = 'InBank';
                 $maintenance_payment->status = 'Paid';
                 $maintenance_payment->save();
             }

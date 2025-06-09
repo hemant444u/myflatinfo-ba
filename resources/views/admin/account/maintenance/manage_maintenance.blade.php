@@ -259,11 +259,11 @@
     });
 
     var block = $('#block').val();
-    var url = "{{url('/get-flats/')}}";
+    var flat_id = "{{$request->flat_id}}";
     $.ajax({
           url : "{{url('/get-flat-data')}}",
           type: "post",
-          data : {'_token':token,'block_id':block},
+          data : {'_token':token,'block_id':block,'flat_id':flat_id},
           success: function(data)
           {
             $('.flat-id').html(data);

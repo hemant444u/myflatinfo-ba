@@ -64,7 +64,7 @@
                         <div class="form-group col-md-6">
                             <label for="name" class="col-form-label">Payment Type:</label>
                             <select name="payment_type" id="payment_type" class="form-control" id="payment_type" required>
-                                <option value="InHand">Inhand</option>
+                                <option value="InHand">InHand</option>
                                 <option value="InBank">InBank</option>
                             </select>
                         </div>

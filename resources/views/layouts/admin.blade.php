@@ -431,12 +431,14 @@
               <p>Event</p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="{{route('noticeboard.index')}}" class="nav-link {{ request()->is('noticeboard*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Notice Board</p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="{{route('classified.index')}}" class="nav-link {{ request()->is('classified*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

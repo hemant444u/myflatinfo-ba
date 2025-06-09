@@ -36,6 +36,8 @@ use App\Models\Payment;
 use App\Models\Order;
 use App\Models\Transaction;
 use App\Models\Essential;
+use App\Models\BuildingPermission;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
@@ -550,7 +552,7 @@ class CustomerController extends Controller
         $tanent = $flat->tanent;
         $owner = $flat->owner;
         $building = $flat->building;
-        $permissions = $building->permissions;
+        $permissions = BuildingPermission::where('building_id',$building->id)->with(['permission'])->get();
         return response()->json([
             'flat' => $flat,
             'permissions' => $permissions,

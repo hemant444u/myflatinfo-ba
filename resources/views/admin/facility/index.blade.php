@@ -56,6 +56,7 @@
                     <th>Name</th>
                     <th>Color</th>
                     <th>Max Booking</th>
+                    <th>Booking Type</th>
                     <th>Per User Max Booking(Monthly)</th>
                     <th>Price</th>
                     <th>Cancellation Type</th>
@@ -75,6 +76,7 @@
                     <td>{{$facility->name}}</td>
                     <td>{{$facility->color}}</td>
                     <td>{{$facility->max_booking}}</td>
+                    <td>{{$facility->booking_type}}</td>
                     <td>{{$facility->per_user_max_booking}}</td>
                     <td>{{$facility->price}}</td>
                     <td>{{$facility->cancellation_type}}</td>

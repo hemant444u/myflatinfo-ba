@@ -276,7 +276,7 @@
       $('.price').hide();
       $('.cancellation_type').hide();
       $('.cancellation_value').hide();
-      var booking_type = $(button.data('booking_type')).val();
+      var booking_type = $('#booking_type').val();
       if(booking_type == 'Paid'){
         $('.price').show();
         $('.cancellation_type').show();

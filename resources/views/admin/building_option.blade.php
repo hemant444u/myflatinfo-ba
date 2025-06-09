@@ -77,15 +77,19 @@
                     </a>
                 </div>
                 @empty
-                <p>You dont have any building to manage, Please contact to support</p>
-                <a href="{{url('logout')}}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="nav-icon fas fa-sign-out-alt"></i>
-                    <p>Logout</p>
-                </a>
+                <div class="col-md-12">
+                    <center>
+                        <p>You dont have any building to manage, Please contact to support</p>
+                        <a href="{{url('logout')}}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>Logout</p>
+                        </a>
 
-                <form id="logout-form" action="{{url('logout')}}" method="POST" style="display: none;">
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                </form>
+                        <form id="logout-form" action="{{url('logout')}}" method="POST" style="display: none;">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        </form>
+                    </center>
+                </div>
                 @endforelse
         </div>
     </div>

@@ -9,6 +9,7 @@ use App\Models\Building;
 use \Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
 {
@@ -61,22 +62,16 @@ class FacilityController extends Controller
         $facility->cancellation_value = $request->cancellation_value;
         $facility->status = $request->status;
         $facility->color = $request->color;
+
         if($request->hasFile('icon')) {
             $file= $request->file('icon');
-            $allowedfileExtension=['JPEG','jpg','png'];
+            $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            $check = in_array($extension,$allowedfileExtension);
-            // if($check){
-                $file_path = public_path('/images/facilities'.$facility->icon);
-                if(file_exists($file_path) && $facility->icon != '')
-                {
-                    unlink($file_path);
-                }
-                $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                $filename = substr(str_shuffle(str_repeat($pool, 5)), 0, 12) .'.'.$extension;
-                $path = $file->move(public_path('/images/facilities'), $filename);
-                $facility->icon = $filename;
-            // }
+            Storage::disk('s3')->delete($ad->getIconFilenameAttribute());
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $filename = 'images/facilities/' . uniqid() . '.' . $extension;
+            Storage::disk('s3')->put($filename, file_get_contents($file));
+            $facility->icon = $filename;
         }
         $facility->save();
     

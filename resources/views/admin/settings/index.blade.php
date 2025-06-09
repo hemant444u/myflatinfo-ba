@@ -46,42 +46,6 @@
                 <form action="{{route('setting.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Bussiness Name</label>
-                                <input type="text" class="form-control" name="bussiness_name" value="{{$setting->bussiness_name}}" required>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Logo <img src="{{$setting->logo}}" width="30px;"></label>
-                                <input type="file" class="form-control" name="logo" accept="image/*">
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Favicon <img src="{{$setting->favicon}}" width="30px;"></label>
-                                <input type="file" class="form-control" name="favicon" accept="image/*">
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Msg91 Key</label>
-                                <input type="text" class="form-control" name="msg91_key" value="{{$setting->msg91_key}}" required>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Msg91 Sender</label>
-                                <input type="text" class="form-control" name="msg91_sender" value="{{$setting->msg91_sender}}" required>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Msg91 Flow Id</label>
-                                <input type="text" class="form-control" name="msg91_flow_id" value="{{$setting->msg91_flow_id}}" required>
-                            </div>
-                        </div> -->
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Razorpay Key</label>
@@ -103,50 +67,37 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Classified Limit(Within Building)</label>
-                                <input type="number" class="form-control" name="classified_limit_within_building" value="{{$setting->classified_limit_within_building}}" required>
+                                <input type="number" class="form-control" name="classified_limit_within_building" value="{{$setting->classified_limit_within_building}}" disabled required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Classified Limit(All Building)</label>
-                                <input type="number" class="form-control" name="classified_limit_all_building" value="{{$setting->classified_limit_all_building}}" required>
+                                <input type="number" class="form-control" name="classified_limit_all_building" value="{{$setting->classified_limit_all_building}}" disabled required>
                             </div>
                         </div>
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>FCM Key</label>
-                                <input type="text" class="form-control" name="fcm_key" value="{{$setting->fcm_key}}" required>
-                            </div>
-                        </div> -->
-                        
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Google map api key</label>
-                                <input type="text" class="form-control" name="google_map_api_key" value="{{$setting->google_map_api_key}}" required>
-                            </div>
-                        </div> -->
-                        
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Call Support Number</label>
-                                <input type="text" class="form-control" name="call_support_number" value="{{$setting->call_support_number}}" required>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Whatsapp Support Number</label>
-                                <input type="text" class="form-control" name="whatsapp_support_number" value="{{$setting->whatsapp_support_number}}" required>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Pagination</label>
-                                <input type="text" class="form-control" name="pagination" value="{{$setting->pagination}}" 
-                                onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
-                            </div>
-                        </div> -->
-
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Maintenance InHand</label>
+                                <input type="number" class="form-control" name="maintenace_inhand" value="{{$setting->maintenace_inhand}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Maintenance InBank</label>
+                                <input type="number" class="form-control" name="maintenace_inhbank" value="{{$setting->maintenace_inbank}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Maintenance Total</label>
+                                <input type="number" class="form-control" name="maintenace_total" value="{{$setting->maintenace_total}}" required>
+                            </div>
+                        </div>
+
                     <div class="row">
                         <div class="col-md-4">
                             <input type="submit" class="btn btn-block bg-gradient-primary btn-flat" value="Save">

@@ -82,7 +82,7 @@ class AccountController extends Controller
         return view('admin.account.forms.reciept',compact('expenses'));
     }
 
-    public function manage_maintenance()
+    public function manage_maintenance(Request $request)
     {
         $user = Auth::User();
         $building = $user->building;

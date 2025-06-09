@@ -268,7 +268,6 @@
       $('#status').val(button.data('status'));
       $('.modal-title').text('Add New Facility');
       $('#icon').attr('required',true);
-      alert(edit_id);
       if(edit_id){
           $('#icon').attr('required',false);
           $('.modal-title').text('Update Facility');
@@ -300,7 +299,7 @@
       $('#price').attr('required',false);
       $('#cancellation_type').attr('required',false);
       $('#cancellation_value').attr('required',false);
-      var booking_type = $('#booking_type');
+      var booking_type = $(this).val();
       if(booking_type == 'Paid'){
         $('.price').hide();
         $('.cancellation_type').hide();

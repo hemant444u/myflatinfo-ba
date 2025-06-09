@@ -222,7 +222,7 @@ class CustomerController extends Controller
         try {
             // dispatch(new SendForgetPasswordEmail($user, $info));
             Mail::send('email.forget_password2', $info, function ($message) {
-                $message->to($user->email, $user->name)
+                $message->to($info[user->email], $info['user->name'])
                         ->subject('Forget Password');
             });
         } catch (\Exception $e) {

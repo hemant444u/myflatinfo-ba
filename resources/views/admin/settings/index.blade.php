@@ -80,26 +80,6 @@
 
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Maintenance InHand</label>
-                                <input type="number" class="form-control" name="maintenace_inhand" value="{{$setting->maintenace_inhand}}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Maintenance InBank</label>
-                                <input type="number" class="form-control" name="maintenace_inhbank" value="{{$setting->maintenace_inbank}}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Maintenance Total</label>
-                                <input type="number" class="form-control" name="maintenace_total" value="{{$setting->maintenace_total}}" required>
-                            </div>
-                        </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
                             <input type="submit" class="btn btn-block bg-gradient-primary btn-flat" value="Save">
                         </div>
                     </div>

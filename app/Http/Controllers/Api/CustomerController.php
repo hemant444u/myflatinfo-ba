@@ -538,6 +538,7 @@ class CustomerController extends Controller
     {
         $user = Auth::User();
         $flat = $user->flat;
+        $block = $flat->block;
         $building = $flat->building;
         $permissions = $building->permissions;
         $facilities = $building->facilities;

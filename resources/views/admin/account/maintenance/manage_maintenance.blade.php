@@ -43,7 +43,7 @@
             
                 <div class="card">
                 <div class="card-body">
-                  <form method="GET" action="{{ url('account/statement/income-and-expenditure') }}">
+                  <form method="GET" action="{{ url('account/maintenance/manage') }}">
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="block" class="col-form-label">Block:</label>

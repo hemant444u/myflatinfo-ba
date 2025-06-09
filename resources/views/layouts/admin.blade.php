@@ -282,7 +282,7 @@
 
 
           @php
-              $isAccountOpen = request()->is('account/*');
+              $isAccountOpen = request()->is('account/*') || request()->is('maintenance*');
           @endphp
 
           <li class="nav-item has-treeview {{ $isAccountOpen ? 'menu-open' : '' }}">

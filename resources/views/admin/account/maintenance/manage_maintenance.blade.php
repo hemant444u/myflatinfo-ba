@@ -55,7 +55,7 @@
                         </select>
                       </div>
                       
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-6" style="margin-top: 5px;">
                         <label for="from_date">Flat</label>
                         <div class="flat-id"></div>
                       </div>

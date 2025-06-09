@@ -534,6 +534,20 @@ class CustomerController extends Controller
         ], 200);
     }
 
+    public function get_access(Request $request)
+    {
+        $user = Auth::User();
+        $flat = $user->flat;
+        $building = $flat->building;
+        $permissions = $building->permissions;
+        $facilities = $building->facilities;
+        return response()->json([
+            'flat' => $flat,
+            'permissions' => $permissions,
+            'facilities' => $facilities,
+        ], 200);
+    }
+
     public function get_parkings(Request $request)
     {
         $user = Auth::User();

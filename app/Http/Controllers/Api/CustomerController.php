@@ -1724,8 +1724,10 @@ class CustomerController extends Controller
             
             $maintenance_payment = MaintenancePayment::find($order->model_id);
             $maintenance_payment->paid_amount = $maintenance_payment->dues_amount;
+            $maintenance_payment->paid_date = now()->toDateString();
             $maintenance_payment->dues_amount = 0;
-            $maintenance_payment->type = 'Razorpay';
+            $maintenance_payment->type = 'Credit';
+            $maintenance_payment->payment_tye = 'InBank';
             $maintenance_payment->status = 'Paid';
             $maintenance_payment->save();
 
@@ -1737,8 +1739,10 @@ class CustomerController extends Controller
             
             foreach($maintenance_payments as $maintenance_payment){
                 $maintenance_payment->paid_amount = $maintenance_payment->dues_amount;
+                $maintenance_payment->paid_date = now()->toDateString();
                 $maintenance_payment->dues_amount = 0;
-                $maintenance_payment->type = 'Razorpay';
+                $maintenance_payment->type = 'Credit';
+                $maintenance_payment->payment_tye = 'InBank';
                 $maintenance_payment->status = 'Paid';
                 $maintenance_payment->save();
             }

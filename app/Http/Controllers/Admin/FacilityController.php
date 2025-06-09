@@ -67,7 +67,7 @@ class FacilityController extends Controller
             $file= $request->file('icon');
             $allowedfileExtension=['jpeg','jpeg','png'];
             $extension = $file->getClientOriginalExtension();
-            Storage::disk('s3')->delete($ad->getIconFilenameAttribute());
+            Storage::disk('s3')->delete($facility->getIconFilenameAttribute());
             $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $filename = 'images/facilities/' . uniqid() . '.' . $extension;
             Storage::disk('s3')->put($filename, file_get_contents($file));

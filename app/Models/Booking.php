@@ -12,7 +12,7 @@ class Booking extends Model
     
     public function facility()
     {
-        return $this->belongsTo('App\Models\BuildingFacility', 'building_facility_id')->with('facility')->withTrashed();
+        return $this->belongsTo('App\Models\Facility')->withTrashed();
     }
     
     public function user()

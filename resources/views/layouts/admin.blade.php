@@ -452,7 +452,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('building-facility.index')}}" class="nav-link {{ request()->is('building-facility*') ? 'active' : '' }}">
+            <a href="{{route('facility.index')}}" class="nav-link {{ request()->is('facility*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Facility</p>
             </a>

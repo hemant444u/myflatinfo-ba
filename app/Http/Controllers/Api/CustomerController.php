@@ -16,7 +16,6 @@ use App\Models\IssuePhoto;
 use App\Models\Comment;
 use App\Models\Reply;
 use App\Models\Facility;
-use App\Models\BuildingFacility;
 use App\Models\Timing;
 use App\Models\Booking;
 use App\Models\Visitor;
@@ -547,11 +546,9 @@ class CustomerController extends Controller
         $owner = $flat->owner;
         $building = $flat->building;
         $permissions = $building->permissions;
-        $facilities = $building->facilities;
         return response()->json([
             'flat' => $flat,
             'permissions' => $permissions,
-            'facilities' => $facilities,
         ], 200);
     }
 
@@ -996,7 +993,7 @@ class CustomerController extends Controller
     {
         $rules = [
             'date' => 'required|date',
-            'facility_id' => 'required|exists:building_facilities,id',
+            'facility_id' => 'required|exists:facilities,id',
         ];
         $validation = \Validator::make($request->all(), $rules);
 
@@ -1012,14 +1009,14 @@ class CustomerController extends Controller
         $today = Carbon::today(); // Get today's date
 
         // Get facility details
-        $facility = BuildingFacility::find($facility_id);
+        $facility = Facility::find($facility_id);
         if (!$facility) {
             return response()->json(['status' => 'error', 'error' => 'Facility not found'], 404);
         }
         $max_members = $facility->max_booking;
 
         // Get all active timings
-        $allTimings = Timing::where('building_facility_id', $facility_id)
+        $allTimings = Timing::where('facility_id', $facility_id)
                             ->where('status', 'Active')
                             ->get();
 
@@ -1033,7 +1030,7 @@ class CustomerController extends Controller
         $endDate = $date->endOfMonth();
 
         // Fetch bookings for the month
-        $bookedMembersPerTiming = Booking::where('building_facility_id', $facility_id)
+        $bookedMembersPerTiming = Booking::where('facility_id', $facility_id)
             ->whereBetween('date', [$startDate->toDateString(), $endDate->toDateString()])
             ->groupBy('date', 'timing_id')
             ->selectRaw('date, timing_id, SUM(members) as total_members')
@@ -1088,7 +1085,7 @@ class CustomerController extends Controller
     {
         $rules = [
             'date' => 'required|date',
-            'facility_id' => 'required|exists:building_facilities,id',
+            'facility_id' => 'required|exists:facilities,id',
             'timing_ids' => 'required|array',
             'timing_ids.*' => 'exists:timings,id',
             'members' => 'required|integer|min:1',
@@ -1110,11 +1107,11 @@ class CustomerController extends Controller
         $user_id = Auth::id();
     
         // Get facility's max_booking limit
-        $facility = BuildingFacility::find($facility_id);
+        $facility = Facility::find($facility_id);
         $max_members = $facility->max_booking;
     
         // Get total booked members per timing
-        $bookedMembersPerTiming = Booking::where('building_facility_id', $facility_id)
+        $bookedMembersPerTiming = Booking::where('facility_id', $facility_id)
             ->where('date', $date)
             ->groupBy('timing_id')
             ->selectRaw('timing_id, SUM(members) as total_members')
@@ -1142,7 +1139,7 @@ class CustomerController extends Controller
         // Create bookings for all available timings
         foreach ($timing_ids as $timing_id) {
             $booking = new Booking();
-            $booking->building_facility_id = $facility_id;
+            $booking->facility_id = $facility_id;
             $booking->timing_id = $timing_id;
             $booking->date = $date;
             $booking->user_id = $user_id;

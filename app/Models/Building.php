@@ -72,8 +72,7 @@ class Building extends Model
     
     public function facilities()
     {
-        return $this->belongsToMany(Facility::class, 'building_facilities', 'building_id', 'facility_id')
-                    ->withPivot('id','price','max_booking','per_user_max_booking','cancellation_type','cancellation_value','status','created_at','updated_at');
+        return $this->hasMany('App\Models\Facility')->withTrashed();
     }
 
     public function permissions()

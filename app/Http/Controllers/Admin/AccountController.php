@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expense;
 use App\Models\Transaction;
-use App\Models\BuildingFacility;
 use App\Models\Event;
 use App\Models\Essential;
 use App\Models\MaintenancePayment;

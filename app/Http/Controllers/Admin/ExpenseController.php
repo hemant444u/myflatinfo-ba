@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Expense;
 use App\Models\Transaction;
-use App\Models\BuildingFacility;
 use App\Models\Event;
 use App\Models\Essential;
 
@@ -128,8 +127,8 @@ class ExpenseController extends Controller
             return view('partials.essentials',compact('essentials','model_id'));
         }
         if($model == 'Booking'){
-            $building_facilities = BuildingFacility::where('building_id',$user->building_id)->get();
-            return view('partials.facilities',compact('building_facilities','model_id'));
+            $facilities = Facility::where('building_id',$user->building_id)->get();
+            return view('partials.facilities',compact('facilities','model_id'));
         }
     }
 }

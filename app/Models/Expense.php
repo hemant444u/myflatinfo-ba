@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Facility;
-use App\Models\BuildingFacility;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 use \Auth;
@@ -44,11 +43,7 @@ class Expense extends Model
 
         if (class_exists($class)) {
             if($this->model == 'Booking'){
-                $user = Auth::User();
-                $building_facility = BuildingFacility::where('building_id',$user->building_id)->first();
-                if($building_facility){
-                    $instance = Facility::find($building_facility->facility_id);
-                }
+                $instance = Facility::find($this->model_id);
             }else{
                 $instance = $class::find($this->model_id);
             }

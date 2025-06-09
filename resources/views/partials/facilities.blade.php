@@ -2,8 +2,8 @@
         <div class="form-group">
             <label for="name" class="col-form-label">Building Facility:</label>
             <select name="model_id" class="form-control" id="model_id" required>
-                @forelse($building_facilities as $b_facility)
-                <option value="{{$b_facility->id}}" {{$b_facility->id == $model_id ? 'selected' : ''}}>{{$b_facility->facility->name}}</option>
+                @forelse($facilities as $facility)
+                <option value="{{$facility->id}}" {{$facility->id == $model_id ? 'selected' : ''}}>{{$facility->name}}</option>
                 @empty
                 @endforelse
             </select>

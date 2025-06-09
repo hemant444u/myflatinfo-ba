@@ -84,7 +84,7 @@
                       <a href="{{route('facility.show',$facility->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$facility->id}}" data-name="{{$facility->name}}" data-cancellation_type="{{$facility->cancellation_type}}"
                       data-max_booking="{{$facility->max_booking}}" data-per_user_max_booking="{{$facility->per_user_max_booking}}" data-status="{{$facility->status}}" data-price="{{$facility->price}}" 
-                      data-cancellation_value="{{$facility->cancellation_value}}" data-icon="{{$facility->icon}}" data-color="{{$facility->color}}"><i class="fa fa-edit"></i></button>
+                      data-booking_type="{{$facility->booking_type}}" data-cancellation_value="{{$facility->cancellation_value}}" data-icon="{{$facility->icon}}" data-color="{{$facility->color}}"><i class="fa fa-edit"></i></button>
                       @if($facility->deleted_at)
                       <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$facility->id}}" data-action="restore"><i class="fa fa-undo"></i></button>
                       @else
@@ -151,10 +151,17 @@
             <input type="number" name="per_user_max_booking" id="per_user_max_booking" class="form-control" placeholder="Max Booking" min="1" required>
           </div>
           <div class="form-group">
+            <label for="name" class="col-form-label">Booking Type:</label>
+            <select name="booking_type" id="booking_type" class="form-control" required>
+                <option value="Free">Free</option>
+                <option value="Paid">Paid</option>
+            </select>
+          </div>
+          <div class="form-group price">
             <label for="name" class="col-form-label">Price:</label>
             <input type="number" name="price" id="price" class="form-control" placeholder="Price" min="1" required>
           </div>
-          <div class="form-group">
+          <div class="form-group cancellation_type">
             <label for="name" class="col-form-label">Cancellation Type:</label>
             <select name="cancellation_type" id="cancellation_type" class="form-control" required>
                 <option value="Fixed">Fixed</option>
@@ -162,7 +169,7 @@
                 <option value="Other">Other</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group cancellation_value">
             <label for="name" class="col-form-label">Cancellation Value:</label>
             <input type="number" name="cancellation_value" id="cancellation_value" class="form-control" placeholder="1" min="1" required>
           </div>
@@ -252,6 +259,7 @@
       $('#edit-id').val(button.data('id'));
       $('#name').val(button.data('name'));
       $('#colorHex').val(button.data('color'));
+      $('#booking_type').val(button.data('booking_type'));
       $('#max_booking').val(button.data('max_booking'));
       $('#per_user_max_booking').val(button.data('per_user_max_booking'));
       $('#cancellation_type').val(button.data('cancellation_type'));
@@ -263,6 +271,43 @@
       if(edit_id){
           $('#icon').attr('required',false);
           $('.modal-title').text('Update Facility');
+      }
+
+      $('.price').hide();
+      $('.cancellation_type').hide();
+      $('.cancellation_value').hide();
+      $('#price').attr('required',false);
+      $('#cancellation_type').attr('required',false);
+      $('#cancellation_value').attr('required',false);
+      var booking_type == $('#booking_type');
+      if(booking_type == 'Paid'){
+        $('.price').hide();
+        $('.cancellation_type').hide();
+        $('.cancellation_value').hide();
+
+        $('#price').attr('required',true);
+        $('#cancellation_type').attr('required',true);
+        $('#cancellation_value').attr('required',true);
+      }
+
+    });
+
+    $(document).on('change','#booking_type',function(){
+      $('.price').hide();
+      $('.cancellation_type').hide();
+      $('.cancellation_value').hide();
+      $('#price').attr('required',false);
+      $('#cancellation_type').attr('required',false);
+      $('#cancellation_value').attr('required',false);
+      var booking_type == $('#booking_type');
+      if(booking_type == 'Paid'){
+        $('.price').hide();
+        $('.cancellation_type').hide();
+        $('.cancellation_value').hide();
+
+        $('#price').attr('required',true);
+        $('#cancellation_type').attr('required',true);
+        $('#cancellation_value').attr('required',true);
       }
     });
 

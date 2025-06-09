@@ -220,7 +220,11 @@ class CustomerController extends Controller
             'logo' => $logo
         );
         try {
-            dispatch(new SendForgetPasswordEmail($user, $info));
+            // dispatch(new SendForgetPasswordEmail($user, $info));
+            Mail::send('email.forget_password2', $info, function ($message) {
+                $message->to($user->email, $user->name)
+                        ->subject('Forget Password');
+            });
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Failed to queue email. ' . $e->getMessage()

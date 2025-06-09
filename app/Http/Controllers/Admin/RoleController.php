@@ -107,7 +107,7 @@ class RoleController extends Controller
         $user = auth()->user();
         $buildingId = $user->building_id;
     
-        $building_users = BuildingUser::where('building_id',$user->building_id)->where('role_id',$role->id)->withTrashed()->with('user')->get();
+        $building_users = BuildingUser::where('building_id',$buildingId)->where('role_id',$role->id)->withTrashed()->with('user')->get();
         return view('admin.role.department',compact('role','building_users'));
     }
     

@@ -1665,7 +1665,7 @@ class CustomerController extends Controller
         }
         $user = Auth::User();
         $order = Order::where('order_id',$request->razorpay_order_id)->where('status','Created')->first();
-        // $order = Order::where('order_id',$request->razorpay_order_id)->first();
+        $order = Order::where('order_id',$request->razorpay_order_id)->first();
         if(!$order){
             return response()->json([
                     'error' => 'Order id not found',

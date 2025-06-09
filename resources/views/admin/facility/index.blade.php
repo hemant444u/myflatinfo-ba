@@ -291,9 +291,9 @@
       $('.cancellation_value').hide();
       var booking_type = $(this).val();
       if(booking_type == 'Paid'){
-        $('.price').hide();
-        $('.cancellation_type').hide();
-        $('.cancellation_value').hide();
+        $('.price').show();
+        $('.cancellation_type').show();
+        $('.cancellation_value').show();
 
       }
     });

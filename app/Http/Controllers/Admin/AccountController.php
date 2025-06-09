@@ -89,7 +89,10 @@ class AccountController extends Controller
         $blocks = $building->blocks;
         $query = MaintenancePayment::where('building_id',$building->id);
         // Filter by model and model_id
-        if ($request->filled('flat_id')) {
+        if ($request->filled('flat_id') && $request->flat_id > 0) {
+            $query->where('flat_id', $request->flat_id);
+        }
+        if ($request->filled('All')) {
             $query->where('flat_id', $request->flat_id);
         }
         // Filter by from_date and to_date

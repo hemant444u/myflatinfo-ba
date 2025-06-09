@@ -552,7 +552,7 @@ class CustomerController extends Controller
         $tanent = $flat->tanent;
         $owner = $flat->owner;
         $building = $flat->building;
-        $permissions = BuildingPermission::where('building_id',$building->id)->with(['permission'])->get();
+        $permissions = $building->permissions;
         return response()->json([
             'flat' => $flat,
             'permissions' => $permissions,

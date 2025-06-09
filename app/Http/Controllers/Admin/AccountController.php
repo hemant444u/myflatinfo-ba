@@ -87,6 +87,7 @@ class AccountController extends Controller
         $user = Auth::User();
         $building = $user->building;
         $blocks = $building->blocks;
+        $flat_id = $request->flat_id;
         $query = MaintenancePayment::where('building_id',$building->id);
         // Filter by model and model_id
         if ($request->filled('flat_id') && $request->flat_id > 0) {
@@ -104,7 +105,7 @@ class AccountController extends Controller
             $query->whereDate('created_at', '<=', $request->to_date);
         }
         $maintenance_payments = $query->orderBy('created_at','desc')->get();
-        return view('admin.account.maintenance.manage_maintenance',compact('maintenance_payments','blocks'));
+        return view('admin.account.maintenance.manage_maintenance',compact('maintenance_payments','blocks','flat_id'));
     }
 
 }

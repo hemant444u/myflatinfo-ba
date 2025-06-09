@@ -130,7 +130,7 @@
           <div class="form-group">
             <label for="name" class="col-form-label">Permissions:</label>
             <div class="row">
-                @forelse($permissions as $permission)
+                @forelse($building->permissions as $permission)
                 <div class="col-md-3">
                     <input type="checkbox" name="permissions[]" value="{{$permission->id}}" class="permission-checkbox"> {{$permission->slug}}
                 </div>

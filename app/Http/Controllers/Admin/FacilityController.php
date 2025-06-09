@@ -57,6 +57,7 @@ class FacilityController extends Controller
         $facility->name = $request->name;
         $facility->max_booking = $request->max_booking;
         $facility->per_user_max_booking = $request->per_user_max_booking;
+        $facility->booking_type = $request->booking_type;
         $facility->price = $request->price;
         $facility->cancellation_type = $request->cancellation_type;
         $facility->cancellation_value = $request->cancellation_value;

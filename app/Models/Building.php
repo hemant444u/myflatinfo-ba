@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Building extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
     
     public function user()
     {

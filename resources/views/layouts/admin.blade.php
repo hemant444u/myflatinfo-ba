@@ -111,6 +111,17 @@
   margin-left:24px;
 }
 
+
+.table {
+  font-size: 13px; /* adjust as needed: 12px or 13px is common for tables */
+}
+
+.table th,
+.table td {
+  padding: 6px 10px; /* reduce padding for compact spacing */
+}
+
+
     
   </style>
 </head>

@@ -1662,8 +1662,8 @@ class CustomerController extends Controller
         $order = new Order();
         $order->user_id = $user->id;
         $order->order_id = $razorpayOrderId;
-        $order->model = 'Maintenance';
-        $order->model_id = $maintenance_payment->maintenance_id;
+        $order->model = 'MaintenancePayment';
+        $order->model_id = $maintenance_payment->id;
         $order->flat_id = $maintenance_payment->flat_id;
         $order->desc = 'Creating order for maintenance payment from '.$maintenance_payment->from_date. ' to '.$maintenance_payment->to_date;
         $order->amount = $item_amount;
@@ -1739,8 +1739,9 @@ class CustomerController extends Controller
             $transaction->building_id = $user->flat->building_id;
             $transaction->user_id = $user->id;
             $transaction->order_id = $order->order_id;
-            $transaction->model = $order->model;
-            $transaction->model_id = $order->model_id;
+            $transaction->model = 'Maintenance';
+            $paid_maintenance = MaintenancePayment::find($order->model_id);
+            $transaction->model_id = $paid_maintenance->maintenance_id;
             $transaction->type = 'Credit';
             $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
@@ -1750,7 +1751,7 @@ class CustomerController extends Controller
             $transaction->date = now()->toDateString();
             $transaction->save();
             
-            $maintenance_payment = MaintenancePayment::find($order->model_id);
+            $maintenance_payment = $paid_maintenance;
             $maintenance_payment->user_id = $user->id;
             $maintenance_payment->paid_amount = $maintenance_payment->dues_amount;
             $maintenance_payment->paid_date = now()->toDateString();
@@ -1890,8 +1891,8 @@ class CustomerController extends Controller
         $order = new Order();
         $order->user_id = $user->id;
         $order->order_id = $razorpayOrderId;
-        $order->model = 'Essential';
-        $order->model_id = $essential_payment->essential_id;
+        $order->model = 'EssentialPayment';
+        $order->model_id = $essential_payment->id;
         $order->flat_id = $essential_payment->flat_id;
         $order->desc = 'Creating order for essential payment for '.$essential_payment->flat->name;
         $order->amount = $item_amount;
@@ -1966,21 +1967,23 @@ class CustomerController extends Controller
             $transaction->building_id = $user->flat->building_id;
             $transaction->user_id = $user->id;
             $transaction->order_id = $order->order_id;
-            $transaction->model = $order->model;
-            $transaction->model_id = $order->model_id;
+            $transaction->model = 'Essential';
+            $paid_essential = EssentialPayment::find($order->model_id);
+            $transaction->model_id = $paid_essential->essential->id;
             $transaction->type = 'Credit';
             $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
-            $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
+            $transaction->reciept_no = $reciept;
             $transaction->desc = 'Essential Payment Order Verified '.$order->order_id;
             $transaction->status = 'Success';
             $transaction->date = now()->toDateString();
             $transaction->save();
             
-            $essential_payment = EssentialPayment::find($order->model_id);
+            $essential_payment = $paid_essential;
             $essential_payment->paid_amount = $order->amount;
             $essential_payment->dues_amount = $essential_payment->essential->amount - $order->amount;
-            $essential_payment->type = 'Razorpay';
+            $essential_payment->type = 'Credit';
+            $essential_payment->payment_type = 'InBank';
             $essential_payment->status = 'Paid';
             $essential_payment->save();
             

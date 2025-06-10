@@ -1837,7 +1837,9 @@ class CustomerController extends Controller
                     break;
                 }
         }
-        $item_amount = ($dues_amount + $late_fine) * $gst / 100;
+        $total_amount = $dues_amount + $late_fine;
+        $total_gst = $total_amount * $gst / 100;
+        $item_amount = $total_amount + $total_gst;
         $orderData = [
             'receipt'         => (string) $item_number,
             'amount'          => $item_amount * 100, // 2000 rupees in paise

@@ -95,7 +95,7 @@ class MaintenanceController extends Controller
                 $maintenance_payment->maintenance_id = $maintenance->id;
                 $maintenance_payment->building_id = $maintenance->building_id;
                 $maintenance_payment->flat_id = $flat->id;
-                //$maintenance_payment->user_id = $user->id;
+                $maintenance_payment->user_id = $flat->tanent ? $flat->tanent_id : $flat->owner_id;
                 $maintenance_payment->paid_amount = 0;
                 $maintenance_payment->dues_amount = $maintenance->amount;
                 $maintenance_payment->bill_no = 'MFIB'.rand(100000,999999);

@@ -135,6 +135,7 @@
       <li class="nav-item">
         <a class="nav-link humburger-menu" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      <?php $building = Auth::User()->building; ?>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">{{Auth::User()->building->name}}
             (Departments:
@@ -450,7 +451,7 @@
             </a>
           </li>
           @endif
-          
+
           <li class="nav-item">
             <a href="{{route('classified.index')}}" class="nav-link {{ request()->is('classified*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

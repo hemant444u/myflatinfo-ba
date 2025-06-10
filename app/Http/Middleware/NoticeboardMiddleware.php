@@ -17,6 +17,6 @@ class NoticeboardMiddleware
         if ($building && $building->hasPermission('feature.noticeboard')) {
             return $next($request);
         }
-        return redirect('permission-denied')->with('error','Permission denied');
+        return redirect('permission-denied')->with('error','Oops !');
     }
 }

@@ -30,4 +30,9 @@ class MaintenancePayment extends Model
         return $this->belongsTo('App\Models\Flat')->withTrashed();
     }
 
+    public function transaction()
+    {
+        return Transaction::where('model','Maintenance')->where('model_id',$this->id)->first();
+    }
+
 }

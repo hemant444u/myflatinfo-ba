@@ -1537,6 +1537,7 @@ class CustomerController extends Controller
             ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
             ->where('status', 'Paid')
             ->orderBy('id', 'desc')
+            ->with(['transaction'])
             ->get();
         
         return response()->json([

@@ -1758,7 +1758,7 @@ class CustomerController extends Controller
             $maintenance_payment->type = 'Credit';
             $maintenance_payment->payment_type = 'InBank';
             $maintenance_payment->desc = 'Paid Through Razorpay';
-            // $maintenance_payment->transaction_id = $transaction->id;
+            $maintenance_payment->transaction_id = $transaction->id;
             $maintenance_payment->status = 'Paid';
             $maintenance_payment->save();
 

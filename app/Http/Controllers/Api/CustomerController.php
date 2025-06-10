@@ -1533,15 +1533,16 @@ class CustomerController extends Controller
 
         $gst = $total_gst;
         $grand_total = $total_payment + $gst;
-        // $paid_maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
-        //     ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building','transaction'])
-        //     ->where('status', 'Paid')
-        //     ->orderBy('id', 'desc')
-        //     ->get();
+        $paid_maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
+            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building','transaction'])
+            ->where('status', 'Paid')
+            ->orderBy('id', 'desc')
+            ->get();
         $transactions = Transaction::where('user_id',$user->id)->where('model','Maintenance')->with(['maintenance_payments'])->orderBy('id', 'desc')->get();
         
         return response()->json([
             'maintenance_payments' => $maintenance_payments,
+            'paid_maintenance_payments' => $paid_maintenance_payments,
             'transactions' => $transactions,
             'total_payment' => $total_payment,
             'gst' => $gst,

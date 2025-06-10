@@ -705,7 +705,7 @@ $(document).ready(function(){
     
     $(function () {
         $(".table").DataTable({
-          "responsive": true, "ordering": true, "lengthChange": false, "autoWidth": false,"bPaginate": true,"bInfo": false,"searching": true,"pageLength": parseInt("{{$setting->pagination}}"),
+          "responsive": false, "ordering": true, "lengthChange": false, "autoWidth": false,"bPaginate": true,"bInfo": false,"searching": true,"pageLength": parseInt("{{$setting->pagination}}"),
           order: [[0, 'asc']],
           buttons: [
             {
@@ -737,7 +737,7 @@ $(document).ready(function(){
           "ordering": true,
           "info": true,
           "autoWidth": false,
-          "responsive": true,
+          "responsive": false,
           "bPaginate": false,
           "bInfo": false,
         });

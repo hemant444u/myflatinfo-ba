@@ -129,15 +129,15 @@
                           <td>{{$payment->type}}</td>
                           <td>{{$payment->status}}</td>
                           <td>
-                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$payment->id}}" data-dues_amount="{{$payment->dues_amount}}" data-late_fine="{{$payment->late_fine}}" 
-                      data-user_id="{{$payment->user_id}}" data-type="{{$payment->type}}" data-amount="{{$payment->paid_amount}}" data-status="{{$payment->status}}" data-building_id="{{$payment->building_id}}"
-                      data-flat_id="{{$payment->flat_id}}" data-maintenance_id="{{$payment->maintenance_id}}"><i class="fa fa-edit"></i></button>
-                      <!--@if($payment->deleted_at)-->
-                      <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$payment->id}}" data-action="restore"><i class="fa fa-undo"></i></button>-->
-                      <!--@else-->
-                      <!--<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$payment->id}}" data-action="delete"><i class="fa fa-trash"></i></button>-->
-                      <!--@endif-->
-                    </td>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$payment->id}}" data-dues_amount="{{$payment->dues_amount}}" data-late_fine="{{$payment->late_fine}}" 
+                            data-user_id="{{$payment->user_id}}" data-type="{{$payment->type}}" data-amount="{{$payment->paid_amount}}" data-status="{{$payment->status}}" data-building_id="{{$payment->building_id}}"
+                            data-flat_id="{{$payment->flat_id}}" data-maintenance_id="{{$payment->maintenance_id}}"><i class="fa fa-edit"></i></button>
+                            <!--@if($payment->deleted_at)-->
+                            <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$payment->id}}" data-action="restore"><i class="fa fa-undo"></i></button>-->
+                            <!--@else-->
+                            <!--<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" data-id="{{$payment->id}}" data-action="delete"><i class="fa fa-trash"></i></button>-->
+                            <!--@endif-->
+                          </td>
                         </tr>
                         @empty
                         @endforelse

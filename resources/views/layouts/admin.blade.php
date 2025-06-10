@@ -442,13 +442,14 @@
               <p>Event</p>
             </a>
           </li>
-          
+          @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
             <a href="{{route('noticeboard.index')}}" class="nav-link {{ request()->is('noticeboard*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Notice Board</p>
             </a>
           </li>
+          @endif
           
           <li class="nav-item">
             <a href="{{route('classified.index')}}" class="nav-link {{ request()->is('classified*') ? 'active' : '' }}">

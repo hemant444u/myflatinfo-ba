@@ -57,13 +57,11 @@
                   <thead>
                   <tr>
                     <th>S No</th>
-                    <th>Building</th>
                     <th>Block</th>
                     <th>Flat</th>
                     <th>Owner</th>
                     <th>Tanent</th>
                     <th>Area</th>
-                    <th>Corpus Fund</th>
                     <th>Family Members</th>
                     <th>Status</th>
                     <th>SoldOut</th>
@@ -78,13 +76,11 @@
                   <?php $i++; ?>
                   <tr>
                     <td>{{$i}}</td>
-                    <td>{{$flat->building->name}}</td>
                     <td>{{$flat->block->name}}</td>
                     <td>{{$flat->name}}</td>
                     <td><a href="{{url('user',$flat->owner_id)}}" target="_blank">{{$flat->owner ? $flat->owner->name : ''}}</a></td>
                     <td><a href="{{url('user',$flat->tanent_id)}}" target="_blank">{{$flat->tanent ? $flat->tanent->name : ''}}</a></td>
                     <td>{{$flat->area}}</td>
-                    <td>{{$flat->corpus_fund}}</td>
                     <td>{{$flat->family_members->count()}}</td>
                     <td>{{$flat->status}}</td>
                     <td>{{$flat->sold_out}}</td>

@@ -1603,7 +1603,7 @@ class CustomerController extends Controller
             $total_gst += $payment->gst;
         }
 
-        $gst = $total_gst / 100;
+        $gst = $total_gst;
         $grand_total = $total_payment + $gst;
 
         $maintenance_payment = MaintenancePayment::find($request->maintenance_payment_id);

@@ -48,7 +48,7 @@
                 </center>
             </div>
             <div class="col-md-4 offset-md-4">
-                <div class="center">
+                <center>
                     <div class="card">
                         <div class="card-body">
                             <div class="box bg-red">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     </a>
-                </div>
+                </center>
             </div>
         </div>
     </div>

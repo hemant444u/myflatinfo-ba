@@ -13,7 +13,7 @@ class NoticeboardMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::User();
-        $building = Auth::Building;
+        $building = $user->Building;
         if ($building && $building->hasPermission('feature.noticeboard')) {
             return $next($request);
         }

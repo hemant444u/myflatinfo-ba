@@ -91,8 +91,10 @@
                       </div>
                     </div>
 
-                    <div class="modal-footer justify-content-start">
-                      <button type="submit" class="btn btn-primary btn-block" id="save-button">Save</button>
+                    <div class="form-row justify-content-center">
+                      <div class="form-group col-md-6">
+                        <button type="submit" class="btn btn-primary btn-block" id="save-button">Save</button>
+                      </div>
                     </div>
                   </form>
                 </div>

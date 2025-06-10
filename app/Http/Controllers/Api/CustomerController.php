@@ -1824,16 +1824,16 @@ class CustomerController extends Controller
         $late_fine = 0;
         $gst = $essential_payment->essential->gst;
         if ($essential_payment && $essential_payment->essential->due_date < now()) {
-            $late_days = now()->diffInDays(Carbon::parse($maintenance->due_date));
+            $late_days = now()->diffInDays(Carbon::parse($essential_payment->essential->due_date));
             switch ($essential_payment->essential->late_fine_type) {
                 case 'Daily':
-                    $late_fine = $late_days * $maintenance->late_fine_value;
+                    $late_fine = $late_days * $essential_payment->essential->late_fine_value;
                     break;
                 case 'Fixed':
-                    $late_fine = $maintenance->late_fine_value;
+                    $late_fine = $essential_payment->essential->late_fine_value;
                     break;
                 case 'Percentage':
-                    $late_fine = ($payment->dues_amount * $maintenance->late_fine_value) / 100;
+                    $late_fine = ($payment->dues_amount * $essential_payment->essential->late_fine_value) / 100;
                     break;
                 }
         }

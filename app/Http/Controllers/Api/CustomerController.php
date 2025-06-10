@@ -1538,7 +1538,7 @@ class CustomerController extends Controller
             ->where('status', 'Paid')
             ->orderBy('id', 'desc')
             ->get();
-        $transactions = Transaction::where('user_id',$user->id)->where('model','Maintenance')->with(['maintenance_payments'])->orderBy('id', 'desc')->get();
+        $transactions = Transaction::where('user_id',$user->id)->where('model','Maintenance')->with(['maintenance_payments'])->get();
         
         return response()->json([
             'maintenance_payments' => $maintenance_payments,

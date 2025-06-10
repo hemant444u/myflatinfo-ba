@@ -72,6 +72,8 @@ class Kernel extends HttpKernel
         'security' => \App\Http\Middleware\SecurityMiddleware::class,
         'department' => \App\Http\Middleware\DepartmentMiddleware::class,
         'noticeboard' => \App\Http\Middleware\NoticeboardMiddleware::class,
+        'event' => \App\Http\Middleware\EventMiddleware::class,
+        'classified' => \App\Http\Classified\NoticeboardMiddleware::class,
         //'cors' => \App\Http\Middleware\CorsMiddleware::class,
     ];
 }

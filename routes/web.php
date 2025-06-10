@@ -72,7 +72,7 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [AdminForgotPasswordController::class, 'submitResetPasswordForm']);
 });
 
-Route::post('/permission-denied',[AdminController::class, 'permission_denied']);
+Route::get('/permission-denied',[AdminController::class, 'permission_denied']);
 
 Route::post('/save-token',[AdminController::class, 'save_token'])->name('save.token');
 

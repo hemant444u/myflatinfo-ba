@@ -71,7 +71,8 @@
                     <td>
                       <!--<a href="{{route('essential.show',$essential->id)}}" target="_blank"  class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>-->
                       <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal" data-id="{{$essential->id}}" data-reason="{{$essential->reason}}"
-                       data-building_id="{{$essential->building_id}}" data-amount="{{$essential->amount}}" data-status="{{$essential->status}}"><i class="fa fa-edit"></i></button>
+                       data-building_id="{{$essential->building_id}}" data-amount="{{$essential->amount}}" data-due_date="{{$essential->due_date}}" data-late_fine_type="{{$essential->late_fine_type}}"
+                       data-late_fine_value="{{$essential->late_fine_value}}" data-status="{{$essential->status}}" data-gst="{{$essential->gst}}"><i class="fa fa-edit"></i></button>
                       <!--@if($essential->deleted_at)-->
                       <!--<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#deleteModal" data-id="{{$essential->id}}" data-action="restore"><i class="fa fa-undo"></i></button>-->
                       <!--@else-->
@@ -234,6 +235,10 @@
       $('#edit-id').val(button.data('id'));
       $('#reason').val(button.data('reason'));
       $('#amount').val(button.data('amount'));
+      $('#due_date').val(button.data('due_date'));
+      $('#late_fine_type').val(button.data('late_fine_type'));
+      $('#late_fine_value').val(button.data('late_fine_value'));
+      $('#gst').val(button.data('gst'));
       $('#status').val(button.data('status'));
     //   $('#building_id').val(button.data('building_id'));
       $('.modal-title').text('Add New Essential');

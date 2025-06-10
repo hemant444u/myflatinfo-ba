@@ -67,6 +67,10 @@ class EssentialController extends Controller
         $essential->building_id = $user->building_id;
         $essential->reason = $request->reason;
         $essential->amount = $request->amount;
+        $essential->due_date = $request->due_date;
+        $essential->late_fine_type = $request->late_fine_type;
+        $essential->late_fine_value = $request->late_fine_value;
+        $essential->gst = $request->gst;
         $essential->status = $request->status;
         $essential->save();
         

@@ -54,7 +54,7 @@
                             <div class="box bg-red">
                                 <h3>Permission Denied !</h3>
                                 <p>You dont have permission to access this page</p>
-                                <p class="text-danger">Send 500 to BA</p>
+                                <p class="text-danger">Send 500 to Favorite BA : Rishitha</p>
                             </div>
                             <br>
                             <p><a href="{{url('/dashboard')}}">Back To Home</a></p>

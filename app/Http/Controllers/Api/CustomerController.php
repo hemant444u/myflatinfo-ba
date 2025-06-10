@@ -1820,8 +1820,24 @@ class CustomerController extends Controller
         $essential_payment = EssentialPayment::find($request->essential_payment_id);
         $item_name = 'Essential Payment';
         $item_number = $essential_payment->id;
-        $item_amount = $essential_payment->dues_amount;
-
+        $dues_amount = $essential_payment->dues_amount;
+        $late_fine = 0;
+        $gst = $essential_payment->essentail->gst;
+        if ($essential_payment && $essential_payment->essentail->due_date < now()) {
+            $late_days = now()->diffInDays(Carbon::parse($maintenance->due_date));
+            switch ($essential_payment->essentail->late_fine_type) {
+                case 'Daily':
+                    $late_fine = $late_days * $maintenance->late_fine_value;
+                    break;
+                case 'Fixed':
+                    $late_fine = $maintenance->late_fine_value;
+                    break;
+                case 'Percentage':
+                    $late_fine = ($payment->dues_amount * $maintenance->late_fine_value) / 100;
+                    break;
+                }
+        }
+        $item_amount = ($dues_amount + $late_fine) * $gst / 100;
         $orderData = [
             'receipt'         => (string) $item_number,
             'amount'          => $item_amount * 100, // 2000 rupees in paise

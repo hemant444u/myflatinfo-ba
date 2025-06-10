@@ -191,7 +191,7 @@
         });
       }
 
-      $(document).on('change','.add-form',function(){
+      $(document).on('submit','.add-form',function(){
         if (!confirm('Are you sure you want to submit this expense?')) {
           e.preventDefault();
         }

@@ -84,10 +84,11 @@
                         <input type="hidden" name="id" id="edit-id">
                         </div>
                         <div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="save-button">Save</button>
-                    </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block" id="save-button">Save</button>
+                          </div>
+                        </div>
                   </form>
                 </div>
             </div>
@@ -181,6 +182,12 @@
           }
         });
       }
+
+      $(document).on('submit', '.add-form', function(e) {
+        if (!confirm('Are you sure you want to submit this expense?')) {
+          e.preventDefault(); // This will now correctly prevent form submission
+        }
+      });
 
   });
 </script>

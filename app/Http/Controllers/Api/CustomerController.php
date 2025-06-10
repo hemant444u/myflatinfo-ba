@@ -1540,7 +1540,7 @@ class CustomerController extends Controller
             ->get();
         $last_maintenance = $maintenance_payments->first();
         return response()->json([
-            'maintenance_payments' => $maintenance_payments,
+            'maintenance_payments' => $last_maintenance,
             'paid_maintenance_payments' => $paid_maintenance_payments,
             'total_payment' => $total_payment,
             'gst' => $gst,

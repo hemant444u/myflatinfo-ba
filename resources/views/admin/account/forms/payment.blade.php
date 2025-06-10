@@ -191,9 +191,9 @@
         });
       }
 
-      $(document).on('submit','.add-form',function(){
+      $(document).on('submit', '.add-form', function(e) {
         if (!confirm('Are you sure you want to submit this expense?')) {
-          e.preventDefault();
+          e.preventDefault(); // This will now correctly prevent form submission
         }
       });
 

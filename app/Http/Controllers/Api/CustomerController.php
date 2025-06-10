@@ -1538,9 +1538,9 @@ class CustomerController extends Controller
             ->where('status', 'Paid')
             ->orderBy('id', 'desc')
             ->get();
-        $last_maintenance = $maintenance_payments->first();
+        
         return response()->json([
-            'maintenance_payments' => $last_maintenance,
+            'maintenance_payments' => $maintenance_payments,
             'paid_maintenance_payments' => $paid_maintenance_payments,
             'total_payment' => $total_payment,
             'gst' => $gst,

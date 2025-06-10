@@ -1542,7 +1542,7 @@ class CustomerController extends Controller
         
         return response()->json([
             'maintenance_payments' => $maintenance_payments,
-            'paid_maintenance_payments' => $paid_maintenance_payments,
+            'transactions' => $transactions,
             'total_payment' => $total_payment,
             'gst' => $gst,
             'grand_total' => $grand_total,

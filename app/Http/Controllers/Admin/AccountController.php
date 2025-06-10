@@ -33,11 +33,11 @@ class AccountController extends Controller
 
         // Filter by from_date and to_date
         if ($request->filled('from_date')) {
-            $transactionsQuery->whereDate('created_at', '>=', $request->from_date);
+            $transactionsQuery->whereDate('date', '>=', $request->from_date);
         }
 
         if ($request->filled('to_date')) {
-            $transactionsQuery->whereDate('created_at', '<=', $request->to_date);
+            $transactionsQuery->whereDate('date', '<=', $request->to_date);
         }
 
         $transactions = $transactionsQuery->orderBy('date','desc')->get();

@@ -1822,10 +1822,10 @@ class CustomerController extends Controller
         $item_number = $essential_payment->id;
         $dues_amount = $essential_payment->dues_amount;
         $late_fine = 0;
-        $gst = $essential_payment->essentail->gst;
-        if ($essential_payment && $essential_payment->essentail->due_date < now()) {
+        $gst = $essential_payment->essential->gst;
+        if ($essential_payment && $essential_payment->essential->due_date < now()) {
             $late_days = now()->diffInDays(Carbon::parse($maintenance->due_date));
-            switch ($essential_payment->essentail->late_fine_type) {
+            switch ($essential_payment->essential->late_fine_type) {
                 case 'Daily':
                     $late_fine = $late_days * $maintenance->late_fine_value;
                     break;

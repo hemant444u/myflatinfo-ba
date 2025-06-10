@@ -1534,7 +1534,7 @@ class CustomerController extends Controller
         $gst = $total_gst;
         $grand_total = $total_payment + $gst;
         $paid_maintenance_payments = MaintenancePayment::where('flat_id', $flat->id)
-            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building'])
+            ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building','transaction'])
             ->where('status', 'Paid')
             ->orderBy('id', 'desc')
             ->with(['transaction'])

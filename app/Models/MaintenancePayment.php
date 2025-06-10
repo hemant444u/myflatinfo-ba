@@ -32,7 +32,8 @@ class MaintenancePayment extends Model
 
     public function transaction()
     {
-        return Transaction::where('model','Maintenance')->where('model_id',$this->id)->first();
+        return $this->hasOne('App\Models\Transaction', 'model_id')
+                    ->where('model', 'Maintenance');
     }
 
 }

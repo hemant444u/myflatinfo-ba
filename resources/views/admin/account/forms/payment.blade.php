@@ -91,12 +91,8 @@
                       </div>
                     </div>
 
-                    <div class="modal-footer">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <button type="submit" class="btn btn-primary" id="save-button">Save</button>
-                        </div>
-                      </div>
+                    <div class="modal-footer justify-content-start">
+                      <button type="submit" class="btn btn-primary" id="save-button">Save</button>
                     </div>
                   </form>
                 </div>
@@ -193,7 +189,7 @@
         });
       }
 
-      $(document).on('change','#model',function(){
+      $(document).on('change','.add-form',function(){
         if (!confirm('Are you sure you want to submit this expense?')) {
           e.preventDefault();
         }

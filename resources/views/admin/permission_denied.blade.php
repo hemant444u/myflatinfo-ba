@@ -35,7 +35,7 @@
 <body style="background-color:grey;">
     <div class="container">
         <div class="row mt-5">
-            <div class="col-md-12 mt-2">
+            <div class="col-md-4 offset-md-4 mt-2">
                 <center>
                     <div>
                         <img src="{{$setting->logo}}" style="width:60%">

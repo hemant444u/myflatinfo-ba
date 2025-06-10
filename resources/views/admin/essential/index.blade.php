@@ -129,6 +129,26 @@
             <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount" required>
           </div>
           <div class="form-group">
+            <label for="code" class="col-form-label">Due Date:</label>
+            <input type="date" name="due_date" class="form-control" id="due_date" placeholder="Due Date" required>
+          </div>
+          <div class="form-group">
+            <label for="code" class="col-form-label">Late Fine Type:</label>
+            <select name="late_fine_type" id="late_fine_type" class="form-control" required>
+                <option value="Percentage">Percentage</option>
+                <option value="Daily">Daily</option>
+                <option value="Fixed">Fixed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="code" class="col-form-label">Late Fine Value:</label>
+            <input type="number" name="late_fine_value" class="form-control" id="late_fine_value" placeholder="Late Fine Value" required>
+          </div>
+          <div class="form-group">
+            <label for="code" class="col-form-label">GST(%):</label>
+            <input type="number" name="gst" class="form-control" id="gst" placeholder="GST" required>
+          </div>
+          <div class="form-group">
             <label for="name" class="col-form-label">Status:</label>
             <select name="status" id="status" class="form-control" required>
                 <option value="Inactive">Inactive</option>

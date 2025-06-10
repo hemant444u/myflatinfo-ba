@@ -437,8 +437,8 @@
               <p>Security Guards</p>
             </a>
           </li>
-          
-          @if($building && $building->hasPermission('feature.noticeboard'))
+
+          @if($building && $building->hasPermission('feature.event'))
           <li class="nav-item">
             <a href="{{route('event.index')}}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

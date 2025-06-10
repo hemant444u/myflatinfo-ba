@@ -1750,6 +1750,7 @@ class CustomerController extends Controller
             $transaction->save();
             
             $maintenance_payment = MaintenancePayment::find($order->model_id);
+            $maintenance_payment->user_id = $user->id;
             $maintenance_payment->paid_amount = $maintenance_payment->dues_amount;
             $maintenance_payment->paid_date = now()->toDateString();
             $maintenance_payment->dues_amount = 0;

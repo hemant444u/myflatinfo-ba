@@ -437,12 +437,16 @@
               <p>Security Guards</p>
             </a>
           </li>
+          
+          @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
             <a href="{{route('event.index')}}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Event</p>
             </a>
           </li>
+          @endif
+
           @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
             <a href="{{route('noticeboard.index')}}" class="nav-link {{ request()->is('noticeboard*') ? 'active' : '' }}">
@@ -452,12 +456,15 @@
           </li>
           @endif
 
+          @if($building && $building->hasPermission('feature.classified'))
           <li class="nav-item">
             <a href="{{route('classified.index')}}" class="nav-link {{ request()->is('classified*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Classified</p>
             </a>
           </li>
+          @endif
+
           <li class="nav-item">
             <a href="{{route('issue.index')}}" class="nav-link {{ request()->is('issue*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

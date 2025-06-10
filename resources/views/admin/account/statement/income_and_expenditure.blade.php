@@ -72,11 +72,11 @@
                     </div>
 
                     <div class="form-row">
-                      <div class="form-group col-6">
+                      <div class="form-group col-3">
                         <label>&nbsp;</label>
                         <a href="{{ url('account/statement/income-and-expenditure') }}" class="btn btn-secondary btn-block mt-2">Reset</a>
                       </div>
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-md-3">
                         <label>&nbsp;</label>
                         <button type="submit" class="btn btn-primary btn-block mt-2">Filter</button>
                       </div>

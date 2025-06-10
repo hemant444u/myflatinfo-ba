@@ -40,15 +40,15 @@
                     <div>
                         <img src="{{$setting->logo}}" style="width:60%">
                     </div>
+                </center>
+            </div>
+            <div class="col-md-4 offset-md-4">
+                <center>
                     @if(session()->has('error'))
                         <div class="alert alert-danger">
                             {{ session()->get('error') }}
                         </div>
                     @endif
-                </center>
-            </div>
-            <div class="col-md-4 offset-md-4">
-                <center>
                     <div class="card">
                         <div class="card-body">
                             <div class="box bg-red">

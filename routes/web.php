@@ -124,7 +124,10 @@ Route::middleware('admin')->group(function () {
         Route::resource('/event', EventController::class);
         Route::post('/update-event-status',[EventController::class, 'update_event_status']);
         Route::resource('/payment', PaymentController::class);
-        Route::resource('/noticeboard', NoticeboardController::class);
+        
+        Route::middleware('noticeboard')->group(function () {
+            Route::resource('/noticeboard', NoticeboardController::class);
+        });
         Route::resource('/classified', ClassifiedController::class);
 
         Route::post('/get-flats',[IssueController::class, 'get_flats']);

@@ -42,7 +42,7 @@
                     </div>
                 </center>
             </div>
-            <div class="col-md-4 offset-md-4">
+            <div class="col-md-6 offset-md-3">
                 <center>
                     @if(session()->has('error'))
                         <div class="alert alert-danger">

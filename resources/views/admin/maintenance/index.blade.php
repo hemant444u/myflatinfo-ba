@@ -133,7 +133,7 @@
           </div>
           <div class="form-group">
             <label for="code" class="col-form-label">From Date:</label>
-            <input type="date" name="from_date" class="form-control" id="from_date" placeholder="From Date" required>
+            <input type="date" name="from_date" class="form-control" id="from_date" placeholder="From Date" max="{{ \Carbon\Carbon::now()->toDateString() }}" required>
           </div>
           <div class="form-group">
             <label for="code" class="col-form-label">To Date:</label>

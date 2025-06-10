@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="modal-footer justify-content-start">
-                      <button type="submit" class="btn btn-primary" id="save-button">Save</button>
+                      <button type="submit" class="btn btn-primary btn-block" id="save-button">Save</button>
                     </div>
                   </form>
                 </div>

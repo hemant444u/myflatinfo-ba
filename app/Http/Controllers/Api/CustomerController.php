@@ -1537,7 +1537,6 @@ class CustomerController extends Controller
             ->with(['maintenance', 'flat.owner', 'flat.tanent', 'flat.block', 'flat.building','transaction'])
             ->where('status', 'Paid')
             ->orderBy('id', 'desc')
-            ->with(['transaction'])
             ->get();
         
         return response()->json([
@@ -1743,7 +1742,7 @@ class CustomerController extends Controller
             $transaction->type = 'Credit';
             $transaction->payment_type = 'InBank';
             $transaction->amount = $order->amount;
-            $transaction->reciept_no = 'RCP'.rand(10000000,99999999);
+            $transaction->reciept_no = $reciept;
             $transaction->desc = 'Maintenance Payment Order Verified '.$order->order_id;
             $transaction->status = 'Success';
             $transaction->date = now()->toDateString();
@@ -1756,6 +1755,7 @@ class CustomerController extends Controller
             $maintenance_payment->type = 'Credit';
             $maintenance_payment->payment_type = 'InBank';
             $maintenance_payment->desc = 'Paid Through Razorpay';
+            // $maintenance_payment->transaction_id = $transaction->id;
             $maintenance_payment->status = 'Paid';
             $maintenance_payment->save();
 

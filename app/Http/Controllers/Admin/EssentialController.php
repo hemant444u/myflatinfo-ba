@@ -54,7 +54,7 @@ class EssentialController extends Controller
     
         if ($request->id) {
             $essential = Essential::withTrashed()->find($request->id);
-            $msg = 'Essential udated Susccessfully';
+            $msg = 'Essential updated Susccessfully';
         }
     
         $validation = \Validator::make($request->all(), $rules);

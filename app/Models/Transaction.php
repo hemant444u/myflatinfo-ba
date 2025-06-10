@@ -19,6 +19,11 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Models\Order','order_id');
     }
+
+    public function maintenance_payments()
+    {
+        return $this->hasMany('App\Models\MaintenancePayment');
+    }
     
     
 }

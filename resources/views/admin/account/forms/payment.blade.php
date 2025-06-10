@@ -91,7 +91,7 @@
                       </div>
                     </div>
 
-                    <div class="form-row justify-content-center">
+                    <div class="form-row">
                       <div class="form-group col-md-6">
                         <button type="submit" class="btn btn-primary btn-block" id="save-button">Save</button>
                       </div>

@@ -8,15 +8,16 @@ use Illuminate\Http\Request;
 use \Auth;
 use Carbon\Carbon;
 
-class NoticeboardMiddleware
+class ClassifiedMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::User();
         $building = $user->Building;
-        if ($building && $building->hasPermission('feature.noticeboard')) {
+        if ($building && $building->hasPermission('feature.classified')) {
             return $next($request);
         }
+
         return redirect('permission-denied')->with('error','Permission denied');
     }
 }

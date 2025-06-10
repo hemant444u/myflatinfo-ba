@@ -72,6 +72,8 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [AdminForgotPasswordController::class, 'submitResetPasswordForm']);
 });
 
+Route::post('/permission-denied',[AdminController::class, 'permission_denied']);
+
 Route::post('/save-token',[AdminController::class, 'save_token'])->name('save.token');
 
 Route::middleware('admin')->group(function () {
@@ -121,15 +123,19 @@ Route::middleware('admin')->group(function () {
         Route::post('/store-parking-flat',[FlatController::class, 'store_parking_flat']);
         Route::post('/delete-parking-flat',[FlatController::class, 'delete_parking_flat']);
 
-        Route::resource('/event', EventController::class);
-        Route::post('/update-event-status',[EventController::class, 'update_event_status']);
+        Route::middleware('event')->group(function () {
+            Route::resource('/event', EventController::class);
+            Route::post('/update-event-status',[EventController::class, 'update_event_status']);
+        });
+
         Route::resource('/payment', PaymentController::class);
-        
+
         Route::middleware('noticeboard')->group(function () {
             Route::resource('/noticeboard', NoticeboardController::class);
         });
-        Route::resource('/classified', ClassifiedController::class);
-
+        Route::middleware('classified')->group(function () {
+            Route::resource('/classified', ClassifiedController::class);
+        });
         Route::post('/get-flats',[IssueController::class, 'get_flats']);
         Route::resource('/issue', IssueController::class);
         Route::post('/update-issue-status',[IssueController::class, 'update_issue_status']);

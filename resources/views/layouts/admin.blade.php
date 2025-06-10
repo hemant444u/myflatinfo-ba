@@ -113,7 +113,7 @@
 
 
 .table {
-  font-size: 13px; /* adjust as needed: 12px or 13px is common for tables */
+  font-size: 16px; /* adjust as needed: 12px or 13px is common for tables */
 }
 
 .table th,

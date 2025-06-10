@@ -26,6 +26,11 @@ class AdminController extends Controller
         $setting = Setting::first();
         return view('admin.login',compact('setting'));
     }
+    public function permission_denied()
+    {
+        $setting = Setting::first();
+        return view('admin.permission_denied',compact('setting'));
+    } 
     
     public function save_token(Request $request)
     {

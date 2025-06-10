@@ -72,6 +72,9 @@
                     </div>
 
                     <div class="form-row">
+                      <div class="form-group col-6">
+                        <a href="{{ url('account/statement/income-and-expenditure') }}" class="btn btn-secondary btn-block">Reset</a>
+                      </div>
                       <div class="form-group col-md-6">
                         <label>&nbsp;</label>
                         <button type="submit" class="btn btn-primary btn-block mt-2">Filter</button>

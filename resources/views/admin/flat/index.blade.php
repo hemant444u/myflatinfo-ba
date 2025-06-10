@@ -56,7 +56,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>S No</th>
+                    <!-- <th>S No</th> -->
                     <th>Block</th>
                     <th>Flat</th>
                     <th>Owner</th>
@@ -75,7 +75,7 @@
                   @forelse($building->flats as $flat)
                   <?php $i++; ?>
                   <tr>
-                    <td>{{$i}}</td>
+                    <!-- <td>{{$i}}</td> -->
                     <td>{{$flat->block->name}}</td>
                     <td>{{$flat->name}}</td>
                     <td><a href="{{url('user',$flat->owner_id)}}" target="_blank">{{$flat->owner ? $flat->owner->name : ''}}</a></td>

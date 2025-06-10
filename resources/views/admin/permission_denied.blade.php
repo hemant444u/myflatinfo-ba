@@ -56,7 +56,7 @@
                                 <p>You dont have permission to access this page</p>
                             </div>
                             <br>
-                            <p><a href="{{url('/dashboard')}}"></a></p>
+                            <p><a href="{{url('/dashboard')}}">Back To Home</a></p>
                         </div>
                     </div>
                     </a>

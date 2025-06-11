@@ -502,6 +502,8 @@
                       <p>{{$role->name}}</p>
                     </a>
                   </li>
+                  @empty
+                  @endforelse
               </ul>
           </li>
 

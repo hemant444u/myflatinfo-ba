@@ -475,10 +475,10 @@
 
           <li class="nav-item has-treeview {{ $isStaffOpen ? 'menu-open' : '' }}">
               <a href="#" class="nav-link {{ $isStaffOpen ? 'active' : '' }}">
-                  <i class="nav-icon fa fa-server"></i>
+                  <i class="nav-icon fa fa-user-secret"></i>
                   <p>
                       Staff Directory
-                      <i class="right fa fa-user-secret"></i>
+                      <i class="right fas fa-angle-left"></i>
                   </p>
               </a>
 

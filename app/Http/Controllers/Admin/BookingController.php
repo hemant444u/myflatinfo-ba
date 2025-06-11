@@ -12,7 +12,7 @@ use \Auth;
 class BookingController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::User();
         $building = $user->building;

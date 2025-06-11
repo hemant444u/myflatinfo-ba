@@ -239,7 +239,12 @@
               <p>Dashboard</p>
             </a>
           </li>
-
+          <li class="nav-item">
+            <a href="{{url('/profile')}}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <p>Profile</p>
+            </a>
+          </li>
           @php
             $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('gate*') || request()->is('parking*');
             $isOwnerAndTanentOpen = request()->is('user*');
@@ -460,15 +465,7 @@
                   </li>
               </ul>
           </li>
-          
 
-
-          <li class="nav-item">
-            <a href="{{url('/profile')}}" class="nav-link {{ request()->is('profile*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Profile</p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="{{route('guard.index')}}" class="nav-link {{ request()->is('guard*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

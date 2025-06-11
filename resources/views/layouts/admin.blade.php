@@ -438,14 +438,14 @@
             </a>
           </li>
 
-          @if($building && $building->hasPermission('feature.event'))
+          <!-- @if($building && $building->hasPermission('feature.event'))
           <li class="nav-item">
             <a href="{{route('event.index')}}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Event</p>
             </a>
           </li>
-          @endif
+          @endif -->
 
           @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
@@ -501,12 +501,12 @@
               <p>Maintenance</p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{route('essential.index')}}" class="nav-link {{ request()->is('essential*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Essentials</p>
             </a>
-          </li>
+          </li> -->
           <!-- <li class="nav-item">
             <a href="{{url('society-fund/expenses')}}" class="nav-link {{ request()->is('society-fund*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

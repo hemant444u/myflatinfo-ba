@@ -202,28 +202,6 @@
     <?php $user = Auth::User(); ?>
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">-->
-      <!--  <div class="image">-->
-      <!--    <img src="{{asset('images/profiles/'.$user->photo)}}" class="img-circle elevation-2" alt="User Image">-->
-      <!--  </div>-->
-      <!--  <div class="info">-->
-      <!--    <a href="{{url('profile')}}" class="d-block">{{$user->name}}</a>-->
-      <!--  </div>-->
-      <!--</div>-->
-
-      <!-- SidebarSearch Form -->
-      <!--<div class="form-inline">-->
-      <!--  <div class="input-group" data-widget="sidebar-search">-->
-      <!--    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">-->
-      <!--    <div class="input-group-append">-->
-      <!--      <button class="btn btn-sidebar">-->
-      <!--        <i class="fas fa-search fa-fw"></i>-->
-      <!--      </button>-->
-      <!--    </div>-->
-      <!--  </div>-->
-      <!--</div>-->
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -507,22 +485,6 @@
               </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="{{route('guard.index')}}" class="nav-link {{ request()->is('guard*') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-user-secret"></i>
-              <p>Security Guards</p>
-            </a>
-          </li>
-
-          <!-- @if($building && $building->hasPermission('feature.event'))
-          <li class="nav-item">
-            <a href="{{route('event.index')}}" class="nav-link {{ request()->is('event*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Event</p>
-            </a>
-          </li>
-          @endif -->
-
           @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
             <a href="{{route('noticeboard.index')}}" class="nav-link {{ request()->is('noticeboard*') ? 'active' : '' }}">
@@ -541,18 +503,6 @@
           </li>
           @endif
 
-          <!-- <li class="nav-item">
-            <a href="{{route('issue.index')}}" class="nav-link {{ request()->is('issue*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Issue</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('facility.index')}}" class="nav-link {{ request()->is('facility*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Facility</p>
-            </a>
-          </li> -->
           <li class="nav-item">
             <a href="{{route('visitor.index')}}" class="nav-link {{ request()->is('visitor*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-address-book"></i>
@@ -571,99 +521,14 @@
               <p>Vehicle Inouts</p>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="{{route('maintenance.index')}}" class="nav-link {{ request()->is('maintenance*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Maintenance</p>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a href="{{route('essential.index')}}" class="nav-link {{ request()->is('essential*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Essentials</p>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a href="{{url('society-fund/expenses')}}" class="nav-link {{ request()->is('society-fund*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>Society Fund</p>
-            </a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a href="{{route('role.index')}}" class="nav-link {{ request()->is('role*') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-diamond"></i>
-              <p>Roles</p>
-            </a>
-          </li> -->
-          <!-- @forelse(Auth::User()->building->roles as $role)
-          <li class="nav-item">
-            <a href="{{url('department',$role->slug)}}" class="nav-link {{ request()->is('department/'.$role->slug.'*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
-              <p>{{$role->name}}</p>
-            </a>
-          </li> -->
-          @empty
-          @endforelse
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{route('notification.index')}}" class="nav-link {{ request()->is('notification*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas far fa-bell"></i>-->
-          <!--    <p>Notifications <i class="badge badge-danger right">{{$notifications->count()}}</i></p>-->
-          <!--  </a>-->
-          <!--</li>-->
+
           <li class="nav-item">
            <a href="{{route('setting.index')}}" class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">
              <i class="nav-icon fas fa-solid fa-wrench"></i>
              <p>Settings</p>
            </a>
           </li>
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('taxes')}}" class="nav-link {{ request()->is('taxes*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-solid fa-leaf"></i>-->
-          <!--    <p>Taxes</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('privacy-policy')}}" class="nav-link {{ request()->is('privacy-policy*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-solid fa-anchor"></i>-->
-          <!--    <p>Privacy Policy</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('terms-conditions')}}" class="nav-link {{ request()->is('terms-conditions*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-solid fa-splotch"></i>-->
-          <!--    <p>Terms & Conditions</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('about-us')}}" class="nav-link {{ request()->is('about-us*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-solid fa-eye-dropper"></i>-->
-          <!--    <p>About us</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('how-it-works')}}" class="nav-link {{ request()->is('how-it-works*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-duotone fa-swatchbook"></i>-->
-          <!--    <p>How it works</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('return-and-refund-policy')}}" class="nav-link {{ request()->is('return-and-refund-policy*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-duotone fa-ruler-combined"></i>-->
-          <!--    <p>Return and Refund Policy</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('cancellation-policy')}}" class="nav-link {{ request()->is('cancellation-policy') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-sharp fa-solid fa-fill"></i>-->
-          <!--    <p>Cancellation Policy</p>-->
-          <!--  </a>-->
-          <!--</li>-->
-          <!--<li class="nav-item">-->
-          <!--  <a href="{{url('faqs')}}" class="nav-link {{ request()->is('faqs*') ? 'active' : '' }}">-->
-          <!--    <i class="nav-icon fas fa-sharp fa-solid fa-fill-drip"></i>-->
-          <!--    <p>FAQ's</p>-->
-          <!--  </a>-->
-          <!--</li>-->
+          
           <li class="nav-item">
             <a href="{{url('logout')}}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <i class="nav-icon fas fa-sign-out-alt"></i>

@@ -224,7 +224,8 @@
             </a>
           </li>
           @php
-            $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('gate*') || request()->is('parking*');
+            $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') 
+            || request()->is('gate*') || request()->is('parking*') || || request()->is('visitor*');
             $isOwnerAndTanentOpen = request()->is('user*');
             $isBlockActive = request()->is('block*');
             $isFlatActive = request()->is('flat*');
@@ -270,6 +271,12 @@
                       <a href="{{ route('parking.index') }}" class="nav-link {{ $isParkingActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Parking</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('visitor.index') }}" class="nav-link {{ $isVisitorActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Visitors</p>
                       </a>
                   </li>
               </ul>
@@ -502,13 +509,7 @@
             </a>
           </li>
           @endif
-
-          <li class="nav-item">
-            <a href="{{route('visitor.index')}}" class="nav-link {{ request()->is('visitor*') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-address-book"></i>
-              <p>Visitors</p>
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a href="{{route('vehicles.index')}}" class="nav-link {{ request()->is('vehicles*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-car"></i>

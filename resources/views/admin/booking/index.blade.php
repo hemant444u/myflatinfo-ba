@@ -46,13 +46,12 @@
                   <form method="GET" action="{{ url('booking') }}">
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="model" class="col-form-label">Type:</label>
-                        <select name="model" id="model" class="form-control" required>
-                            <option value="Maintenance" {{ request('model') == 'Maintenance' ? 'selected' : ''}}>Maintenance</option>
-                            <option value="Event" {{ request('model') == 'Event' ? 'selected' : ''}}>Event</option>
-                            <option value="Corpus" {{ request('model') == 'Corpus' ? 'selected' : ''}}>Corpus</option>
-                            <option value="Booking" {{ request('model') == 'Booking' ? 'selected' : ''}}>Booking</option>
-                            <option value="Essential" {{ request('model') == 'Essential' ? 'selected' : ''}}>Essential</option>
+                        <label for="model" class="col-form-label">Facility:</label>
+                        <select name="facility_id" id="facility_id" class="form-control" required>
+                          @forelse($facilities as $facility)
+                            <option value="{{$facility->id}}" {{ request('facility_id') == $facility->id ? 'selected' : ''}}>{{$facility->name}}</option>
+                          @empty
+                          @endforelse
                         </select>
                       </div>
                       <div class="form-group col-md-6">

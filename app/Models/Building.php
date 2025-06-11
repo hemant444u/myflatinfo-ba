@@ -145,6 +145,11 @@ class Building extends Model
         return $this->hasMany('App\Models\Expense');
     }
 
+    public function bookings()
+    {
+        return $this->hasMany('App\Models\Booking');
+    }
+
     public function hasPermission($slug)
     {
         return $this->permissions()->where('slug', $slug)->exists();

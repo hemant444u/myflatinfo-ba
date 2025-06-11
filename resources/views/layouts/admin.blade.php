@@ -422,6 +422,37 @@
                   </li>
               </ul>
           </li>
+
+          @php
+            $isServiceHandlingOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('gate*') || request()->is('parking*');
+            $isIssueOpen = request()->is('issue*');
+            $isBookingActive = request()->is('booking*');
+          @endphp
+
+          <li class="nav-item has-treeview {{ $isServiceHandlingOpen ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ $isServiceHandlingOpen ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                      Service Handling
+                      <i class="right fas fa-angle-left"></i>
+                  </p>
+              </a>
+
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item">
+                      <a href="{{ route('issue.index') }}" class="nav-link {{ $isIssueOpen ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Issue Tracking</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('booking.index') }}" class="nav-link {{ $isBookingActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Facility Booking</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
           
 
 

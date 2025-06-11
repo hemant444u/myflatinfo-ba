@@ -33,6 +33,8 @@ use App\Http\Controllers\Admin\GateController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\ParkingController;
 use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\BookingController;
+
 use Illuminate\Support\Facades\Mail;
 
 
@@ -142,6 +144,7 @@ Route::middleware('admin')->group(function () {
         Route::post('add-comment', [CommentController::class, 'addComment']);
         Route::post('add-reply', [CommentController::class, 'addReply']);
 
+        Route::resource('/booking', BookingController::class);
         Route::resource('/facility', FacilityController::class);
         Route::resource('/timing', TimingController::class);
         Route::resource('/visitor', VisitorController::class);

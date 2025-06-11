@@ -231,6 +231,7 @@
             $isFlatActive = request()->is('flat*');
             $isGateActive = request()->is('gate*');
             $isParkingActive = request()->is('parking*');
+            $isVisitorActive = request()->is('visitor*');
           @endphp
 
           <li class="nav-item has-treeview {{ $isInformationOpen ? 'menu-open' : '' }}">

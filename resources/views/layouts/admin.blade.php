@@ -466,6 +466,45 @@
               </ul>
           </li>
 
+          @php
+            $isStaffOpen = request()->is('sucurity-guard*') || request()->is('role*') || request()->is('department*');
+            $isSecurityOpen = request()->is('sucurity-guard*');
+            $isRoleActive = request()->is('role*');
+            $isDepartmentActive = request()->is('department*');
+          @endphp
+
+          <li class="nav-item has-treeview {{ $isStaffOpen ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ $isStaffOpen ? 'active' : '' }}">
+                  <i class="nav-icon fa fa-server"></i>
+                  <p>
+                      Staff Directory
+                      <i class="right fa fa-user-secret"></i>
+                  </p>
+              </a>
+
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item">
+                      <a href="{{ url('sucurity-guard') }}" class="nav-link {{ $isSecurityOpen ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Security Guard</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('role.index') }}" class="nav-link {{ $isRoleActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Facility</p>
+                      </a>
+                  </li>
+                  @forelse(Auth::User()->building->roles as $role)
+                  <li class="nav-item">
+                    <a href="{{url('department',$role->slug)}}" class="nav-link {{ request()->is('department/'.$role->slug.'*') ? 'active' : '' }}">
+                      <i class="nav-icon fas fa-duotone fa-user"></i>
+                      <p>{{$role->name}}</p>
+                    </a>
+                  </li>
+              </ul>
+          </li>
+
           <li class="nav-item">
             <a href="{{route('guard.index')}}" class="nav-link {{ request()->is('guard*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-user-secret"></i>

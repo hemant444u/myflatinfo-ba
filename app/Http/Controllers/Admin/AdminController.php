@@ -264,7 +264,7 @@ class AdminController extends Controller
                 'required',
                 'regex:/^([0-9\s\-\+\(\)]*)$/',
                 'min:10',
-                Rule::unique('users', 'phone')->ignore($user->id),
+                // Rule::unique('users', 'phone')->ignore($user->id),
             ],
             'gender' => 'required|in:Male,Female',
             'city_id' => 'required|exists:cities,id',

@@ -391,9 +391,9 @@
                   </li>
               </ul>
               @php
-                $isContributionOpen = request()->is('account/contribution*');
-                $isEventActive = request()->is('account/contribution/event*');
-                $isEssentialActive = request()->is('account/contribution/essential*');
+                $isContributionOpen = request()->is('event*') || request()->is('essential*');
+                $isEventActive = request()->is('event*');
+                $isEssentialActive = request()->is('essential*');
               @endphp
               <ul class="nav nav-treeview second">
                   <li class="nav-item has-treeview {{ $isContributionOpen ? 'menu-open' : '' }}">
@@ -407,15 +407,15 @@
 
                       <ul class="nav nav-treeview third">
                           <li class="nav-item">
-                              <a href="{{ url('account/contribution/event') }}" class="nav-link {{ $isEventActive ? 'third-active' : '' }}">
-                                <p>Generate Invoice</p>
+                              <a href="{{ route('event.index') }}" class="nav-link {{ $isEventActive ? 'third-active' : '' }}">
+                                <p>Event</p>
                               </a>
                           </li>
                       </ul>
                       <ul class="nav nav-treeview third">
                           <li class="nav-item">
-                              <a href="{{ url('account/contribution/essential') }}" class="nav-link {{ $isEssentialActive ? 'third-active' : '' }}">
-                                <p>Manage</p>
+                              <a href="{{ route('essential.index') }}" class="nav-link {{ $isEssentialActive ? 'third-active' : '' }}">
+                                <p>Essential</p>
                               </a>
                           </li>
                       </ul>

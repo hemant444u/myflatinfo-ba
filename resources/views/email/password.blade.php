@@ -9,7 +9,7 @@
         <!-- Logo -->
         <img src="{{$logo}}" alt="MyFlatInfo" style="width: 160px;"><span style="color:white">MyFlatInfo</span>
         <h1>Hello {{$user->name}}</h1>
-        <h2 style="color: #333;">Your password for login is</h2>
+        <h2 style="color: #333;">Your password for login in Myflatinfo is</h2>
         <h1 style="color: #2d89ef; font-size: 32px; margin-top: 10px">{{ $password }}</h1>
         <p style="font-size: 16px; color: #555;">Kindly change your password after first time login</p>
         <br>

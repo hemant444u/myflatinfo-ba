@@ -50,6 +50,7 @@ class PaymentController extends Controller
         }
         
         $payment->event_id = $request->event_id;
+        $payment->event_id = Auth::User()->building_id;
         $payment->user_id = $request->user_id;
         $payment->type = $request->type;
         $payment->amount = $request->amount;

@@ -493,6 +493,37 @@
               </ul>
           </li>
 
+          @php
+            $isVehicleOpen = request()->is('vehicles*') || request()->is('vehicle-inout*');
+            $isVehicleActive = request()->is('vehicles*');
+            $isInoutActive = request()->is('vehicle-inout*');
+          @endphp
+
+          <li class="nav-item has-treeview {{ $isVehicleOpen ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link {{ $isVehicleOpen ? 'active' : '' }}">
+                  <i class="nav-icon fa fa-car"></i>
+                  <p>
+                      Vehicle Management
+                      <i class="right fas fa-angle-left"></i>
+                  </p>
+              </a>
+
+              <ul class="nav nav-treeview second">
+                  <li class="nav-item">
+                      <a href="{{ route('vehicle.index') }}" class="nav-link {{ $isVehicleActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Vehicles</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ url('vehicle-inout') }}" class="nav-link {{ $isInoutActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Vehicle Inouts</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+
           @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
             <a href="{{route('noticeboard.index')}}" class="nav-link {{ request()->is('noticeboard*') ? 'active' : '' }}">
@@ -510,19 +541,6 @@
             </a>
           </li>
           @endif
-
-          <li class="nav-item">
-            <a href="{{route('vehicles.index')}}" class="nav-link {{ request()->is('vehicles*') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-car"></i>
-              <p>Vehicle</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('vehicle-inouts')}}" class="nav-link {{ request()->is('vehicle-inouts*') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-ambulance"></i>
-              <p>Vehicle Inouts</p>
-            </a>
-          </li>
 
           <li class="nav-item">
            <a href="{{route('setting.index')}}" class="nav-link {{ request()->is('setting*') ? 'active' : '' }}">

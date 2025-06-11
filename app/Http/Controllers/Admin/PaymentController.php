@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Payment;
+use App\Models\Transaction;
 use \Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -54,6 +55,20 @@ class PaymentController extends Controller
         $payment->amount = $request->amount;
         $payment->status = $request->status;
         $payment->save();
+
+        $transaction = new Transaction();
+            $transaction->building_id = Auth::User()->building_id;
+            $transaction->user_id = $request->user_id;
+            $transaction->model = 'Event';
+            $transaction->model_id = $request->event_id;
+            $transaction->type = 'Credit';
+            $transaction->payment_type = $request->type;
+            $transaction->amount = $request->amount;
+            $transaction->reciept_no = '';
+            $transaction->desc = 'Event Payment paid through BA';
+            $transaction->status = 'Success';
+            $transaction->date = now()->toDateString();
+            $transaction->save();
     
         return redirect()->back()->with('success', $msg);
     }

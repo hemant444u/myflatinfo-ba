@@ -170,8 +170,8 @@
           <div class="form-group">
             <label for="name" class="col-form-label">Payment Type:</label>
             <select name="type" class="form-control" required>
-              <option value="Cash">Cash</option>
-              <option value="Online">Online</option>
+              <option value="InHand">InHand</option>
+              <option value="InBank">InBank</option>
             </select>
           </div>
           <div class="form-group">

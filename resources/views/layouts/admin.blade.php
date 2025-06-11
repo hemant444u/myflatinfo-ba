@@ -510,7 +510,7 @@
 
               <ul class="nav nav-treeview second">
                   <li class="nav-item">
-                      <a href="{{ route('vehicle.index') }}" class="nav-link {{ $isVehicleActive ? 'second-active' : '' }}">
+                      <a href="{{ route('vehicles.index') }}" class="nav-link {{ $isVehicleActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Vehicles</p>
                       </a>

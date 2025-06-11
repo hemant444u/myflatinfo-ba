@@ -229,7 +229,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
             <a href="{{url('/building-option')}}" class="nav-link {{ request()->is('building-option*') ? 'active' : '' }}">
-              <i class="nav-icon fa fa-bar-chart"></i>
+              <i class="nav-icon fa fa-database"></i>
               <p>Switch Account</p>
             </a>
           </li>
@@ -256,7 +256,7 @@
 
           <li class="nav-item has-treeview {{ $isInformationOpen ? 'menu-open' : '' }}">
               <a href="#" class="nav-link {{ $isInformationOpen ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fa fa-info"></i>
                   <p>
                       Information
                       <i class="right fas fa-angle-left"></i>
@@ -304,7 +304,7 @@
 
           <li class="nav-item has-treeview {{ $isAccountOpen ? 'menu-open' : '' }}">
               <a href="#" class="nav-link {{ $isAccountOpen ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fa fa-money"></i>
                   <p>
                       Accounts
                       <i class="right fas fa-angle-left"></i>
@@ -468,7 +468,7 @@
 
           <li class="nav-item">
             <a href="{{route('guard.index')}}" class="nav-link {{ request()->is('guard*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-user-secret"></i>
               <p>Security Guards</p>
             </a>
           </li>

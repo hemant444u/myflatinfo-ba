@@ -9,7 +9,7 @@ use App\Models\Building;
 
 use \Auth;
 
-class BlockController extends Controller
+class BookingController extends Controller
 {
 
     public function index()

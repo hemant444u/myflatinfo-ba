@@ -467,8 +467,8 @@
           </li>
 
           @php
-            $isStaffOpen = request()->is('sucurity-guard*') || request()->is('role*') || request()->is('department*');
-            $isSecurityOpen = request()->is('sucurity-guard*');
+            $isStaffOpen = request()->is('guard*') || request()->is('role*') || request()->is('department*');
+            $isSecurityOpen = request()->is('guard*');
             $isRoleActive = request()->is('role*');
             $isDepartmentActive = request()->is('department*');
           @endphp
@@ -484,7 +484,7 @@
 
               <ul class="nav nav-treeview second">
                   <li class="nav-item">
-                      <a href="{{ url('sucurity-guard') }}" class="nav-link {{ $isSecurityOpen ? 'second-active' : '' }}">
+                      <a href="{{ url('guard') }}" class="nav-link {{ $isSecurityOpen ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Security Guard</p>
                       </a>

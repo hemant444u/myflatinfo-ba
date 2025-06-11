@@ -262,7 +262,7 @@
                   <li class="nav-item">
                       <a href="{{ url('user') }}" class="nav-link {{ $isOwnerAndTanentOpen ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Owner & Tenant</p>
+                          <p>Users</p>
                       </a>
                   </li>
                   <li class="nav-item">

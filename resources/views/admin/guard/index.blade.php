@@ -274,9 +274,9 @@
       $('#gate_id').val(button.data('gate_id'));
       $('#shift').val(button.data('shift'));
       $('#status').val(button.data('status'));
-      $('.modal-title').text('Add New Payment');
+      $('.modal-title').text('Add New Guard');
       if(edit_id){
-          $('.modal-title').text('Update Payment');
+          $('.modal-title').text('Update Guard');
       }
       var block_id = button.data('block_id');
       var gate_id = button.data('gate_id');

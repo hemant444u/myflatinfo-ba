@@ -107,7 +107,7 @@
                   <tbody>
                     
                     <?php $i = 0; ?>
-                  @forelse($bookings as $booking)
+                  @forelse($booking as $booking)
                   <?php $i++; ?>
                   <tr>
                     <!-- <td>{{$i}}</td> -->

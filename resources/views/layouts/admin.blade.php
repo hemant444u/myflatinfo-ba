@@ -492,7 +492,7 @@
                   <li class="nav-item">
                       <a href="{{ route('role.index') }}" class="nav-link {{ $isRoleActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Facility</p>
+                          <p>Role</p>
                       </a>
                   </li>
                   @forelse(Auth::User()->building->roles as $role)
@@ -589,19 +589,19 @@
               <p>Society Fund</p>
             </a>
           </li> -->
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{route('role.index')}}" class="nav-link {{ request()->is('role*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-diamond"></i>
               <p>Roles</p>
             </a>
-          </li>
-          @forelse(Auth::User()->building->roles as $role)
+          </li> -->
+          <!-- @forelse(Auth::User()->building->roles as $role)
           <li class="nav-item">
             <a href="{{url('department',$role->slug)}}" class="nav-link {{ request()->is('department/'.$role->slug.'*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>{{$role->name}}</p>
             </a>
-          </li>
+          </li> -->
           @empty
           @endforelse
           <!--<li class="nav-item">-->

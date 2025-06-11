@@ -32,7 +32,8 @@ class BookingController extends Controller
         }
 
         $bookings = $query->orderBy('date','desc')->get();
-        return view('admin.booking.index',compact('bookings'));
+        $facilities = $building->facilities;
+        return view('admin.booking.index',compact('bookings','facilities'));
     }
 
 

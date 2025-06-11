@@ -480,7 +480,7 @@ class CustomerController extends Controller
     public function get_flats(Request $request)
     {
         $user = Auth::User();
-        $flats = Flat::where('tanent_id',$user->id)->orWhere('owner_id',$user->id)->with(['block','building'])->get();
+        $flats = Flat::where('tanent_id',$user->id)->orWhere('owner_id',$user->id)->with(['owner','tanent','block','building'])->get();
         return response()->json([
             'flats' => $flats
         ], 200);

@@ -426,6 +426,7 @@
           @php
             $isServiceHandlingOpen = request()->is('issue*') || request()->is('booking*');
             $isIssueOpen = request()->is('issue*');
+            $isFacilityActive = request()->is('facility*');
             $isBookingActive = request()->is('booking*');
           @endphp
 
@@ -446,9 +447,15 @@
                       </a>
                   </li>
                   <li class="nav-item">
+                      <a href="{{ route('facility.index') }}" class="nav-link {{ $isFacilityActive ? 'second-active' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Facility</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
                       <a href="{{ route('booking.index') }}" class="nav-link {{ $isBookingActive ? 'second-active' : '' }}">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Facility Booking</p>
+                          <p>Bookings</p>
                       </a>
                   </li>
               </ul>
@@ -496,7 +503,7 @@
           </li>
           @endif
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="{{route('issue.index')}}" class="nav-link {{ request()->is('issue*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Issue</p>
@@ -507,7 +514,7 @@
               <i class="nav-icon fas fa-duotone fa-user"></i>
               <p>Facility</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="{{route('visitor.index')}}" class="nav-link {{ request()->is('visitor*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-duotone fa-user"></i>

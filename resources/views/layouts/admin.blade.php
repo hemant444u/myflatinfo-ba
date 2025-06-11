@@ -225,7 +225,7 @@
           </li>
           @php
             $isInformationOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') 
-            || request()->is('gate*') || request()->is('parking*') || || request()->is('visitor*');
+            || request()->is('gate*') || request()->is('parking*') || request()->is('visitor*');
             $isOwnerAndTanentOpen = request()->is('user*');
             $isBlockActive = request()->is('block*');
             $isFlatActive = request()->is('flat*');
@@ -509,7 +509,7 @@
             </a>
           </li>
           @endif
-          
+
           <li class="nav-item">
             <a href="{{route('vehicles.index')}}" class="nav-link {{ request()->is('vehicles*') ? 'active' : '' }}">
               <i class="nav-icon fa fa-car"></i>

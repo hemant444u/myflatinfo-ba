@@ -298,7 +298,28 @@ class AdminController extends Controller
     
         $user->created_by = Auth::User()->building_id;
         $user->save();
-    
+
+        if ($request->password) {
+            $setting = Setting::first();
+            $logo = $setting->logo;
+            $info = array(
+                'user' => $user,
+                'password' => $request->password,
+                'logo' => $logo,
+            );
+            // send email
+            try {
+                Mail::send('email.password', $info, function ($message) use ($user) {
+                    $message->to($user->email, $user->name)
+                            ->subject('Forget Password');
+                });
+            } catch (\Exception $e) {
+                return response()->json([
+                    'error' => 'Failed to queue email. ' . $e->getMessage()
+                ], 500);
+            }
+        }
+
         return redirect()->back()->with('success', $msg);
     }
 

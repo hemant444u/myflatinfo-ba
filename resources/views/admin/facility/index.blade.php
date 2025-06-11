@@ -287,9 +287,9 @@
         $('.cancellation_type').show();
         $('.cancellation_value').show();
 
-        $('.price').attr('required',true);
-        $('.cancellation_type').attr('required',true);
-        $('.cancellation_value').attr('required',true);
+        $('#price').attr('required',true);
+        $('#cancellation_type').attr('required',true);
+        $('#cancellation_value').attr('required',true);
       }
 
     });
@@ -298,18 +298,18 @@
       $('.price').hide();
       $('.cancellation_type').hide();
       $('.cancellation_value').hide();
-      $('.price').attr('required',false);
-      $('.cancellation_type').attr('required',false);
-      $('.cancellation_value').attr('required',false);
+      $('#price').attr('required',false);
+      $('#cancellation_type').attr('required',false);
+      $('#cancellation_value').attr('required',false);
       var booking_type = $(this).val();
       if(booking_type == 'Paid'){
         $('.price').show();
         $('.cancellation_type').show();
         $('.cancellation_value').show();
 
-        $('.price').attr('required',true);
-        $('.cancellation_type').attr('required',true);
-        $('.cancellation_value').attr('required',true);
+        $('#price').attr('required',true);
+        $('#cancellation_type').attr('required',true);
+        $('#cancellation_value').attr('required',true);
 
       }
     });

@@ -424,7 +424,7 @@
           </li>
 
           @php
-            $isServiceHandlingOpen = request()->is('user*') || request()->is('block*') || request()->is('flat*') || request()->is('gate*') || request()->is('parking*');
+            $isServiceHandlingOpen = request()->is('issue*') || request()->is('booking*');
             $isIssueOpen = request()->is('issue*');
             $isBookingActive = request()->is('booking*');
           @endphp

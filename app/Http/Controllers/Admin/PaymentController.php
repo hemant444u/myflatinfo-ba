@@ -30,7 +30,7 @@ class PaymentController extends Controller
         $rules = [
             'event_id' => 'required|exists:events,id',
             'user_id' => 'required|exists:users,id',
-            'type' => 'required|in:Cash,Online',
+            'type' => 'required|in:InHand,InBank',
             'amount' => 'required',
             'status' => 'required|in:Paid,Unpaid',
         ];

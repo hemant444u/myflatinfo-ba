@@ -437,7 +437,7 @@
 
           <li class="nav-item has-treeview {{ $isServiceHandlingOpen ? 'menu-open' : '' }}">
               <a href="#" class="nav-link {{ $isServiceHandlingOpen ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <i class="nav-icon fa fa-server"></i>
                   <p>
                       Service Handling
                       <i class="right fas fa-angle-left"></i>
@@ -485,7 +485,7 @@
           @if($building && $building->hasPermission('feature.noticeboard'))
           <li class="nav-item">
             <a href="{{route('noticeboard.index')}}" class="nav-link {{ request()->is('noticeboard*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-flag"></i>
               <p>Notice Board</p>
             </a>
           </li>
@@ -494,7 +494,7 @@
           @if($building && $building->hasPermission('feature.classified'))
           <li class="nav-item">
             <a href="{{route('classified.index')}}" class="nav-link {{ request()->is('classified*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-glass"></i>
               <p>Classified</p>
             </a>
           </li>
@@ -514,19 +514,19 @@
           </li> -->
           <li class="nav-item">
             <a href="{{route('visitor.index')}}" class="nav-link {{ request()->is('visitor*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-address-book"></i>
               <p>Visitors</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{route('vehicles.index')}}" class="nav-link {{ request()->is('vehicles*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-car"></i>
               <p>Vehicle</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url('vehicle-inouts')}}" class="nav-link {{ request()->is('vehicle-inouts*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-ambulance"></i>
               <p>Vehicle Inouts</p>
             </a>
           </li>
@@ -550,7 +550,7 @@
           </li> -->
           <li class="nav-item">
             <a href="{{route('role.index')}}" class="nav-link {{ request()->is('role*') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-duotone fa-user"></i>
+              <i class="nav-icon fa fa-diamond"></i>
               <p>Roles</p>
             </a>
           </li>

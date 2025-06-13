@@ -92,16 +92,18 @@ class AccountController extends Controller
         if ($request->filled('flat_id') && $request->flat_id > 0) {
             $query->where('flat_id', $request->flat_id);
         }
-        if ($request->filled('All')) {
-            $query->where('flat_id', $request->flat_id);
+        if ($request->filled('flat_id')) {
+            if($request->flat_id > 0){
+                $query->where('flat_id', $request->flat_id);
+            }
         }
         // Filter by from_date and to_date
         if ($request->filled('from_date')) {
-            $query->whereDate('created_at', '>=', $request->from_date);
+            $query->whereDate('from_date', '>=', $request->from_date);
         }
 
         if ($request->filled('to_date')) {
-            $query->whereDate('created_at', '<=', $request->to_date);
+            $query->whereDate('to_date', '<=', $request->to_date);
         }
         $maintenance_payments = $query->orderBy('created_at','desc')->get();
         return view('admin.account.maintenance.manage_maintenance',compact('maintenance_payments','blocks','flat_id'));

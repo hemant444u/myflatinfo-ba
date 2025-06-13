@@ -129,6 +129,7 @@
           <div class="form-group">
             <label for="name" class="col-form-label">Block:</label>
             <select name="block_id" id="block_id" class="form-control" required>
+                <option value="All">All</option>
                 @forelse($building->blocks as $block)
                 <option value="{{$block->id}}">{{$block->name}}</option>
                 @empty

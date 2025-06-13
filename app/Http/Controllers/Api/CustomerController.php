@@ -1982,10 +1982,11 @@ class CustomerController extends Controller
             
             $essential_payment = $paid_essential;
             $essential_payment->paid_amount = $order->amount;
-            $essential_payment->dues_amount = $essential_payment->essential->amount - $order->amount;
+            $essential_payment->dues_amount = 0;
             $essential_payment->type = 'Credit';
             $essential_payment->payment_type = 'InBank';
             $essential_payment->status = 'Paid';
+            $essential_payment->date = now()->toDateString();
             $essential_payment->save();
             
             
@@ -2306,32 +2307,38 @@ class CustomerController extends Controller
         });
         foreach($essentials as $essential){
             foreach($essential->payments as $essential_payment){
-                if($essential_payment->status != 'Paid'){
-                    $dues_amount = $essential_payment->dues_amount;
-                    $late_fine = 0;
-                    $gst = $essential->gst;
-                    if ($essential->due_date < now()) {
-                        $late_days = now()->diffInDays(Carbon::parse($essential->due_date));
-                        switch ($essential->late_fine_type) {
-                            case 'Daily':
-                                $late_fine = $late_days * $essential->late_fine_value;
-                                break;
-                            case 'Fixed':
-                                $late_fine = $essential->late_fine_value;
-                                break;
-                            case 'Percentage':
-                                $late_fine = ($payment->dues_amount * $essential->late_fine_value) / 100;
-                                break;
-                            }
-                    }
-                    $total_amount = $dues_amount + $late_fine;
-                    $total_gst = $total_amount * $gst / 100;
-                    $grand_total = $total_amount + $total_gst;
-
-                    $essential_payment->total_amount = $total_amount;
-                    $essential_payment->total_gst = $total_gst;
-                    $essential_payment->grand_total = $grand_total;
+                $dues_amount = $essential_payment->dues_amount;
+                $late_fine = 0;
+                $gst = $essential->gst;
+                if($essential_payment->status == 'Paid'){
+                    $dues_amount = 0;
+                    $essential_payment->dues_amount = 0;
+                    $essential_payment->save();
                 }
+                if ($essential->due_date < now()) {
+                    $late_days = now()->diffInDays(Carbon::parse($essential->due_date));
+                    if($essential_payment->status == 'Paid'){
+                        $late_days = $essential_payment->date->diffInDays(Carbon::parse($essential->due_date));
+                    }
+                    switch ($essential->late_fine_type) {
+                        case 'Daily':
+                            $late_fine = $late_days * $essential->late_fine_value;
+                            break;
+                        case 'Fixed':
+                            $late_fine = $essential->late_fine_value;
+                            break;
+                        case 'Percentage':
+                            $late_fine = ($payment->dues_amount * $essential->late_fine_value) / 100;
+                            break;
+                        }
+                }
+                $total_amount = $dues_amount + $late_fine;
+                $total_gst = $total_amount * $gst / 100;
+                $grand_total = $total_amount + $total_gst;
+
+                $essential_payment->total_amount = $total_amount;
+                $essential_payment->total_gst = $total_gst;
+                $essential_payment->grand_total = $grand_total;
             }
         }
         return response()->json([

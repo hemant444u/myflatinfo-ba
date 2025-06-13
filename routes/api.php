@@ -47,6 +47,8 @@ use App\Http\Controllers\TruthScreenController;
             Route::post('get-facilities',[CustomerController::class,'get_facilities']);
             Route::post('get-facility-timings',[CustomerController::class,'get_facility_timings']);
             Route::post('book-facility',[CustomerController::class,'book_facility']);
+            Route::post('cancel-booked-facility',[CustomerController::class,'cancel_facility']);
+            Route::post('delete-booked-facility',[CustomerController::class,'delete_facility']);
             Route::post('my-bookings',[CustomerController::class,'my_bookings']);
             
             Route::post('create-own-vehicle',[CustomerController::class,'create_vehicle']);

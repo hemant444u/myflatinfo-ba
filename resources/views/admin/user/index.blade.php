@@ -62,7 +62,7 @@
                     <th>Phone</th>
                     <th>Email</th>
                     <th>Gender</th>
-                    <th>City</th>
+                    <!-- <th>City</th> -->
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -79,7 +79,7 @@
                     <td>{{$user->phone}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->gender}}</td>
-                    <td>{{$user->city->name}}</td>
+                    <!-- <td>{{$user->city->name}}</td> -->
                     <td>
                         <!--<input type="checkbox" name="my-checkbox" class="status" data-id="{{$user->id}}" data-bootstrap-switch data-on-text="Active" -->
                         <!--data-off-text="Inactive" {{$user->status == 'Active' ? 'checked' : ''}}>-->
@@ -158,7 +158,7 @@
                 <option value="Female">Female</option>
             </select>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="role" class="col-form-label">City:</label>
             <select name="city_id" id="city_id" class="form-control" required>
               @forelse($cities as $city)
@@ -166,17 +166,18 @@
               @empty
               @endforelse
             </select>
-          </div>
-          <div class="form-group">
+          </div> -->
+          <!-- <div class="form-group">
             <label for="role" class="col-form-label">Address:</label>
             <textarea name="address" id="address" class="form-control" required></textarea>
-          </div>
-          <div class="form-group">
+          </div> -->
+          <!-- <div class="form-group">
             <label for="role" class="col-form-label">Role:</label>
-            <select name="role" class="form-control" required>
+            <select name="role" class="form-control" id="role" required>
               <option value="user">User</option>
             </select>
-          </div>
+          </div> -->
+          <input type="hidden" name="role" id="role" value="user">
             <div class="form-group">
                 <label>Password</label>
                 <div class="input-group">

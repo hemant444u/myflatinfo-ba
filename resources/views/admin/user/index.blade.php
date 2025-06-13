@@ -79,7 +79,7 @@
                     <td>{{$user->phone}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->gender}}</td>
-                    <!-- <td>{{$user->city->name}}</td> -->
+                    <!-- <td>{{$user->city ? $user->city->name : ''}}</td> -->
                     <td>
                         <!--<input type="checkbox" name="my-checkbox" class="status" data-id="{{$user->id}}" data-bootstrap-switch data-on-text="Active" -->
                         <!--data-off-text="Inactive" {{$user->status == 'Active' ? 'checked' : ''}}>-->

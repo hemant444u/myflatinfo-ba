@@ -267,8 +267,8 @@ class AdminController extends Controller
                 // Rule::unique('users', 'phone')->ignore($user->id),
             ],
             'gender' => 'required|in:Male,Female',
-            'city_id' => 'required|exists:cities,id',
-            'address' => 'required|min:4',
+            // 'city_id' => 'required|exists:cities,id',
+            // 'address' => 'required|min:4',
             'password' => 'nullable|min:8',
             'role' => 'required|in:owner,tanent,user',
         ];
@@ -288,8 +288,8 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->gender = $request->gender;
-        $user->city_id = $request->city_id;
-        $user->address = $request->address;
+        // $user->city_id = $request->city_id;
+        // $user->address = $request->address;
         $user->status = 'Active';
         // Only set a password if provided
         if ($request->password) {

@@ -99,11 +99,15 @@ class AccountController extends Controller
         }
         // Filter by from_date and to_date
         if ($request->filled('from_date')) {
-            $query->whereDate('from_date', '>=', $request->from_date);
+            $query->whereHas('maintenance', function ($q) use ($request) {
+                $q->whereDate('from_date', '>=', $request->from_date);
+            });
         }
 
         if ($request->filled('to_date')) {
-            $query->whereDate('to_date', '<=', $request->to_date);
+            $query->whereHas('maintenance', function ($q) use ($request) {
+                $q->whereDate('to_date', '<=', $request->to_date);
+            });
         }
         $maintenance_payments = $query->orderBy('created_at','desc')->get();
         return view('admin.account.maintenance.manage_maintenance',compact('maintenance_payments','blocks','flat_id'));

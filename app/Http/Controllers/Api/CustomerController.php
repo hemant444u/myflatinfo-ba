@@ -655,7 +655,7 @@ class CustomerController extends Controller
         $classifieds = Classified::where('status', 'Approved')
         ->where(function ($query) use ($flat) {
             $query->where('building_id', $flat->building_id)
-                  ->orWhere('category', 'All Buildings');
+                  ->orWhere('category', 'All Building');
         })
         ->with(['user','photos', 'building', 'block', 'flat'])
         ->get();

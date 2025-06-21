@@ -675,12 +675,14 @@ class CustomerController extends Controller
             ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->where('category', 'Within Building')
+            ->where('status', 'Approved')
             ->count();
 
         $all_building = Classified::where('flat_id', $user->flat_id)
             ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->where('category', 'All Building')
+            ->where('status', 'Approved')
             ->count();
 
         $within_building_limit = $building->classified_limit_within_building - $within_building;

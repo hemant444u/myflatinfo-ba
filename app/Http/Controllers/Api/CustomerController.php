@@ -729,6 +729,7 @@ class CustomerController extends Controller
             ->whereYear('created_at', now()->year)
             ->whereMonth('created_at', now()->month)
             ->where('category', $request->category)
+            ->where('status', 'Approved')
             ->count();
 
         if (!$request->classified_id && $currentMonthCount >= $classifiedLimit) {
